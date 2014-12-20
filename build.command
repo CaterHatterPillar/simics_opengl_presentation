@@ -1,3 +1,8 @@
 #!/bin/bash
 
-pdflatex bare_conf
+pdflatex mascots
+
+bibtex mascots
+
+pdflatex mascots
+pdflatex mascots
