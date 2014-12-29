@@ -93,6 +93,9 @@ terms.sort(key=operator.itemgetter(0), reverse=True)
 
 def replace_all(line, replace_with):
     for cmd, word in replace_with:
+        # Remove spaces where there should be none:
+        for punctuation in (',', '.', ':', ';'):
+            line = line.replace(cmd + ' %s' % punctuation, word + punctuation)
         line = line.replace(cmd + ' s', word + 's') # Plurals
         line = line.replace(cmd + '\\', word) # Escaped commands
         line = line.replace(cmd, word) # Regular commands
