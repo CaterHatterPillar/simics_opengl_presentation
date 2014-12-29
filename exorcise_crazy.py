@@ -3,8 +3,6 @@ import sys
 import operator
 import fileinput
 
-if __name__ == "__main__":
-
 terms = [('\dvttermapi', 'API'),
          ('\dvttermabi', 'ABI'),
          ('\dvttermandroid', 'Android'),
