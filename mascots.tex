@@ -12,6 +12,13 @@
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
+% These should probably be merged into the same bibliography list in
+% the end, but it might be good to have them seperately now so that
+% it's easier to filter out possibly unreliable sources.
+\newcommand{\dvtcmdcitebib}[2][]{\cite{#2}} % TODO: \masccitebib
+\newcommand{\dvtcmdciteref}[2][]{\cite{#2}} % TODO: \mascciteref
+%\newcommand{\dvtcmdcitefur}[2][]{\citefur{#2}}
+
 \begin{document}
 
 % Placeholder title:
@@ -38,7 +45,7 @@ Email: \href{mailto:eric.nilsson@intel.com}{eric.nilsson@intel.com}}}
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-Citation\cite{IEEEexample:article_typical}.
+Citation\dvtcmdcitebib{journals:lee:2006}\dvtcmdciteref{web:microsoft:2013:warp}.
 
 \section*{Acknowledgment}
 \ldots
