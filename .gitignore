@@ -1,6 +1,10 @@
 mascots.pdf
 mascots.bib
 
+##Emacs garbage:
+.\#*
+\#*\#
+
 ## OS X garbage:
 .DS_Store
 
