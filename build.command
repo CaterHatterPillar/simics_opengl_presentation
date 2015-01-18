@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat bib/bibliography.bib bib/references.bib bib/web.bib > mascots.bib
+cat bib/*.bib > mascots.bib
 
 pdflatex mascots
 
