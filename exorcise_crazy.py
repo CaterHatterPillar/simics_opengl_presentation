@@ -54,7 +54,7 @@ terms = [('\dvttermapi', 'API'),
          ('\dvttermkvm', 'KVM'), # Kernel-based Virtual Machine
          ('\dvttermlinux', 'Linux'),
          ('\dvttermlockheedmartin', 'Lockheed Martin'),
-         ('\dvttermmipssecond', 'MIPS'), # Million Instructions Per Second
+         ('\dvttermmipsecond', 'MIPS'), # Million Instructions Per Second
          ('\dvttermmicrosoft', 'Microsoft'),
          ('\dvttermmagicinstruction', 'magic instruction'),
          ('\dvttermmmu', 'MMU'),
