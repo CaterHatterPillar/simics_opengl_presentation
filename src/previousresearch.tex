@@ -4,4 +4,161 @@
 \section{Previous Research}
 \label{sec:previousresearch}
 
-\ldots
+System simulators are abundant and exist in corporate~\dvtcmdcitebib{magazines:bohrer:2004}, academic~\dvtcmdcitebib{journals:rosenblum:1995}, and open-source variations~\dvtcmdciteref{magazines:bartholomew:2006}.
+Such platforms, like Simics, have been used for a variety of purposes including, but not limited to, thermal control strategies in multicores~\dvtcmdcitebib{inproceedings:bartolini:2010}, networking timing analysis~\dvtcmdcitebib{journals:ortiz:2009}, web server performance evaluation~\dvtcmdcitebib{journals:villa:2005}, and to simulate costly hardware financially unfeasible to researchers~\dvtcmdcitebib{journals:alameldeen:2003}.
+Furthermore, such simulators may also be used to port OSs to new processors~\dvtcmdciteref{technicaldocs:netbsd:2014}.
+
+For the purposes of graphics acceleration, strategies, methodologies and procedures are numerous.
+Based off a number of core strategies, such as device modeling, passthrough technologies, and paravirtualization, there have been numerous attempts at effective GPU virtualization; many of which require modification of both target - and host systems (such as the development of specialized passthrough drivers~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}).
+One such instance is presented by Hansen in his work on the Blink display system~\dvtcmdcitebib{inproceedings:hansen:2007}.
+
+Neither are the concepts of advanced simulatory features new to GPU virtualization, as there have are multiple attempts to implement the Checkpoint / Restart -model in a GPU context, such as the work by Guo et al. concerning the CUDA framework~\dvtcmdcitebib{inproceedings:guo:2013}.
+Another solution which also supports the Checkpoint / Restart -scheme is VMGL, as presented by Lagar-Cavilla et al., which by the means of paravirtualization accelerates the OpenGL $1.5$ framework~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
+The groundwork produced by Lagar-Cavilla et al. showcases the potential for paravirtualized graphics since the VMGL framework, for a certain set of benchmarks, attains improvements of roughly two orders of magnitude in relation to software rasterization.
+
+Current promising projects surrounding GPU virtualization include the Virgil3D-project~\dvtcmdciteref{technicaldocs:qemudevel:2014}.
+As described at the project homepage\footnote{\href{http://virgil3d.github.io/}{www.virgil3d.github.io}}, the project strives to create a virtual GPU which may subsequently utilize host hardware to accelerate 3D rendering.
+The project is currently being maintained, again according to the project's GitHub homepage, by Red Hat's Dave Airlie.
+Other related works include modeling GPU devices in the QEMU full-system simulator with software OpenGL~ES rasterization support, as presented by Shen et al.~\dvtcmdcitebib{inproceedings:shen:2010}.
+
+At the time of writing, graphics virtualization is no longer limited to the academic community but is also existent in the industry, as big virtualization players incorporate various graphics acceleration solutions in their products.
+One such example is VMware, Inc. ~\dvtcmdciteref{technicaldocs:vmware:2014}.
+
+Pursuant to the aim and objectives specified in chapter \ref{cha:aimsandobjectives}, this thesis pertain to the technologies and concepts described in this chapter.
+
+\subsection{OpenGL ES}
+\label{sec:backgroundandrelatedwork_opengles}
+OpenGL~ES is an API for 3D-graphics on an assortment of embedded systems, such as mobile devices or vehicle displays~\dvtcmdcitebib{publications:munshi:2008}.
+The OpenGL~ES set of APIs is developed by Khronos, the same consortium responsible for the development of the OpenGL APIs, which - unlike OpenGL for embedded systems - is intended for desktop graphics~\dvtcmdcitebib{publications:wright:2010}.
+The OpenGL~ES APIs are traditionally derived from the standard OpenGL APIs, and are thus similar in appearance albeit more limited~\dvtcmdcitebib{publications:wright:2010}.
+The OpenGL~ES specification is intended to adhere to the following specifications, in relation to the original OpenGL APIs~\dvtcmdcitebib{publications:munshi:2008}:
+\begin{itemize}[noitemsep]
+        \item Reduce complexity, but attempt maintain compatibility with OpenGL when possible.
+        \item Optimize power consumption for embedded devices.
+        \item Incorporate a set of quality specifiers into the OpenGL~ES specification. This includes minimum quality specifiers for image quality into the standard; accommodating for limited screen sizes in embedded systems.
+\end{itemize}
+
+OpenGL~ES~$2.0$ consists of two Khronos specifications; being the OpenGL~ES~$2.0$ API specification and the OpenGL~ES Shading Language Specification~\dvtcmdcitebib{publications:munshi:2008}.
+Being derived from the OpenGL ~$2.0$ specification~\dvtcmdcitebib{publications:wright:2010}, OpenGL~ES~$2.0$ supports programmable shaders and is no longer encumbered by the fixed functionality that characterized earlier versions of the OpenGL and OpenGL~ES APIs~\dvtcmdcitebib{publications:munshi:2008}; making the API a modern contestant amongst a variety of applications on a range of platforms, such as the Android - and iOS operating systems~\dvtcmdcitebib{publications:wright:2010}, popular on modern smartphones.
+The OpenGL~ES~$2.0$ API was selected for use, for the purpose of this study, due to its programmable shaders and reduced function set, in addition to accelerated support for the API in the Android emulator.
+
+\subsection{GPU Architecture}
+\label{sec:backgroundandrelatedwork_gpuarchitecture}
+GPUs are massively parallel numeric computing processors often used for 3D graphics acceleration.
+While CPUs are designed to maximize sequential performance, GPUs are designed to maximize floating-point operations per second throughput; originally required for the floating point linear algebra often needed by 3D graphics.
+Additionally, the continuous need for faster processing units, slowed down by the heat dissipation issues limiting clock frequency since 2003~\dvtcmdcitebib{publications:kirk:2010}, has driven the utilization of GPUs for general purpose workloads.
+
+Generally, CPUs are designed to optimize the execution of an individual thread.
+In order to facilitate sequential performance, the processing pipeline is designed for low-latency operations; including thorough caching methodologies and low-latency arithmetic units.
+This design philosophy is often referred to as latency-oriented design, since it strives for low-latency operations to accommodate high performance of individual threads~\dvtcmdcitebib{publications:kirk:2010}.
+
+Meanwhile, GPUs are designed to maximize the the throughput of a large number of threads; having less regard for the performance of individual threads.
+As such, GPUs do not prioritize caches or other low-latency optimizations like CPUs, but aim to conceal overhead induced by memory references or arithmetic by the execution of many threads, which may perform in place during arithmetic- or memory operations.
+Such design is often referred to as throughput-oriented design~\dvtcmdcitebib{publications:kirk:2010}.
+
+The differing design philosophies of CPU and GPU units are so fundamentally different that they are largely incompatible in terms their workloads, as explained by Kirk and Hwu~\dvtcmdcitebib{publications:kirk:2010}.
+As such, programs that feature few threads, CPUs with lower operation latencies may perform better than GPUs; whereas a program with a large number of threads may fully utilize the higher execution throughput of GPUs~\dvtcmdcitebib{publications:kirk:2010}.
+
+The introduction of a number of CPU -oriented optimizations for simulating GPU -bound workloads on CPUs has made it possible to simulate such kernels several times faster than traditional simulation.
+Although orders of magnitudes slower, such optimizations may ease the simulation of GPU workloads on CPUs, as indicative by some studies~\dvtcmdcitebib{papers:nilsson:2013}.
+However, without Hardware-assisted Virtualization, the execution of GPU workloads on CPUs quickly becomes unfeasible; inducing the need of more advanced graphics simulation methodologies.
+
+% Graphics Virtualization
+\subsection{Graphics Virtualization}
+\label{sec:backgroundandrelatedwork_graphicsvirtualization}
+There are a number of ways of virtualizing GPUs in system simulators, a few of which accommodate for hardware acceleration of GPU kernels.
+When faced with tackling the issue of GPU virtualization, there are equally many variables to consider as there are options; the first of which is the purpose of said virtualization.
+The Simics architectural simulator is by all means a full-system simulator; meaning, as portrayed in chapter \ref{cha:simics}, that it may run real-software stacks without modification.
+However, Simics is intended to feature low level timing fidelity for the purposes of high performance, and is - as such - not a cycle-accurate simulator.
+In this way, and in line with the considerations for GPU virtualization, one must analyze and balance the purpose of simulation since there is not always a general best-case.
+As such, methodologies with varying levels of simulatory accuracy present themselves - from slow low-level instruction set modeling to fast high level paravirtualization of an assortment of graphics frameworks.
+Summaries of these methodologies are presented in this section.
+
+% GPU Modeling
+\paragraph{GPU Modeling}
+\label{par:backgroundandrelatedwork_graphicsvirtualization_gpumodeling}
+One may consider developing a full-fletched GPU model; that is, virtualizing the GPU ISA.
+This methodology may be appropriate for the purposes of low-level development close to GPU hardware.
+For example, one might imagine the scenario of driver development for next-generation GPUs.
+
+However, the development of GPU models, similar to that of common architectural model development for the Simics full-system simulator, incurs a number of flaws.
+The first of these flaws encompasses estimated development costs reaching unsustainable levels, due to GPU hardware often being poorly documented~\dvtcmdcitebib{inproceedings:lagarcavilla:2007} on the contrary to CPU architectures.
+Furthermore, the modeling of massively parallelized GPU technology on CPUs induce high costs rendering the methodology less preferable for development requiring high application speed.
+
+% PCI Passthrough
+\paragraph{PCI Passthrough}
+\label{par:backgroundandrelatedwork_graphicsvirtualization_pcipassthrough}
+Furthermore, one ought to examine the benefits of PCI~passthrough; allowing virtual systems first-hand access to host machine devices~\dvtcmdciteref{web:jones:2009}.
+The direct contact with host system devices accommodated by methodologies such as PCI~passthrough enable fully-fledged hardware accelerated graphics.
+Yet the methodology suffers from several disadvantages, such as requiring dedicated hardware, causing the host system to lose access to devices during the course of simulation.
+In terms of GPU virtualization, this would induce the necessity of the host machine featuring multiple graphics cards.
+Additionally, and mayhaps the biggest flaw of passthrough methodologies, is the requirement of modifying the simulation target to utilize host hardware; effectively restricting what systems may be simulated.
+This restriction encompasses, inter alia, the utilization of corresponding device drivers to the host system, rendering the methodology inflexible in terms of GPU virtualization diversity.
+As such, and in line with a paravirtualized approach, PCI~passthrough requires modification of the target system - in addition to configuration of the simulation host.
+
+% Soft Modeling
+\paragraph{Soft Modeling}
+\label{par:backgroundandrelatedwork_graphicsvirtualization_softmodeling}
+As an alternative to precise modeling of GPU devices, one might analyze the feasibility of high-speed software rasterization.
+Albeit not up to hardware accelerated speeds, some results indicate an increased feasibility of high-speed software rasterization in modern graphics frameworks (see \dvtcmdciteref{papers:nilsson:2013}), where traditional software rasterization is accelerated using thread pooling optimizations and SIMD technologies~\dvtcmdciteref{web:microsoft:2013:warp}; all for the purposes of optimizing execution for CPU -, rather than GPU -, execution.
+As such, one may avoid some of the overhead induced by simulating GPU workload on CPUs, which is traditionally not fit for purpose.
+One might speculate that using such technologies in collaboration with Hardware-assisted Virtualization might bring software rasterization up to competitive speeds fit for some simulatory development purposes, replacing the need for more sophisticated virtualization techniques.
+However, without native execution speeds or used with complex GPU workloads, the technique may fall short.
+
+% Paravirtualization
+\paragraph{Paravirtualization}
+\label{par:backgroundandrelatedwork_graphicsvirtualization_paravirtualization}
+At a higher level of abstraction, there is the option of virtualization by paravirtualization.
+By selectively modifying target systems, one may modify the inner workings of system attributes and add functionality such as graphics hardware support.
+For the purposes of graphics acceleration, such a system attribute may be a graphics library or a kernel driver.
+
+Often, paravirtualized methodologies incurs the benefits of host hardware acceleration of some graphics framework, and is implemented at a relatively high abstraction level (see figure \ref{fig:overview}).
+Inherent from its higher abstraction, paravirtualization may be relatively cost-effective to implement in comparison to alternatives such as GPU modeling.
+Additionally, virtualizing at the graphics library software level circumvents the need for users to re-link or modify the application they wish accelerated.
+Furthermore, the serialization of framework invocations by the means of fast communications channels may accommodate for significant performance improvements when compared to that of networking solutions (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
+
+However, despite the possibility for significant performance improvements, graphics virtualization by the means of paravirtualization is not without inherent flaws.
+In particular, a paravirtualized graphics library may be expensive to maintain as frameworks evolve and specifications change.
+Additionally, the means of paravirtualization requires the target system to be modified; albeit not necessarily being a substantial defect as a paravirtualized framework may still accelerate unmodified target applications utilizing the library.
+In this way, paravirtualization may be considered to be a decent leveling of the benefits and drawbacks of the various virtualization methodologies presented in this section.
+
+% QEMU
+\subsection{QEMU}
+\label{sec:backgroundandrelatedwork_qemu}
+QEMU \footnote{'Quick~Emulator'.} is an open-source virtual platform described as a full system emulator~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005} and a high-speed functional simulator~\dvtcmdcitebib[p.~1]{inproceedings:shen:2010} (see \dvtcmdciteref[p.~69]{magazines:bartholomew:2006} for an overview of QEMU).
+It supports simulation of several common system architectures and hardware devices and can, like Simics, save and restore the state of a simulation~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005}.
+As such, QEMU may, like Simics, run unmodified target software such as OSs, drivers, and other applications.
+The platform is widely used in academia, and is the subject of several articles and reports cited throughout this document, such as the graphics acceleration described by Lagar-Cavilla et al.~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}, and the work by Guo et al.~\dvtcmdcitebib{inproceedings:guo:2013}.
+Additionally, QEMU powers the Android emulator, which helps mobile developers bring about software for the Android OS.
+
+The Android emulator is described as a virtual mobile device emulator~\dvtcmdciteref{web:google:2013:usingtheemulator}.
+Included in the Android SDK, it supports virtualization of an assortment of mobile hardware configurations.
+In the presence of the Android $4.0.3$ release, the Android SDK was updated to make use of hardware-assisted x86 virtualization; significantly increasing the performance of CPU -bound workloads for x86 systems~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
+In addition to this, Google implemented hardware support for the OpenGL~ES $1.1$- and $2.0$ frameworks; granting developers utilizing said frameworks hardware acceleration of graphics~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
+Google 's solution (see \dvtcmdciteref{technicaldocs:google:2014}), consists of a paravirtualized implementation which circumvents the simulation by forwarding its OpenGL~ES invocations to the host system by using networking sockets or directly via the simulator program\footnote{Note, however, that there is no software rasterized solution for running OpenGL~ES~$2.0$ in the Android emulator.}.
+As of Android $4.4$, the Android emulator uses QEMU to simulate ARM and x86 \footnote{By using images devised by Intel\circledR, the Android emulator may run the Android OS on x86 simulated hardware (see section \ref{sec:experimentalmethodology_platformconfiguration}).} devices aiding those wishing to develop software for mobile units.
+
+% Magic Instructions
+\subsection{Magic Instructions}
+\label{sec:backgroundandrelatedwork_magicinstructions}
+Sometimes during system simulation, there may be reasons as to why one would like to escape the simulation and resume execution in the real world.
+Such a scenario would be a debugging breakpoint, to share data in-between target and host systems, or for any reason modify the simulation state.
+There are a number of ways to communicate with the outside world (including the host machine) from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as the - arguably - legitimately coined 'magic instruction '.
+
+The magic instruction is a concept used to denote a \dvtcmdcodeinline{nop}-type instruction, meaning an instruction that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx}\footnote{'Swap contents in registers \dvtcmdcodeinline{ebx} and \dvtcmdcodeinline{ebx}'.} on the x86 -architecture), which - when executed on the simulated hardware in a virtual platform - invokes a callback-method in the simulation host ~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
+An advantage of this methodology is an often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
+Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system.
+Another advantage of the magic instruction paradigm is that the system invoking such an instruction may, without complications, run outside of a simulation - as this would simply result in regular \dvtcmdcodeinline{nop}-behavior.
+In effect, implementation of magic instructions requires replacing one- or more instructions in the target instruction set; thereby making the magic instruction platform-dependent.
+However, the solution is often designed to only respond to magic instructions wherein a certain magic number, sometimes called a 'leaf number'~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}, is present in an arbitrary processor register.
+
+% Virtual Time
+\subsection{Virtual Time}
+\label{sec:backgroundandrelatedwork_virtualtime}
+In terms of system simulation, time often becomes abstract; since it is not necessarily the same for an observer outside of the simulation as that of an observer from the inside.
+The variance in virtual time, as compared to that of real-world time, is called 'simulation slowdown' and may reach orders of magnitude faster than that of real-world time, or likewise orders of magnitude slower.
+
+The concepts of real-world and virtual time are particularly important when considering performance measurements.
+When attempting to establish some sort of measurement in a full-system simulator, such as Simics, one must contemplate what type of time is relevant to the study being performed.
+For graphics acceleration of real-time applications, it is likely that the real-world wall clock is the primary point of reference (see section \ref{sec:threatstovalidity_platformprofiling} for an elaboration on how time measurement is performed for the sake of this study).
+However, there are cases in which virtual time is worthwhile to profile, such as the performance of virtual system drivers.

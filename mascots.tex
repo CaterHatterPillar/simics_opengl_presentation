@@ -11,7 +11,10 @@
 % manually specify the path to it like:
 %\documentclass[conference]{../sty/IEEEtran}
 
-\usepackage{hyperref}
+\usepackage{xcolor} % colorbox for the inline code command.
+\usepackage{hyperref} % Hyperlinks and urls.
+\usepackage{listings} % code boxes.
+\usepackage{amsfonts} % \circledR.
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -22,6 +25,9 @@
 \newcommand{\dvtcmdcitebib}[2][]{\cite{#2}} % TODO: \masccitebib
 \newcommand{\dvtcmdciteref}[2][]{\cite{#2}} % TODO: \mascciteref
 %\newcommand{\dvtcmdcitefur}[2][]{\citefur{#2}}
+
+% Formatting inline code command:
+\newcommand{\dvtcmdcodeinline}[1]{\colorbox{black!5}{\lstinline[basicstyle=\ttfamily\color{black}]{#1}}}
 
 \begin{document}
 
