@@ -104,7 +104,7 @@ As such, and in line with a paravirtualized approach, PCI~passthrough requires m
 As an alternative to precise modeling of GPU devices, one might analyze the feasibility of high-speed software rasterization.
 Albeit not up to hardware accelerated speeds, some results indicate an increased feasibility of high-speed software rasterization in modern graphics frameworks (see \dvtcmdciteref{papers:nilsson:2013}), where traditional software rasterization is accelerated using thread pooling optimizations and SIMD technologies~\dvtcmdciteref{web:microsoft:2013:warp}; all for the purposes of optimizing execution for CPU, rather than GPU, execution.
 As such, one may avoid some of the overhead induced by simulating GPU workload on CPUs, which is traditionally not fit for purpose.
-One might speculate that using such technologies in collaboration with hardware-assisted virtualization might bring software rasterization up to competitive speeds fit for some simulatory development purposes, replacing the need for more sophisticated virtualization techniques.
+One might speculate that using such technologies in collaboration with hardware-assisted virtualization might bring software rasterization up to competitive speeds fit for some simulatory development purposes, \hl{replacing} the need for more sophisticated virtualization techniques.
 However, without native execution speeds or used with complex GPU workloads, the technique may fall short.
 
 % Paravirtualization
