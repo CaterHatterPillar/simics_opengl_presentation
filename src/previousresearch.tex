@@ -135,10 +135,10 @@ Additionally, QEMU powers the Android emulator, which helps mobile developers br
 
 The Android emulator is described as a virtual mobile device emulator~\dvtcmdciteref{web:google:2013:usingtheemulator}.
 Included in the Android SDK, it supports virtualization of an assortment of mobile hardware configurations.
-In the presence of the Android $4.0.3$ release, the Android SDK was updated to make use of hardware-assisted x86 virtualization; significantly increasing the performance of CPU -bound workloads for x86 systems~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
+In the presence of the Android $4.0.3$ release, the Android SDK was updated to make use of hardware-assisted x86 virtualization; significantly increasing the performance of CPU-bound workloads for x86 systems~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
 In addition to this, Google implemented hardware support for the OpenGL~ES $1.1$- and $2.0$ frameworks; granting developers utilizing said frameworks hardware acceleration of graphics~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
-Google 's solution (see \dvtcmdciteref{technicaldocs:google:2014}), consists of a paravirtualized implementation which circumvents the simulation by forwarding its OpenGL~ES invocations to the host system by using networking sockets or directly via the simulator program\footnote{Note, however, that there is no software rasterized solution for running OpenGL~ES~$2.0$ in the Android emulator.}.
-As of Android $4.4$, the Android emulator uses QEMU to simulate ARM and x86 \footnote{By using images devised by Intel\circledR, the Android emulator may run the Android OS on x86 simulated hardware (see section \ref{sec:experimentalmethodology_platformconfiguration}).} devices aiding those wishing to develop software for mobile units.
+Google's solution (see \dvtcmdciteref{technicaldocs:google:2014}), consists of a paravirtualized implementation which circumvents the simulation by forwarding its OpenGL~ES invocations to the host system by using networking sockets or directly via the simulator program (note, however, that there is no software rasterized solution for running OpenGL~ES~$2.0$ in the Android emulator).
+As of Android $4.4$, the Android emulator uses QEMU to simulate ARM and x86 devices aiding those wishing to develop software for mobile units (by using images devised by Intel\circledR, the Android emulator may run the Android OS on x86 simulated hardware (see section \ref{sec:experimentalmethodology_platformconfiguration})).
 
 % Magic Instructions
 \subsection{Magic Instructions}
