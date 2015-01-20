@@ -9,11 +9,11 @@ Such platforms, like Simics, have been used for a variety of purposes including,
 Furthermore, such simulators may also be used to port OSs to new processors~\dvtcmdciteref{technicaldocs:netbsd:2014}.
 
 For the purposes of graphics acceleration, strategies, methodologies and procedures are numerous.
-Based off a number of core strategies, such as device modeling, passthrough technologies, and paravirtualization, there have been numerous attempts at effective GPU virtualization; many of which require modification of both target - and host systems (such as the development of specialized passthrough drivers~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}).
+Based off a number of core strategies, such as device modeling, passthrough technologies, and paravirtualization, there have been numerous attempts at effective GPU virtualization; many of which require modification of both target- and host systems (such as the development of specialized passthrough drivers~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}).
 One such instance is presented by Hansen in his work on the Blink display system~\dvtcmdcitebib{inproceedings:hansen:2007}.
 
-Neither are the concepts of advanced simulatory features new to GPU virtualization, as there have are multiple attempts to implement the Checkpoint / Restart -model in a GPU context, such as the work by Guo et al. concerning the CUDA framework~\dvtcmdcitebib{inproceedings:guo:2013}.
-Another solution which also supports the Checkpoint / Restart -scheme is VMGL, as presented by Lagar-Cavilla et al., which by the means of paravirtualization accelerates the OpenGL $1.5$ framework~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
+Neither are the concepts of advanced simulatory features new to GPU virtualization, as there have are multiple attempts to implement the checkpoint/restart model in a GPU context, such as the work by Guo et al. concerning the CUDA framework~\dvtcmdcitebib{inproceedings:guo:2013}.
+Another solution which also supports the checkpoint/restart scheme is VMGL, as presented by Lagar-Cavilla et al., which by the means of paravirtualization accelerates the OpenGL~$1.5$ framework~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
 The groundwork produced by Lagar-Cavilla et al. showcases the potential for paravirtualized graphics since the VMGL framework, for a certain set of benchmarks, attains improvements of roughly two orders of magnitude in relation to software rasterization.
 
 Current promising projects surrounding GPU virtualization include the Virgil3D-project~\dvtcmdciteref{technicaldocs:qemudevel:2014}.
@@ -22,7 +22,7 @@ The project is currently being maintained, again according to the project's GitH
 Other related works include modeling GPU devices in the QEMU full-system simulator with software OpenGL~ES rasterization support, as presented by Shen et al.~\dvtcmdcitebib{inproceedings:shen:2010}.
 
 At the time of writing, graphics virtualization is no longer limited to the academic community but is also existent in the industry, as big virtualization players incorporate various graphics acceleration solutions in their products.
-One such example is VMware, Inc. ~\dvtcmdciteref{technicaldocs:vmware:2014}.
+One such example is VMware, Inc.~\dvtcmdciteref{technicaldocs:vmware:2014}.
 
 Pursuant to the aim and objectives specified in chapter \ref{cha:aimsandobjectives}, this thesis pertain to the technologies and concepts described in this chapter.
 
