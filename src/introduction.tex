@@ -33,7 +33,7 @@ However, these methodologies traditionally incur heavy performance losses in com
 In order to achieve better performance, one may offload such kernels to the GPU of the system on which the simulation runs, often referred to as the simulation host.
 There are a number of way to achieve such acceleration, such as relying on PCI~passthrough and similar technologies to grant access to the underlying host hardware from within the virtual platform~\dvtcmdcitebib[p.~415,~416]{inproceedings:regola:2010} (see \dvtcmdciteref{web:jones:2009} for an overview on PCI~passthrough), or utilizing a concept commonly referred to as 'Paravirtualization' at a higher level of abstraction (e.g., the OpenGL library).
 
-Paravirtualization is a relatively new term originally defined as selectively modifying the virtual architecture to enhance scalability, performance, and simplicity~\dvtcmdcitebib[p.~165-166]{magazines:bartholomew:2006}.
+Paravirtualization is a relatively new term originally defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity~\dvtcmdcitebib[p.~165-166]{magazines:bartholomew:2006}.
 Effectively, this means modifying the virtual machine to be similar, but not identical, to host hardware~\dvtcmdcitebib[p.~165]{journals:barham:2003}.
 As such, one may simplify the virtualization process by neglecting some hardware compatibility~\dvtcmdcitebib[p.~1]{inproceedings:youseff:2006}.
 Implementing GPU simulation by the means of Paravirtualization provides the benefits of improved simulation performance, albeit it may entail loosing some of the benefits a virtual platform can provide.
