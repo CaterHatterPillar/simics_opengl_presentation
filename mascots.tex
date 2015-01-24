@@ -9,16 +9,16 @@
 % perl -pi -w -e 's/cha:backgroundandrelatedwork/sec:previousresearch/g;' src/*.tex
 % perl -pi -w -e 's/cha:aimsandobjectives/sec:problemformulation/g;' src/*.tex
 
-% Thesis chapters to import contents from:
-% * Simics
-% * Proposed solution and implementation
+% cha:proposedsolutionandimplementation -> sec:methodsandresults
+
+% Thesis chapters yet to import contents from:
+% * Simics (under previous research or introduction?)
 % * Experimental methodology
 % * Threats to validity
 % * Results
 % * Discussion
 % * Conclusion
 % * Future work
-
 
 \documentclass[conference]{IEEEtran}
 % If IEEE MASCOTS is part of the IEEE Computer Society- range of
@@ -31,6 +31,7 @@
 \usepackage{hyperref} % Hyperlinks and urls.
 \usepackage{listings} % code boxes.
 \usepackage{amsfonts} % \circledR.
+\usepackage{graphicx}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
