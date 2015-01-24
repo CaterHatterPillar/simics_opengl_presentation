@@ -3,6 +3,11 @@
 % http://www.ieee.org/publications_standards/publications/authors/author_guide_interactive.pdf recommend the following sections:
 % Abstract; Introduction; Previous Research; Problem Formulation; Model or Methods and Results; Conclusion; References; Acknowledgements
 
+% Replace old tags with new ones when the majority of contents have
+% been imported to the new document.
+% perl -pi -w -e 's/cha:introduction/sec:introduction/g;' src/*.tex
+% perl -pi -w -e 's/cha:backgroundandrelatedwork/sec:previousresearch/g;' src/*.tex
+% perl -pi -w -e 's/cha:aimsandobjectives/sec:problemformulation/g;' src/*.tex
 
 \documentclass[conference]{IEEEtran}
 % If IEEE MASCOTS is part of the IEEE Computer Society- range of
