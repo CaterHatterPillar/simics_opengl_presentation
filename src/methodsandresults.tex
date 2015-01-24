@@ -101,7 +101,6 @@ See section \ref{sec:proposedsolutionandimplementation_pagetabletraversal} for m
 \label{fig:overview}
 \end{figure}
 
-
 % Page Table Traversal
 \subsection{Page Table Traversal}
 \label{sec:proposedsolutionandimplementation_pagetabletraversal}
@@ -120,9 +119,10 @@ Naturally, said process must be performed regardless of data being read or writt
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{img/yedvirtualmemory.pdf}
-\caption[Memory translation overview]{Memory translation overview. The OpenGL process hands a virtual memory address, pointing somewhere in the target system \textit{primary} memory, to the paravirtualized solution - which inquiries the target system MMU to retrieve designated bytestream directly from target physical memory.} % \footnote{Observe that said bytestream may not be present in secondary storage, due to memory page locking.}
+\caption[Memory translation overview]{Memory translation overview. The OpenGL process hands a virtual memory address, pointing somewhere in the target system \textit{primary} memory, to the paravirtualized solution - which inquiries the target system MMU to retrieve designated bytestream directly from target physical memory.}
 \label{fig:virtualmemory}
 \end{figure}
+% \footnote{Observe that said bytestream may not be present in secondary storage, due to memory page locking.}
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
@@ -161,10 +161,10 @@ Furthermore, the solution also utilize KVM in order to provide similar native ex
 In line with Fedora $19$ being the OS in use when performing the reference benchmark experiments on the host platform (see paragraph \dvtcmdrefname{par:experimentalmethodology_platformconfiguration_hostconfiguration}), it may be of value to have the simulated target machine configured to run with the same OS.
 As such, the platform OSs used for the purpose of this study are as follows:
 \begin{itemize}[noitemsep]
-	\item Hardware accelerated Fedora $19$ host system
-	\item Software rasterized\footnote{Using the Mesa OpenGL software rasterization implementation.} Fedora 19 Simics target system
-	\item Paravirtualized Fedora $19$ Simics target system
-	\item Paravirtualized Android $4.4$\footnote{Android KitKat - API level $19$.} QEMU target system
+\item Hardware accelerated Fedora $19$ host system
+\item Software rasterized\footnote{Using the Mesa OpenGL software rasterization implementation.} Fedora 19 Simics target system
+\item Paravirtualized Fedora $19$ Simics target system
+\item Paravirtualized Android $4.4$\footnote{Android KitKat - API level $19$.} QEMU target system
 \end{itemize}
 
 % Benchmarks
@@ -279,3 +279,277 @@ Consequently, in table \ref{tab:keyvalsmagicinstructions}, the per-frame number 
 
 Note that for each tile rendered in the Chess benchmark, the solution will perform $9$ magic instructions; entailing a total of $32400$\footnote{$9\times60\times60=32400$.}, $63504$\footnote{$9\times84\times84=63504$.}, and $125316$\footnote{$9\times118\times118=125316$.} magic instructions, respectively, in addition to a minor number per-frame.
 
+\subsection{Results}
+\label{sec:results}
+In this chapter, the results collected from having applied the described experiment methodology onto the devised solution are presented.
+As such, the results gathered from execution on the host is presented in figure \ref{fig:histogramshost}, the results compiled from execution in the Android emulator presented in figure \ref{fig:histogramsqemu}, and the results accumulated from software rasterized- and paravirtualized execution in Simics are presented in figures \ref{fig:histogramssimicsparachess}, \ref{fig:histogramssimicsparajulia}, and \ref{fig:histogramssimicsparaphong}.
+Note that the data compiled from software rasterized- and paravirtualized Simics platforms include additional data from having performed the experiment using the input data variations, as described in section \ref{sec:experimentalmethodology_inputdatavariation}.
+
+In this chapter, the results are compiled into histograms; visualizing elapsed time in milliseconds to sample density.
+As such, the $Y$ axis showcase sample density; although the axis keys have been removed as they bear little relevance to the outcomes presented in this material.
+The histograms each feature $100$ bins; into which a $1000$ samples, for each experiment performed, are rounded into.
+For the purposes of good visualization methodology, values outside of the standard deviation\footnote{That is; values above that of the $mean + std$ and values under that of $mean - std$.} are not featured in the figures presented in this section.
+In order to accommodate for the, however few, samples outside of said limits the figures are all complemented with key ratio tables (see tables \ref{tab:keyvalhost}, \ref{tab:keyvalqemu}, \ref{tab:keyvalsimics}, and \ref{tab:keyvalpara}).
+
+% Benchmark Results
+\subsubsection{Benchmark Results}
+\label{sec:results_benchmarkresults}
+Based on the reference profiling presented in figure \ref{fig:histogramshost}, we may conclude that the benchmarks, when hardware accelerated on the host system, perform with concentrated density; not being much scattered across the graph except a few irregular extremities in terms of maximum frame times (see table \ref{tab:keyvalhost}).
+This is supported by the standard deviation presented in said table.
+Furthermore, we may conclude that the Phong demo features two distinct peaks in density distribution - about $1$ ms in-between.
+There may be cause to believe that this is caused, or partly caused, by frame-wise rotation of the teapot - rotation featured in the benchmark (see section \ref{sec:experimentalmethodology_benchmarks}) - inducing some fluctuation into its execution (see figure \ref{fig:histogramssimicsparaphong}).
+However, this behavior is, strangely so, not apparent whilst paravirtualized in the QEMU derived Android emulator, although this may be a visual artifact due to the resolution of the graph (see figure \ref{fig:histogramsqemu}).
+See section \ref{sec:threatstovalidity_benchmarkvariations} for an elaboration on divergence in the Phong benchmark.
+Additionally, and in accordance to tables \ref{tab:keyvalhost} and \ref{tab:keyvalqemu}, one may observe relatively high recorded maximum frame times in relation to compiled maximum- and average values, yet featuring - in relation to divergent maximum, relatively low standard deviations.
+
+The remainder of this chapter will present a benchmark-Wise analysis of the data compiled from executing the experiment on the software rasterized- and paravirtualized Simics platforms; said platforms being the subject of this study.
+For the sake of brevity, these analyses are segmented into paragraphs for each benchmark.
+These paragraphs are presented below.
+
+\begin{figure}
+  \centering
+  \input{gnuhistogramshost.tex}
+  \caption[Benchmark results - hardware accelerated on the simulation host]{Histogram depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames whilst hardware accelerated on the simulation host. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \label{fig:histogramshost}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \input{gnuhistogramsqemu.tex}
+  \caption[Benchmark results - paravirtualized in QEMU]{Histogram depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames whilst paravirtualized in QEMU. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \label{fig:histogramsqemu}
+\end{figure}
+
+% Defines a table outlining the performance of the thesis benchmark
+% whilst hardware accelerated on the host platform.
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Benchmark} & \multicolumn{4}{p{6cm}|}{\centering Elapsed time (milliseconds)} \\
+\cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
+Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
+Phong & \dvtcmdfirstline{hostphong2048x2048.dat.min} & \dvtcmdfirstline{hostphong2048x2048.dat.max} & \dvtcmdfirstline{hostphong2048x2048.dat.std} & \dvtcmdfirstline{hostphong2048x2048.dat.avg} \\ \hline
+\end{tabular}
+\caption[Benchmark results - hardware accelerated on the simulation host]{Benchmarking results whilst hardware accelerated on the simulation host system.}
+\label{tab:keyvalhost}
+\end{table}
+
+% Defines a table outlining the performance of the thesis benchmark
+% whilst paravirtualized in the QEMU-derived Android Emulator.
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Benchmark} & \multicolumn{4}{p{6cm}|}{\centering Elapsed time (milliseconds)} \\
+\cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+Chess & \dvtcmdfirstline{qemuchess84x84.dat.min} & \dvtcmdfirstline{qemuchess84x84.dat.max} & \dvtcmdfirstline{qemuchess84x84.dat.std} & \dvtcmdfirstline{qemuchess84x84.dat.avg} \\ \hline
+Julia & \dvtcmdfirstline{qemujulia450.dat.min} & \dvtcmdfirstline{qemujulia450.dat.max}	& \dvtcmdfirstline{qemujulia450.dat.std} & \dvtcmdfirstline{qemujulia450.dat.avg} \\ \hline
+Phong & \dvtcmdfirstline{qemuphong2048x2048.dat.min} & \dvtcmdfirstline{qemuphong2048x2048.dat.max} & \dvtcmdfirstline{qemuphong2048x2048.dat.std} & \dvtcmdfirstline{qemuphong2048x2048.dat.avg} \\ \hline
+\end{tabular}
+\caption[Benchmark results - paravirtualized in the Android emulator]{Benchmarking results whilst paravirtualized in the QEMU-derived Android emulator.}
+\label{tab:keyvalqemu}
+\end{table}
+
+% Defines a table outlining the performance of the thesis benchmark
+% whilst software rasterized in the Simics full-system simulator.
+\begin{table*}
+\centering
+\providecommand{\chesskeyone}{$60\times60$ tiles}
+\providecommand{\chesskeytwo}{$84\times84$ tiles}
+\providecommand{\chesskeythree}{$118\times118$ tiles}
+
+\providecommand{\juliakeyone}{$225$ iterations}
+\providecommand{\juliakeytwo}{$450$ iterations}
+\providecommand{\juliakeythree}{$900$ iterations}
+
+\providecommand{\phongkeyone}{$1448\times1448$ texels}
+\providecommand{\phongkeytwo}{$2048\times2048$ texels}
+\providecommand{\phongkeythree}{$2896\times2896$ texels}
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{6cm}|}{\centering Elapsed time (milliseconds)} \\
+\cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+\multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{simicschess60x60.dat.min} & \dvtcmdfirstline{simicschess60x60.dat.max}	& \dvtcmdfirstline{simicschess60x60.dat.std} & \dvtcmdfirstline{simicschess60x60.dat.avg} \\ %\cline{2-6}
+& \chesskeytwo & \dvtcmdfirstline{simicschess84x84.dat.min} & \dvtcmdfirstline{simicschess84x84.dat.max} & \dvtcmdfirstline{simicschess84x84.dat.std} & \dvtcmdfirstline{simicschess84x84.dat.avg} \\ %\cline{2-6}
+& \chesskeythree & \dvtcmdfirstline{simicschess118x118.dat.min} & \dvtcmdfirstline{simicschess118x118.dat.max} & \dvtcmdfirstline{simicschess118x118.dat.std} & \dvtcmdfirstline{simicschess118x118.dat.avg} \\ \hline
+\multirow{3}{*}{Julia} & \juliakeyone & \dvtcmdfirstline{simicsjulia225.dat.min} & \dvtcmdfirstline{simicsjulia225.dat.max} & \dvtcmdfirstline{simicsjulia225.dat.std} & \dvtcmdfirstline{simicsjulia225.dat.avg} \\ %\cline{2-6}
+& \juliakeytwo & \dvtcmdfirstline{simicsjulia450.dat.min} & \dvtcmdfirstline{simicsjulia450.dat.max} & \dvtcmdfirstline{simicsjulia450.dat.std} & \dvtcmdfirstline{simicsjulia450.dat.avg} \\ %\cline{2-6}
+& \juliakeythree & \dvtcmdfirstline{simicsjulia900.dat.min} & \dvtcmdfirstline{simicsjulia900.dat.max} & \dvtcmdfirstline{simicsjulia900.dat.std} & \dvtcmdfirstline{simicsjulia900.dat.avg} \\ \hline
+\multirow{3}{*}{Phong} & \phongkeyone & \dvtcmdfirstline{simicsphong1448x1448.dat.min} & \dvtcmdfirstline{simicsphong1448x1448.dat.max}	& \dvtcmdfirstline{simicsphong1448x1448.dat.std} & \dvtcmdfirstline{simicsphong1448x1448.dat.avg} \\ %\cline{2-6}
+& \phongkeytwo & \dvtcmdfirstline{simicsphong2048x2048.dat.min} & \dvtcmdfirstline{simicsphong2048x2048.dat.max} & \dvtcmdfirstline{simicsphong2048x2048.dat.std} & \dvtcmdfirstline{simicsphong2048x2048.dat.avg} \\ %\cline{2-6}
+& \phongkeythree & \dvtcmdfirstline{simicsphong2896x2896.dat.min} & \dvtcmdfirstline{simicsphong2896x2896.dat.max} & \dvtcmdfirstline{simicsphong2896x2896.dat.std} & \dvtcmdfirstline{simicsphong2896x2896.dat.avg} \\ \hline
+\end{tabular}
+\caption[Benchmark results - software rasterized in Simics]{Benchmarking results whilst software rasterized in the Simics full-system simulator.}
+\label{tab:keyvalsimics}
+\end{table*}
+
+% Chess
+\paragraph{Chess}
+\label{par:results_chess}
+From the data visualized in figure \ref{fig:histogramssimicsparachess}, we may observe that the Chess benchmark, when executed in the software rasterized Simics platform, has a relatively broad distribution of its sample density, yet the distribution often seems evenly distributed around a single point.
+The right-hand side of the graph, although also showcasing the impaired performance of the corresponding (paravirtualized) platform, visualizes a decrease in the distribution of the sample density.
+This is supported by the data presented in table \ref{tab:keyvalpara}.
+
+Based on the data summarized in table \ref{tab:keyvalsimics} (whilst software rasterized in Simics ) and comparing said data to that of table \ref{tab:keyvalpara} (whilst paravirtualized in Simics ), we may observe that the software rasterized solution outperforms it's paravirtualized counterpart; not only in the base experiment, but in all of its input data variations.
+The only redeeming attributes the paravirtualized solution brings to the table, as elaborated upon in the above paragraph, is a decrease in the standard deviation of the benchmark profiling.
+When comparing these results to the uncompromised hardware accelerated counterpart on the host machine (see figure \ref{fig:histogramshost}), we may observe - albeit considerably less prominent - an adherence to the single-peak behavior in the distribution of the sample density.
+
+The purpose of the Chess benchmark is to locate any bottlenecks related to the number of paravirtualized library invocations (see section \ref{sec:experimentalmethodology_benchmarks}), which was predicted during the pilot study performed for the sake of this experiment.
+As such, as presented in section \ref{sec:results_magicinstructionoverhead} in combination with the shaping of the Chess benchmark as presented in section \ref{sec:experimentalmethodology_benchmarks}, there is cause to believe that the prediction of a probable bottleneck in the target - to host communication latency has been confirmed; arguably identifying the weakness of graphics paravirtualization in the Simics full-system simulator.
+The conclusions that may be drawn from these further stresses analysis into what is the root cause for the target - to host latency for a multitude of paravirtualized method invocations.
+Results related to this matter are presented in section \ref{sec:results_magicinstructionoverhead}. 
+Indeed, if proceeding from the findings of section \ref{sec:results_magicinstructionoverhead}, magic instruction overhead accounts for the majority of the elapsed average when paravirtualized in Simics.
+
+\begin{sidewaysfigure*}
+  \centering
+  \input{gnuhistogramssimicsparachess.tex}
+  \caption[Benchmark results - paravirtualized in Simics, Chess]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Chess benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \label{fig:histogramssimicsparachess}
+\end{sidewaysfigure*}
+
+% Julia
+\paragraph{Julia}
+\label{par:results_julia}
+In figure \ref{fig:histogramssimicsparajulia}, we may observe double- to triple peak behavior in the distribution of the sample density; both in software rasterized- and paravirtualized platforms.
+Albeit the hardware accelerated host profiling (see figure \ref{fig:histogramshost}) may, however minor, suggest such a pattern; it is by all means not significant.
+We may observe similar behavior in the distribution of the sample density when profiling the same benchmark whilst paravirtualized in the QEMU -derived Android emulator (see figure \ref{fig:histogramsqemu}).
+What causes this behavior is unclear, as frame-to-frame branching in the fractal algorithm is minor and ought not cause such a variance.
+
+The Julia benchmark is incorporated into the experiment to establish how the paravirtualized solution performed under computational stress (see section \ref{sec:experimentalmethodology_benchmarks}).
+Using this benchmark, a performance weakness in the software rasterized Simics platform has been identified, with frame times well above the two second mark (see table \ref{tab:keyvalsimics}); with the corresponding maximum frame time in the paravirtualized Simics platform measuring up to to a mere \dvtcmdfirstline{parajulia900.dat.max} ms.
+With the Julia benchmark, as visualized in figure \ref{fig:histogramssimicsparajulia}, we have showcased radical performance improvements for computationally intensive graphics kernels and - in turn - identified the capabilities of graphics paravirtualization in the Simics full-system simulator.
+
+\begin{sidewaysfigure*}
+  \centering
+  \input{gnuhistogramssimicsparajulia.tex}
+  \caption[Benchmark results - paravirtualized in Simics, Julia]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Julia benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \label{fig:histogramssimicsparajulia}
+\end{sidewaysfigure*}
+
+% Phong
+\paragraph{Phong}
+\label{par:results_phong}
+The Phong benchmark is incorporated into this study for the purposes of analyzing the performance of stressed bandwidth in target -to-host communication; featuring relaying and rendering of a large texture to the simulation host.
+The graphs presented in figure \ref{fig:histogramssimicsparaphong} display erratic distribution of the sample density in both software rasterized- and paravirtualized Simics platforms.
+Suspicions as to why this is the case are presented in section \ref{sec:threatstovalidity_benchmarkvariations}.
+
+By analyzing the data in presented in tables \ref{tab:keyvalsimics} and \ref{tab:keyvalpara}, it is clear that the Phong benchmark, in terms of average frame times, performs only marginally better or competitively to it's software rasterized equivalent.
+However, and mayhaps more interestingly so, executing the benchmark in the paravirtualized Simics environment results in major improvements in terms of frame time maximum and standard deviation; software rasterized samples topping in at \dvtcmdfirstline{simicsphong1448x1448.dat.max} ms where the corresponding paravirtualized maximum is but \dvtcmdfirstline{paraphong1448x1448.dat.max} ms.
+Furthermore, one might argue that parts of the distribution align with the double-peak density distribution showcased by the benchmark when hardware accelerated on the simulation host (see figure \ref{fig:histogramshost}).
+
+It is unclear what causes the compiled paravirtualized Phong benchmark to perform only marginally better or competitively to its the software rasterized counterpart.
+The effect could be attributed to a bottleneck in the memory page traversal, as described in section \ref{sec:proposedsolutionandimplementation_pagetabletraversal}, signifying a possible weakness in - in addition to the communication latency as established in paragraph \dvtcmdrefname{par:results_chess} - the memory bandwidth of the Simics Pipe (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
+
+In line with the recorded competitive average- and minimum frame times yet major improvements in frame time maximum and standard deviation; one might also argue that the relatively lightweight benchmark is misrepresentative in that its software rasterized execution is below that of the overhead induced by paravirtualization.
+However, due to the deviances described in section \ref{sec:threatstovalidity_benchmarkvariations}, this will not be elaborated upon further for the remainder of this dissertation.
+
+\begin{sidewaysfigure*}
+  \centering
+  \input{gnuhistogramssimicsparaphong.tex}
+  \caption[Benchmark results - paravirtualized in Simics, Phong]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Phong benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \label{fig:histogramssimicsparaphong}
+\end{sidewaysfigure*}
+
+% Magic Instruction Overhead
+\subsubsection{Magic Instruction Overhead}
+\label{sec:results_magicinstructionoverhead}
+In Simics, magic instructions incur a context switch when exiting the simulation and beginning execution in the real world.
+This affects the performance by forcing the simulation to no longer be executed in native mode; inhibiting the simulatory performance improvements given by hardware-assisted virtualization.
+Additionally, this also entail Simics no longer being able to utilize just-in-time compilation to speed up execution; having to rely on regular code interpretation.
+As such, in great numbers, magic instructions may potentially affect performance. 
+
+\begin{figure*}
+  \centering
+  \begin{lstlisting}
+    int sercon = open("/dev/ttyS0",O_RDWR|O_NOCTTY);
+  \end{lstlisting}
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \lstinputlisting{pseudoindividual.txt}
+    \caption[Pseudocode - magic instruction profiling, per-invocation]{Profiling of magic instructions on a per-invocation basis.}
+    \label{fig:magicinstructionpseudocodeforeach}
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \lstinputlisting{pseudobatch.txt}
+    \caption[Pseudocode - magic instruction profiling, per-batch]{Profiling of magic instructions in batches.}
+    \label{fig:magicinstructionpseudocodeforall}
+  \end{minipage}
+\end{figure*}
+
+
+In line with the effect that this overhead may have on software such as benchmark Chess, two tests have been performed to establish the overhead magic instructions may induce.
+These tests have been run in two instances; one in which each magic instruction invocation is profiled separately using the methodology described in section \ref{sec:threatstovalidity_platformprofiling}, and another in which batches of magic instruction invocations are measured to reduce influence of profiling overhead (see figures \ref{fig:magicinstructionpseudocodeforeach} and \ref{fig:magicinstructionpseudocodeforall}).
+This is due to profiling overhead, described in section \ref{sec:threatstovalidity_platformprofiling}, having influenced the original profilation results too greatly.
+As such, magic instructions has to be batched in order to be profiled correctly.
+Below, the results of both of these tests are presented.
+
+\paragraph{Individual profiling}
+\label{par:results_magicinstructionoverhead_individualprofiling}
+The per-invocation profiling of $1000$ magic instructions is presented in figure \ref{fig:histogrammagicinstructionsforeach} as a histogram.
+All samples compiled in said test have been subtracted with the established average performance, as described in section \ref{sec:threatstovalidity_platformprofiling}.
+In line with this modification of the source data, due to the established profiling average overhead of \dvtcmdfirstline{profile.dat.avg} having relatively much influence on the data, the visualization features only ten histogram bins - in coagency with the approximate data.
+As such, any offset values below that of zero are placed in the first bin.
+Furthermore, any values outside that of the standard deviation are not visualized in this figure.
+
+\begin{figure}
+  \centering
+  \input{gnuhistogrammagicinstructionsforeach.tex}
+  \caption[Per-invocation magic instruction profilation histogram]{Histogram depicting approximative per-invocation profilation and percentage of density distribution of 1000 magic instructions in milliseconds.}
+  \label{fig:histogrammagicinstructionsforeach}
+\end{figure}
+
+From this data, it is apparent that roughly $45\%$ of profiled samples fall in the interval of $0$-$0.5$ milliseconds, a relatively high measurement compared to that of the batch profiling (see paragraph \dvtcmdrefname{par:results_magicinstructionoverhead_batchprofiling}).
+The figure is complemented with the analyzed data presented in table \ref{tab:magicinstructionsforeach}
+
+\begin{table}
+  \centering
+  \begin{tabular}{llll}
+    Min & Max & Std & Avg \\ \hline
+    \dvtcmdfirstline{magicinstrprofileeach.dat.min} & \dvtcmdfirstline{magicinstrprofileeach.dat.max} & \dvtcmdfirstline{magicinstrprofileeach.dat.std} & \dvtcmdfirstline{magicinstrprofileeach.dat.avg} \\
+  \end{tabular}
+  \caption[Magic instruction profiling tabular, per-invocation]{Profiling results for individual magic instructions. Presented in milliseconds and modified in accordance to the profiling overhead established in section \ref{sec:threatstovalidity_platformprofiling}.}
+  \label{tab:magicinstructionsforeach}
+\end{table}
+
+\paragraph{Batch profiling}
+\label{par:results_magicinstructionoverhead_batchprofiling}
+In order to complement the data presented in paragraph \dvtcmdrefname{par:results_magicinstructionoverhead_individualprofiling}, corresponding measurements for batch magic instruction invocations is collected in accordance to the pseudo code presented in table \ref{tab:magicinstructionsforall}.
+In this way, we wanted to circumvent any obscurities induced by profiling overhead (see section \ref{sec:threatstovalidity_platformprofiling}).
+
+\begin{table}
+  \centering
+  \begin{tabular}{llll}
+    Min & Max & Std & Avg \\ \hline
+    \dvtcmdfirstline{magicinstrprofileall.dat.min} & \dvtcmdfirstline{magicinstrprofileall.dat.max} & \dvtcmdfirstline{magicinstrprofileall.dat.std} & \dvtcmdfirstline{magicinstrprofileall.dat.avg} \\
+  \end{tabular}
+  \caption[Magic instruction profiling tabular, per-batch]{Profiling results for batched magic instructions. Presented in milliseconds and modified in accordance to the profiling overhead established in section \ref{sec:threatstovalidity_platformprofiling}.}
+  \label{tab:magicinstructionsforall}
+\end{table}
+
+From the data presented in paragraphs \dvtcmdrefname{par:results_magicinstructionoverhead_individualprofiling} and \dvtcmdrefname{par:results_magicinstructionoverhead_batchprofiling}, we may deduce that the profiling overhead induced when measuring the elapsed time of individual magic instructions causes misrepresentation in the actual elapsed time of said magic instructions.
+This is clear when analyzing the batch-wise data presented in table \ref{tab:magicinstructionsforall}, where the cost of a magic instruction invocation is significantly lower.
+This may be caused by the system call \dvtcmdcodeinline{tcdrain}, which	waits until all output written to the referenced serial console has been transmitted.
+One may speculate that said system call may be the cause for eccentric behavior in the profiling.
+
+As such, the per-invocation profiling elaborated upon in paragraph \dvtcmdrefname{par:results_magicinstructionoverhead_individualprofiling} is rendered less reliable due to the eccentric profiled behavior.
+From this we may conclude that the execution of $1000$ magic instructions is expected to induce an average overhead of roughly \dvtcmdfirstline{magicinstrprofileall.dat.avg} ms, accounting for profiling errors as presented in section \ref{sec:threatstovalidity_platformprofiling}\footnote{Note that this may be regarded as an optimum case, since batch execution of magic instructions may induce an executional pattern which could lead to improved results. However, this is just speculation.}.
+Due to the volatility of the profiling presented in paragraph \dvtcmdrefname{par:results_magicinstructionoverhead_individualprofiling}, the author will refrain from using these results for any definite conclusions.
+
+Thus, the established overhead cost for $1000$ magic instructions is summarized in table \ref{tab:magicinstructionsforall}.
+
+% Platform Comparison
+\subsubsection{Platform Comparison}
+\label{sec:analysisexperiment_platformcomparison}
+In the sections above, results have been presented indicating performance gains, and potential for gains, in Simics platforms by the means of accelerating graphics using paravirtualization.
+However, in accordance to figure \ref{fig:histogramsqemu} and table \ref{tab:keyvalqemu}, the platform on which the these results have been produced also utilizing paravirtualized methodology, there is much potential for improvement.
+The benchmarks, when executed in the paravirtualized Android emulator, exhibit better performance in each test performed for the purposes of this dissertation; most notably outperforming the software rasterized Simics platform for the Chess benchmark.
+The Chess benchmark, incurring such an overhead when paravirtualized in Simics (see paragraph \dvtcmdrefname{par:results_chess}) due to overhead induced by magic instructions (see section \ref{sec:results_magicinstructionoverhead}), performs but roughly two times worse than its hardware accelerated counterpart at \dvtcmdfirstline{qemuchess84x84.dat.avg} milliseconds average (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalhost}).
+These results indicate potential for improvement in the target -to-host communications in Simics.
+In fact, considering the large similarities in the paravirtualized methodology for graphics acceleration these two platforms share, the reference performance of the QEMU -derived Android emulator may be considered a goal for a potential productification of paravirtualized graphics in the Simics full-system simulator.
+
+These comparisons suggest that the recorded performance for the benchmarks, devised for the purpose of this study, is not necessarily representative for paravirtualized graphics in general.
+Furthermore, the comparison to the QEMU -derived Android emulator indicates that the shaping of the magic instruction -utilizing Simics Pipe - as established being the bottleneck during execution of the paravirtualized Chess benchmark (see section \ref{sec:results_magicinstructionoverhead}) - may have potential of improvement of approximately one order of magnitude (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalpara}).

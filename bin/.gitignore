@@ -1,8 +1,13 @@
-mascots.tex
-mascots.bib
 src/
 img/
+gnu/
 IEEE*
+*.dat*
+*.eps
+*.tex
+*.bib
+build*
+*.txt
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

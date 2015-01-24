@@ -11,11 +11,11 @@
 
 % cha:proposedsolutionandimplementation -> sec:methodsandresults
 % cha:experimentalmethodology -> sec:experimentalmethodology
+% cha:results -> sec:results
 
 % Thesis chapters yet to import contents from:
 % * Simics (under previous research or introduction?)
 % * Threats to validity (the first section probably, but the second one can hopefully be skipped since we won't be (in the future) presenting the texture benchmark results.
-% * Results
 % * Discussion
 % * Conclusion
 % * Future work
@@ -33,6 +33,8 @@
 \usepackage{listings} % code boxes.
 \usepackage{amsfonts} % \circledR.
 \usepackage{graphicx} % Displaying pdf graphics.
+\usepackage{multirow} % Used for specialized tables (multirow).
+\usepackage{rotating} % Used to rotate figures sideways.
 \usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
 
 % correct bad hyphenation here
@@ -50,6 +52,14 @@
 
 % Formatting inline code command:
 \newcommand{\dvtcmdcodeinline}[1]{\colorbox{black!5}{\lstinline[basicstyle=\ttfamily\color{black}]{#1}}}
+% Command to read, and ouput the first line of a file:
+\newread\file
+\newcommand{\dvtcmdfirstline}[1]{
+  \openin\file=#1
+  \read\file to \keyval
+  \keyval % Return keyval.
+  \closein\file
+}
 
 \begin{document}
 
