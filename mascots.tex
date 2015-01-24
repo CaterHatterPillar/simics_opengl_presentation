@@ -3,12 +3,6 @@
 % http://www.ieee.org/publications_standards/publications/authors/author_guide_interactive.pdf recommend the following sections:
 % Abstract; Introduction; Previous Research; Problem Formulation; Model or Methods and Results; Conclusion; References; Acknowledgements
 
-% Replace old tags with new ones when the majority of contents have
-% been imported to the new document.
-% perl -pi -w -e 's/cha:introduction/sec:introduction/g;' src/*.tex
-% perl -pi -w -e 's/cha:backgroundandrelatedwork/sec:previousresearch/g;' src/*.tex
-% perl -pi -w -e 's/cha:aimsandobjectives/sec:problemformulation/g;' src/*.tex
-
 % cha:proposedsolutionandimplementation -> sec:methodsandresults
 % cha:experimentalmethodology -> sec:experimentalmethodology
 % cha:results -> sec:results
@@ -18,7 +12,6 @@
 % * Simics (under previous research or introduction?)
 % * Threats to validity (the first section probably, but the second one can hopefully be skipped since we won't be (in the future) presenting the texture benchmark results.
 % * Discussion
-% * Conclusion
 % * Future work
 
 \documentclass[conference]{IEEEtran}
