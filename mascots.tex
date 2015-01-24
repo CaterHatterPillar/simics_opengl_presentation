@@ -10,10 +10,10 @@
 % perl -pi -w -e 's/cha:aimsandobjectives/sec:problemformulation/g;' src/*.tex
 
 % cha:proposedsolutionandimplementation -> sec:methodsandresults
+% cha:experimentalmethodology -> sec:experimentalmethodology
 
 % Thesis chapters yet to import contents from:
 % * Simics (under previous research or introduction?)
-% * Experimental methodology
 % * Threats to validity
 % * Results
 % * Discussion
@@ -33,16 +33,20 @@
 \usepackage{listings} % code boxes.
 \usepackage{amsfonts} % \circledR.
 \usepackage{graphicx} % Displaying pdf graphics.
+\usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 % These should probably be merged into the same bibliography list in
 % the end, but it might be good to have them seperately now so that
-% it's easier to filter out possibly unreliable sources.
+% it's easier to filter out possibly unreliable sources.  When most
+% contents have been imported from the thesis, replace these with
+% suitable commands.
 \newcommand{\dvtcmdcitebib}[2][]{\cite{#2}} % TODO: \masccitebib
 \newcommand{\dvtcmdciteref}[2][]{\cite{#2}} % TODO: \mascciteref
 %\newcommand{\dvtcmdcitefur}[2][]{\citefur{#2}}
+\newcommand{\dvtcmdrefname}[1]{\nameref{#1}}
 
 % Formatting inline code command:
 \newcommand{\dvtcmdcodeinline}[1]{\colorbox{black!5}{\lstinline[basicstyle=\ttfamily\color{black}]{#1}}}

@@ -123,3 +123,159 @@ Naturally, said process must be performed regardless of data being read or writt
 \caption[Memory translation overview]{Memory translation overview. The OpenGL process hands a virtual memory address, pointing somewhere in the target system \textit{primary} memory, to the paravirtualized solution - which inquiries the target system MMU to retrieve designated bytestream directly from target physical memory.} % \footnote{Observe that said bytestream may not be present in secondary storage, due to memory page locking.}
 \label{fig:virtualmemory}
 \end{figure}
+
+\subsection{Experimental Methodology}
+\label{sec:experimentalmethodology}
+From this chapter onward, the term 'experiment' is used to refer to the experimental methodology put in place to answer the question formulations phrased in chapter \ref{cha:aimsandobjectives}.
+The author would like to emphasize that the terminology is simply used to denote a method of experimentation to answer, that is verify or refute the validity of the hypotheses that may be intrinsically derived from-, the research questions outlined in chapter \ref{cha:aimsandobjectives}.
+As such, 'experiment' does not refer to controlled-, natural-, or field experiment methodologies, or indeed any other specific method for experimentation unless specified otherwise.
+The author reserves the right to use the following terminology interchangeably: study, case study, and experiment.
+
+As such, the terminology used to describe the experimental methodology produced for the purpose of this study, henceforth referred to as 'the experiment', is not meant to be indicative of the method quality, or in any way indirectly describe said experimental methodology.
+Below, the methods used to perform the experiment are presented.
+
+% Platform Configuration
+\subsubsection{Platform Configuration}
+\label{sec:experimentalmethodology_platformconfiguration}
+The experiment devised for the purpose of this dissertation is performed in software rasterized- and paravirtualized Simics platforms, respectively.
+Furthermore, the experiment profiles the performance of the Android emulator to relate the devised solution to pre-existing technologies, in addition to execution on the hardware accelerated host platform as a reference case.
+The following paragraphs outline the configuration of these target platforms, in terms of host configuration, simulated hardware, and the software configuration of the simulated systems.
+
+% Host Configuration
+\paragraph{Host Configuration}
+\label{par:experimentalmethodology_platformconfiguration_hostconfiguration}
+The system upon which the experiment is performed is an x86 -compatible Haswell Intel\circledR processor configured to run the Fedora 19 Linux distribution.
+Said OS was selected for use due to Fedora 19 being the primary platform used for development of the Simics full-system simulator at the Intel\circledR offices in Stockholm - at which the solution described in this document has been developed.
+
+% Target Hardware Configuration
+\paragraph{Target Hardware Configuration}
+\label{par:experimentalmethodology_platformconfiguration:targethardwareconfiguration}
+The Simics hardware configuration utilized for the purpose of this experiment simulates an Intel\circledR\ Core	exttrademark\ i7; the same processor series to that of the actual hardware of the simulation host system.
+Furthermore, Simics execution, both the software rasterized and paravirtualized platforms, utilize KVM for the simulation target to run natively on the host hardware.
+In order to accommodate for similar acceleration in QEMU, Android is configured to run on the Intel\circledR Android x86 system image (see \dvtcmdciteref{technicaldocs:intel:2013:x86}), circumventing the need to interpret ARM instructions~\dvtcmdciteref{web:stylianou:2010}.
+Furthermore, the solution also utilize KVM in order to provide similar native execution on the host hardware\footnote{Had the solution been running on the Windows OS, the solution would have utilized Intel\circledR\ HAXM (see ~\dvtcmdciteref{technicaldocs:intel:2013:haxm}) to accommodate for said native execution~\dvtcmdciteref{web:hofemeier:2010}.}.
+
+% Target Software Configuration
+\paragraph{Target Software Configuration}
+\label{par:experimentalmethodology_platformconfiguration_targetsoftwareconfiguration}
+In line with Fedora $19$ being the OS in use when performing the reference benchmark experiments on the host platform (see paragraph \dvtcmdrefname{par:experimentalmethodology_platformconfiguration_hostconfiguration}), it may be of value to have the simulated target machine configured to run with the same OS.
+As such, the platform OSs used for the purpose of this study are as follows:
+\begin{itemize}[noitemsep]
+	\item Hardware accelerated Fedora $19$ host system
+	\item Software rasterized\footnote{Using the Mesa OpenGL software rasterization implementation.} Fedora 19 Simics target system
+	\item Paravirtualized Fedora $19$ Simics target system
+	\item Paravirtualized Android $4.4$\footnote{Android KitKat - API level $19$.} QEMU target system
+\end{itemize}
+
+% Benchmarks
+\subsubsection{Benchmarks}
+\label{sec:experimentalmethodology_benchmarks}
+Throughout the course of the pilot study, no existing OpenGL~ES~$2.0$ benchmark (featuring cross-platform profiling support for Android and X11 Linux ) was deemed appropriate for for the purposes of this experiment.
+As such, a number of benchmarks have been devised on-site for the purposes of stress-testing the paravirtualized technology described in this document.
+The benchmarks, numbering three in total, are intended to stress suspected bottlenecks in the implementation; corresponding to a large number of relatively insignificant OpenGL~ES invocations, computationally intensive GPU kernels, and passing of large data such as textures or models.
+Since the benchmarks are required to run in both Linux - and Android platforms, the benchmarking suite utilize Java native interface to invoke OpenGL~ES from the same 	exttt{C} code base independent of platform.
+Effectively, this entails having the benchmarks produced using \texttt{Java}, \texttt{C}, and \texttt{GLSL}, collectively.
+Furthermore, all benchmarks are configured to run at roughly $16$~\milli\second , which would correspond to roughly $60$~frames per second, when hardware accelerated on the host system.
+The benchmarks are devised in this way in order to reflect the expected load of a modern real-time interactive application.
+As such, the purpose of developed benchmarks is to be representative of typical scenarios induced by modern graphics applications whilst utilizing a graphics framework such as OpenGL.
+When run during the experiment, each benchmark instance measures the elapsed time of $1000$ frames which makes up the data subsequently analyzed.
+Frame captures of the benchmarks are presented in figures \ref{fig:benchmarks_chess}, \ref{fig:benchmarks_julia}, and \ref{fig:benchmarks_phong}.
+
+\begin{figure}
+  \minipage{0.32\linewidth}
+  \includegraphics[width=\linewidth]{img/imgchess.png}
+  \caption[Chess benchmark screen capture]{Chess.}
+  \label{fig:benchmarks_chess}
+  \endminipage\hfill
+  \minipage{0.32\linewidth}
+  \includegraphics[width=\linewidth]{img/imgjulia.png}
+  \caption[Julia benchmark screen capture]{Julia.}
+  \label{fig:benchmarks_julia}
+  \endminipage\hfill
+  \minipage{0.32\linewidth}
+  \includegraphics[width=\linewidth]{img/imgphong.png}
+  \caption[Phong benchmark screen capture]{Phong.}
+  \label{fig:benchmarks_phong}
+  \endminipage
+\end{figure}
+
+% Benchmark: Chess
+\paragraph{Benchmark: Chess}
+\label{par:experimentalmethodology_benchmarking_benchmarkchess}
+\index{Chess benchmark}
+The 'Chess' benchmark is developed for the purposes of stressing the latency in-between target - and host systems.
+It is so named because of the chess-like tileset the graphics kernel produces.
+The benchmark is designed to perform a multitude of OpenGL~ES~$2.0$ library invocations per frame; in which each invocation is relatively lightweight in execution and carry a small amount of data argument-wise.
+In the Chess benchmark, this is achieved by rendering a grid of colored (black or white, in order to adhere to the chess paradigm) rectangles where each tile is represented by four two-dimensional vertices in screen-space, in addition to six indices outlining the rectangular shape.
+Since the vertices are already transformed into screen-space, the graphics kernel need perform no additional transformation, adhering to the desired lightweight behavior of each kernel invocation.
+Additionally, the tileset vertices and indices are pre-loaded into OpenGL vertex- and index element buffers, so that a lone buffer identifier may be carried over in-place of the heavier vertex set load.
+Each tile is then individually drawn to the backbuffer, rendering the chess-like appearance of the benchmark.
+Effectively, this means that, for each tile, the benchmark need only bind a vertex- and an index element buffer, set the corresponding tile color, and lastly invoke the rendering of said tile.
+
+For each frame rendered, depending on the number of drawn tiles, the solution will perform a large number of magic instructions.
+This induces a high utilization of the Simics Pipe, which is intended to stress magic instruction overhead (section \ref{sec:results_magicinstructionoverhead}).
+The repeated invocation of lesser draw calls is representative of common usage of drawing a multitude of shapes with OpenGL, such as a user interface. Additionally, the number of tiles being computed is easily modifiable; rendering the benchmark scalable for the purposes of the experiment described in this document. As such, said benchmark is considered suitable for the purpose of representing a large number of graphics invocations using OpenGL~ES~$2.0$.
+
+% Benchmark: Julia
+\paragraph{Benchmark: Julia}
+\label{par:experimentalmethodology_benchmarking_benchmarkjulia}
+\index{Julia fractal benchmark}
+The 'Julia' benchmark is developed for the purposes of stressing computational intensity in software-rasterized and paravirtualized platforms.
+It is so named due to the kernel calculating the Julia fractal; the texturing and frame-wise seeding of which gives the benchmark it's distinct look.
+The benchmark is designed to perform a lone computationally intensive graphics kernel invocation, which will stress the computational prowess of the profiled platform.
+The case is selected for use as the computation of a fractal is trivially scalable in terms of complexity, by modifying the number of iterations the fractal algorithm performs, and is thus considered suitable for profiling of computationally intensive graphics kernels.
+
+% Benchmark: Phong
+\paragraph{Benchmark: Phong}
+\label{par:experimentalmethodology_benchmarking_benchmarkphong}
+\index{Phong shading benchmark}
+The 'Phong' benchmark is developed for the purposes of stressing the throughput, or bandwidth - if adhering to the networking paradigm, in-between target - and host systems.
+The Phong benchmark is comprised of a rotating model, being the Newell teapot, which is textured and subsequently shaded by a single point light using the Phong shading model; thus giving the benchmark it's name. % \todo{point out as to why the newell teapot is a standard model}
+
+The rasterization and shading of a model with a given, large, texture is representative of three-dimensional graphics commonly rendered with graphics frameworks such as OpenGL~ES~$2.0$.
+As such, said benchmark is suitable for the purposes of representing the usage of big data (being models, textures, etc.).
+For the purposes of stressing the bandwidth of target - and host communication, the Phong benchmark is easily scalable in terms of resizing the large texture in question.
+Vertices and indices of the model do not utilize OpenGL vertex- and-/or index element buffers, thus forcing the solution to transmit the data every frame.
+Additionally, in order to further stress the throughput of the profiled platform, texture data is updated every frame.
+
+% Input Data Variation
+\subsubsection{Input Data Variation}
+\label{sec:experimentalmethodology_inputdatavariation}
+In order to detect anything but linear potential of scaling in software rasterized- and paravirtualized Simics platforms, the benchmarks are configured to run in three separate instances, respectively.
+These benchmark versions differ in terms of input data; where said input is a changed variable that could potentially worsen benchmark performance (e.g., larger texture).
+The purpose of these 'input data variations' is to detect any unexpected results in execution; and thus identify any performance complexity issues in software rasterized- and paravirtualized Simics platforms.
+For consistency, each benchmark variation - of which there are two; resulting in three unique experiments per benchmark - have been produced to halve- and subsequently double the corresponding input data.
+The described input data, for each benchmark, is presented in table \ref{tab:keyvals}.
+Consequently, in table \ref{tab:keyvalsmagicinstructions}, the per-frame number of magic instructions induced by these input data variations are presented, differing only for the Chess benchmark.
+
+% Renders a table defining the key figures used for benchmark
+% variations for the purpose of the experimend performed for this
+% dissertation.
+\begin{table}
+  \centering
+  \begin{tabular}{lllll}
+    Benchmark & Input Data & Halved Input & Ref. Input & Double Input \\ \hline
+    Chess & No. Tiles & $60\times60$ & $84\times84$ & $118\times118$ \\
+    Julia & No. Iterations & $225$ & $450$ & $900$ \\
+    Phong & Texture Resolution & $1448\times1448$ & $2048\times2048$ & $2896\times2896$ \\
+  \end{tabular}
+  \caption[Input data variations]{Input data used for benchmark variations for each benchmark.}
+  \label{tab:keyvals}
+\end{table}
+
+% Renders a table defining the number of magic instructions performed
+% for the benchmarks used in this experiment.
+\begin{table}
+  \centering
+  \begin{tabular}{lllll}
+    Benchmark & \phantom{Input Data} & Halved Input & Ref. Input & Double Input \\ \hline
+    Chess & \phantom{No. Tiles} & $32403$ & $63507$ & $125319$ \\
+    Julia & \phantom{No. Iterations} & $16$ & $16$ & $16$ \\
+    Phong & \phantom{Texture Resolution} & $17$ & $17$ & $17$ \\
+  \end{tabular}
+  \caption[Input data variation magic instruction count]{Number of magic instructions performed per-frame for each benchmark input data variation.}
+  \label{tab:keyvalsmagicinstructions}
+\end{table}
+
+Note that for each tile rendered in the Chess benchmark, the solution will perform $9$ magic instructions; entailing a total of $32400$\footnote{$9\times60\times60=32400$.}, $63504$\footnote{$9\times84\times84=63504$.}, and $125316$\footnote{$9\times118\times118=125316$.} magic instructions, respectively, in addition to a minor number per-frame.
+
