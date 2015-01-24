@@ -4,4 +4,44 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-\ldots
+In chapter \ref{cha:results}, we established strengths and weaknesses of paravirtualized graphics in the Simics full-system simulator; most notably the bottleneck introduced by the overhead of magic instructions in the Chess benchmark, which - in accordance to the findings presented in section \ref{sec:results_magicinstructionoverhead} - made out the majority of elapsed frame time.
+As such, the methodology of creating benchmarks for the purpose of identifying such bottlenecks has confirmed original suspicions.
+In this way, the study has identified performance bottlenecks in great numbers of paravirtualized library functions when utilizing magic instruction technologies.
+However, in regard to performance improvements presented in chapter \ref{cha:results}, the performed experiments establishes the competence of magic instructions for fast target -to-host communications of arbitrary size, including large data, in paravirtualized real-time graphics.
+
+Furthermore, compiled results have showcased radical improvements for computationally intensive graphics kernels, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
+As such, this study has, in addition to identifying the bottleneck induced by software rasterization for computationally intensive graphics kernels, accelerated graphics by up to $34$ times; reducing frame time from that of \dvtcmdfirstline{simicsjulia900.dat.avg} ms to the real-time feasible count of \dvtcmdfirstline{parajulia900.dat.avg} ms.
+As speculated upon in chapter \ref{cha:results}, there is cause to believe that the paravirtualized solution described in this document may accelerate the Julia benchmark, as compared with software rasterized Simics, to that of two orders of magnitude.
+In this way, based off the results presented in chapter \ref{cha:results}, the experiment has identified the potential of using paravirtualization for the means of accelerating graphics to that of real-time performance; testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics (see \dvtcmdcitebib{inproceedings:lagarcavilla:2007}).
+
+Additionally, beyond that of accelerated graphics, the results gathered for the purpose of this study indicates performance improvements in terms of maximum frame times (both in Chess and Phong benchmarks); leading to that of significantly improved standard deviation.
+In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with better frame times as portrayed by the Julia benchmark, the feasibility of utilizing paravirtualized methodologies for the purposes of accelerating graphics in virtual platforms.
+
+As to summarize; this thesis has demonstrated performance improvements by accelerating graphics using paravirtualization.
+By this addition, the benefits of graphics virtualization has been identified as performance improvements of up to $34$ times; speculating in possible performance improvements of up to two orders of magnitude.
+The bottlenecks the solution devised for the purpose of this experiment have been identified as magic instruction overhead.
+As such, a possible drawback of graphics paravirtualization has been identified as a weakness to large amounts of framework invocations.
+
+In chapter \dvtcmdrefname{cha:discussion}, an analysis of the prerequisites of advanced functionality such as deterministic execution, checkpointing, and reverse execution is presented, along with the conclusion that such integration ought be possible presuming a number of assumptions.
+Thus, this dissertation claims paravirtualization as a successful formula for graphics acceleration in virtual platforms; with no obvious obstacles obstructing future Simics advanced functionality.
+
+As to conclude; for the purposes of this dissertation, a solution for graphics acceleration has been implemented in the Simics full-system simulator by the means of paravirtualization (see chapter \ref{cha:proposedsolutionandimplementation}).
+The end-result is a solution which may generate libraries imitating the EGL - and OpenGL~ES~$2.0$ libraries.
+By the means of preloading, the solution may effectively overload and spy in on an applications EGL utilization with a target window; without inhibiting said exchange - allowing unmodified OpenGL applications to be accelerated from within the simulation target.
+Said solution communicates by the means of low-latency magic instructions, and there is no apparent limit as to how much memory may be shared\footnote{In Linux, there is a limit as to how much memory a user-space application may lock. However, this limit may be set to appropriate limits by the user beforehand, alternatively running the application as a super-user; circumventing said limit.} (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
+As such, throughout this document, several of the issues pertaining to graphics acceleration via paravirtualization, including - but not limited to, target -to-host memory sharing, have been tackled, studied, and presented.
+
+For the purposes of the experiment performed for the sake of thesis, three benchmarks have been developed with the distinct purpose of profiling bottlenecks and potential weaknesses and strengths of graphics acceleration by the means of paravirtualization in the Simics full-system simulator (see section \ref{sec:experimentalmethodology_benchmarks}).
+Said benchmarks have been performed on the host system, the QEMU -derived Android emulator, and in software rasterized- and paravirtualized Simics platforms.
+Furthermore, the benchmarks (created specifically to identify issues related to memory latency, memory bandwidth, and computational complexity in the paravirtualized solution) have contributed to our understanding of the difficulties facing paravirtualized graphics acceleration.
+
+In chapter \ref{cha:results}, we have presented an analysis of the results compiled throughout the performed experiments; along with an investigation into the scalability of the graphics acceleration for the tested benchmarks; for software rasterized- and paravirtualized Simics platforms.
+we have compiled and presented an analysis on the benefits and drawbacks of paravirtualization as a means to achieve graphics acceleration in virtual platforms; backed by hard data produced by a number of benchmarks stressing key points in the solution with the purpose of identifying both strengths and weaknesses in the discussed methodology.
+Accordingly, this dissertation has established the feasibility of using paravirtualization to accelerate graphics in virtual platforms to that of real-time qualities.
+
+Additionally, the collected results have been compared with another platform using similar methodologies to accelerate the same graphics framework.
+Based off of these results, chapter \ref{cha:results} presents an analysis comparing the two platforms; being the QEMU -derived Android emulator and the paravirtualized Simics solution.
+From this analysis, we have established points of improvement in the paravirtualized solution developed for the Simics simulator.
+Furthermore, and based on the performance boasted by the Android emulator 's paravirtualized graphics acceleration when stressed by the Chess benchmark, we have predicted possible improvements in the Simics Pipe (see section \ref{sec:proposedsolutionandimplementation_simicspipe}) communications link of up to one order of magnitude.
+
+As such, in coagency with the results compiled in chapter \ref{cha:results}, collected by the means presented in chapter \ref{cha:experimentalmethodology}, and based on the solution portrayed in chapter \ref{cha:proposedsolutionandimplementation}, pertaining to the idea of real-time graphics in detailed full-system simulators, this dissertation suggests utilizing high-level paravirtualization to accelerate graphics-, and as means to overcome accessibility bottlenecks, in virtual platforms.
