@@ -137,7 +137,7 @@ Below, the methods used to perform the experiment are presented.
 % Platform Configuration
 \subsubsection{Platform Configuration}
 \label{sec:experimentalmethodology_platformconfiguration}
-The experiment devised for the purpose of this dissertation is performed in software rasterized- and paravirtualized Simics platforms, respectively.
+The experiment devised for the purpose of this paper is performed in software rasterized- and paravirtualized Simics platforms, respectively.
 Furthermore, the experiment profiles the performance of the Android emulator to relate the devised solution to pre-existing technologies, in addition to execution on the hardware accelerated host platform as a reference case.
 The following paragraphs outline the configuration of these target platforms, in terms of host configuration, simulated hardware, and the software configuration of the simulated systems.
 
@@ -250,7 +250,7 @@ Consequently, in table \ref{tab:keyvalsmagicinstructions}, the per-frame number 
 
 % Renders a table defining the key figures used for benchmark
 % variations for the purpose of the experimend performed for this
-% dissertation.
+% paper.
 \begin{table}
   \centering
   \begin{tabular}{lllll}
@@ -320,7 +320,7 @@ These paragraphs are presented below.
   \label{fig:histogramsqemu}
 \end{figure}
 
-% Defines a table outlining the performance of the thesis benchmark
+% Defines a table outlining the performance of the paper benchmark
 % whilst hardware accelerated on the host platform.
 \begin{table}
 \centering
@@ -336,7 +336,7 @@ Phong & \dvtcmdfirstline{hostphong2048x2048.dat.min} & \dvtcmdfirstline{hostphon
 \label{tab:keyvalhost}
 \end{table}
 
-% Defines a table outlining the performance of the thesis benchmark
+% Defines a table outlining the performance of the paper benchmark
 % whilst paravirtualized in the QEMU-derived Android Emulator.
 \begin{table}
 \centering
@@ -352,7 +352,7 @@ Phong & \dvtcmdfirstline{qemuphong2048x2048.dat.min} & \dvtcmdfirstline{qemuphon
 \label{tab:keyvalqemu}
 \end{table}
 
-% Defines a table outlining the performance of the thesis benchmark
+% Defines a table outlining the performance of the paper benchmark
 % whilst software rasterized in the Simics full-system simulator.
 \begin{table*}
   \centering
@@ -386,7 +386,7 @@ Phong & \dvtcmdfirstline{qemuphong2048x2048.dat.min} & \dvtcmdfirstline{qemuphon
   \label{tab:keyvalsimics}
 \end{table*}
 
-% Defines a table outlining the performance of the thesis benchmark whilst paravirtualized in the para full-system simulator.
+% Defines a table outlining the performance of the paper benchmark whilst paravirtualized in the para full-system simulator.
 \begin{table*}
   \centering
   \providecommand{\chesskeyone}{$60\times60$ tiles}
@@ -477,7 +477,7 @@ It is unclear what causes the compiled paravirtualized Phong benchmark to perfor
 The effect could be attributed to a bottleneck in the memory page traversal, as described in section \ref{sec:proposedsolutionandimplementation_pagetabletraversal}, signifying a possible weakness in - in addition to the communication latency as established in paragraph \dvtcmdrefname{par:results_chess} - the memory bandwidth of the Simics Pipe (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
 
 In line with the recorded competitive average- and minimum frame times yet major improvements in frame time maximum and standard deviation; one might also argue that the relatively lightweight benchmark is misrepresentative in that its software rasterized execution is below that of the overhead induced by paravirtualization.
-However, due to the deviances described in section \ref{sec:threatstovalidity_benchmarkvariations}, this will not be elaborated upon further for the remainder of this dissertation.
+However, due to the deviances described in section \ref{sec:threatstovalidity_benchmarkvariations}, this will not be elaborated upon further for the remainder of this paper.
 
 \begin{sidewaysfigure*}
   \centering
@@ -579,7 +579,7 @@ Thus, the established overhead cost for $1000$ magic instructions is summarized 
 \label{sec:analysisexperiment_platformcomparison}
 In the sections above, results have been presented indicating performance gains, and potential for gains, in Simics platforms by the means of accelerating graphics using paravirtualization.
 However, in accordance to figure \ref{fig:histogramsqemu} and table \ref{tab:keyvalqemu}, the platform on which the these results have been produced also utilizing paravirtualized methodology, there is much potential for improvement.
-The benchmarks, when executed in the paravirtualized Android emulator, exhibit better performance in each test performed for the purposes of this dissertation; most notably outperforming the software rasterized Simics platform for the Chess benchmark.
+The benchmarks, when executed in the paravirtualized Android emulator, exhibit better performance in each test performed for the purposes of this paper; most notably outperforming the software rasterized Simics platform for the Chess benchmark.
 The Chess benchmark, incurring such an overhead when paravirtualized in Simics (see paragraph \dvtcmdrefname{par:results_chess}) due to overhead induced by magic instructions (see section \ref{sec:results_magicinstructionoverhead}), performs but roughly two times worse than its hardware accelerated counterpart at \dvtcmdfirstline{qemuchess84x84.dat.avg} milliseconds average (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalhost}).
 These results indicate potential for improvement in the target -to-host communications in Simics.
 In fact, considering the large similarities in the paravirtualized methodology for graphics acceleration these two platforms share, the reference performance of the QEMU -derived Android emulator may be considered a goal for a potential productification of paravirtualized graphics in the Simics full-system simulator.
