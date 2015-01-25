@@ -23,7 +23,8 @@ Since GPUs operate significantly different from CPUs, they pose unique challenge
 The increased utilization of GPUs for general purpose workloads has extended the need for virtualization of such hardware in situations when hardware is busy, unavailable, not sufficient, or for the purposes of debugging and profiling~\dvtcmdciteref{web:microsoft:2013:warp}.
 Yet seemingly few virtual platforms support virtualization of GPUs, despite their influence on modern computing.
 
-For the purposes of simulation, different solutions follow varying use-cases. For example, developers interested in benchmarking or driver development for next generation GPU- or CPUs may require detailed simulators that provide insight into execution engines and pipelines~\dvtcmdcitebib[p.~1]{inproceedings:schumacher:2010}.
+For the purposes of simulation, different solutions follow varying use-cases.
+For example, developers interested in benchmarking or driver development for next generation GPU- or CPUs may require detailed simulators that provide insight into execution engines and pipelines~\dvtcmdcitebib[p.~1]{inproceedings:schumacher:2010}.
 Albeit applicable in certain use-cases and capable of running 'toy' applications, such platforms are often orders of magnitude too slow to run commercial workloads~\dvtcmdcitebib[p.~50]{journals:magnusson:2002}.
 Application developers, on the other hand, do not necessarily care for the internal workings of hardware as they typically work at a higher abstraction level, for example; utilizing a graphics API (such as OpenGL) that, in turn, communicate with the device driver.
 As such, application developers may be more interested in achieving decent simulation performance rather than a timing-accurate processor model (see \dvtcmdcitebib[p.~30]{publications:leupers:2010} for an analysis of compromises in system simulation).
