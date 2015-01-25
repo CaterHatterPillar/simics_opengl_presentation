@@ -31,28 +31,28 @@ As such, application developers may be more interested in achieving decent simul
 However, due to large differences in-between CPU and GPU architecture, simply delegating GPU-bound workloads to the CPU is rarely feasible in terms of performance.
 
 Common approaches to achieve better simulation performance includes creating a functionally accurate model of the GPU, where internal details may be simplified, or using software rasterization without involving the GPU model.
-However, these methodologies traditionally incur heavy performance losses in comparison to GPU hardware acceleration.
-In order to achieve better performance, one may offload such kernels to the GPU of the system on which the simulation runs, often referred to as the simulation host.
-There are a number of way to achieve such acceleration, such as relying on PCI~passthrough and similar technologies to grant access to the underlying host hardware from within the virtual platform~\dvtcmdcitebib[p.~415,~416]{inproceedings:regola:2010} (see \dvtcmdciteref{web:jones:2009} for an overview on PCI~passthrough), or utilizing a concept commonly referred to as 'Paravirtualization' at a higher level of abstraction (e.g., the OpenGL library).
+However, these methodologies traditionally incur heavy performance losses in comparison to hardware acceleration.
+In order to achieve better performance, one may 'offload' such kernels to the GPU of the system on which the simulation runs - often referred to as the simulation host.
+There are a number of ways to do so, such as relying on PCI~passthrough and similar technologies to grant access to the underlying host hardware from within the virtual platform~\dvtcmdcitebib[p.~415,~416]{inproceedings:regola:2010}\dvtcmdciteref{web:jones:2009}, or utilizing a concept commonly referred to as 'Paravirtualization' at a higher level of abstraction (e.g., the OpenGL library).
 
-Paravirtualization is a relatively new term originally defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity~\dvtcmdcitebib[p.~165-166]{magazines:bartholomew:2006}.
-Effectively, this means modifying the virtual machine to be similar, but not identical, to host hardware~\dvtcmdcitebib[p.~165]{journals:barham:2003}.
+Paravirtualization is a relatively new term defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity~\dvtcmdcitebib[p.~165-166]{magazines:bartholomew:2006}.
+Effectively, this entails modifying the virtual machine to be similar, but not identical, to host hardware~\dvtcmdcitebib[p.~165]{journals:barham:2003}.
 As such, one may simplify the virtualization process by neglecting some hardware compatibility~\dvtcmdcitebib[p.~1]{inproceedings:youseff:2006}.
+
 Implementing GPU simulation by the means of Paravirtualization provides the benefits of improved simulation performance, albeit it may entail loosing some of the benefits a virtual platform can provide.
 For example, it may be challenging to support advanced features such as deterministic execution, checkpointing, and reverse execution.
-Additionally, paravirtualization entails modifying the simulated system, since some part of the target machine must be modified to accommodate the paravirtualized methodology.
-\hl{Yet, aforementioned technique is the preferred method of Google in the Android SDK when utilizing the QEMU virtual platform in order to simulate OpenGL~ES.}
+However, paravirtualization entails modifying the simulated system, as some part of the target machine must be modified to accommodate the paravirtualized technology.
 
 This paper comprises an investigation of paravirtualization of OpenGL~ES in the Simics virtual platform.
-The work presents an implementation of accelerated OpenGL~ES~$2.0$ graphics by the means of paravirtualization and using magic instructions as a communications bridge.
-In addition to this, we present the development of \hl{three benchmarks} stressing important attributes of the devised solution.
-Using the results collected from the execution of said benchmarks on a number of platforms, the solution is evaluated.
-Furthermore, this paper identifies performance bottlenecks obstructing large numbers of paravirtualized invocations for the purposes of real-time graphics.
-The results presented in this paper show performance improvements of up to $34$ times in relation to software rasterized counterparts.
+The work presents an implementation of accelerated OpenGL~ES~$2.0$ graphics by the means of paravirtualization; using magic instructions as a communications bridge.
+In addition to this, we present benchmarks stressing important attributes of the devised solution.
+Using the results collected from the execution of said benchmarks, on a number of platforms, the solution is evaluated.
+Furthermore, the study identifies performance bottlenecks obstructing large numbers of paravirtualized invocations for the purposes of real-time graphics.
+The results presented in this paper show performance improvements of up to $34$ times compared to software rasterized counterparts.
 
-The remainder of the report presents the objectives and question formulations adhering to the presented study.
+\hl{The remainder of the paper present the objectives and question formulations adhering to the presented study.
 Additionally, an introductory chapter on relevant background and preceding work in the area - expanded upon by a succeeding chapter concerning the Simics full-system simulator - means to bring about many of the terms and concepts used in the subsequent material.
 Next, a description of the devised paravirtualized implementation is presented along with a chapter on experimental methodology.
 Furthermore, this paper features an elaboration on potential threats to validity before detailing the results collected using the methods described in prior chapters.
 The material is then finalized by a speculative discussion chapter, analyzing the paravirtualized solution in regard to advanced functionality in the Simics full-system simulator, foregoing the conclusions which may be established from the compiled material.
-\hl{Finally, the paper is concluded by a report on recommended future work in the area.}
+Finally, the paper is concluded by a report on recommended future work in the area.}
