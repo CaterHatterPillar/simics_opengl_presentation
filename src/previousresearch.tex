@@ -77,24 +77,6 @@ This may be useful when debugging, profiling, or testing, as difficult-to-reach 
 In Simics, 'reverse execution' denotes said ability - spanning the entirety of simulated systems~\dvtcmdcitebib[p.~30,~31]{publications:leupers:2010}.
 Accordingly, simulated systems may be run in reverse; including virtualized hardware device states, disk contents and CPU registers~\dvtcmdcitebib[p.~20,~21]{journals:aarno:2013} whilst maintaining simulated system determinism~\dvtcmdciteref{web:engblom:2013:backtorevexe}.
 
-\subsection{OpenGL ES}
-\label{sec:backgroundandrelatedwork_opengles}
-OpenGL~ES is an API for 3D-graphics on an assortment of embedded systems, such as mobile devices or vehicle displays~\dvtcmdcitebib{publications:munshi:2008}.
-The OpenGL~ES set of APIs is developed by Khronos, the same consortium responsible for the development of the OpenGL APIs, which - unlike OpenGL for embedded systems - is intended for desktop graphics~\dvtcmdcitebib{publications:wright:2010}.
-The OpenGL~ES APIs are traditionally derived from the standard OpenGL APIs, and are thus similar in appearance albeit more limited~\dvtcmdcitebib{publications:wright:2010}.
-
-The OpenGL~ES~$2.0$ API is selected for use due to its programmable shaders and reduced function set, in addition to accelerated support for the API in the Android emulator.
-
-%% The OpenGL~ES specification is intended to adhere to the following specifications, in relation to the original OpenGL APIs~\dvtcmdcitebib{publications:munshi:2008}:
-%% \begin{itemize}[noitemsep]
-%%         \item Reduce complexity, but attempt maintain compatibility with OpenGL when possible.
-%%         \item Optimize power consumption for embedded devices.
-%%         \item Incorporate a set of quality specifiers into the OpenGL~ES specification. This includes minimum quality specifiers for image quality into the standard; accommodating for limited screen sizes in embedded systems.
-%% \end{itemize}
-
-%% OpenGL~ES~$2.0$ consists of two Khronos specifications; being the OpenGL~ES~$2.0$ API specification and the OpenGL~ES Shading Language Specification~\dvtcmdcitebib{publications:munshi:2008}.
-%% Being derived from the OpenGL ~$2.0$ specification~\dvtcmdcitebib{publications:wright:2010}, OpenGL~ES~$2.0$ supports programmable shaders and is no longer encumbered by the fixed functionality that characterized earlier versions of the OpenGL and OpenGL~ES APIs~\dvtcmdcitebib{publications:munshi:2008}; making the API a modern contestant amongst a variety of applications on a range of platforms, such as the Android and iOS operating systems~\dvtcmdcitebib{publications:wright:2010}, popular on modern smartphones.
-
 % Graphics Virtualization
 \subsection{Graphics Virtualization}
 \label{sec:backgroundandrelatedwork_graphicsvirtualization}
@@ -215,3 +197,21 @@ However, the solution is often designed to only respond to magic instructions wh
 %% The introduction of a number of CPU-oriented optimizations for simulating GPU-bound workloads on CPUs has made it possible to simulate such kernels several times faster than traditional simulation.
 %% Although orders of magnitudes slower, such optimizations may ease the simulation of GPU workloads on CPUs, as indicative by some studies~\dvtcmdcitebib{papers:nilsson:2013}.
 %% However, without hardware-assisted virtualization, the execution of GPU workloads on CPUs quickly becomes unfeasible; inducing the need of more advanced graphics simulation methodologies.
+
+%% \subsection{OpenGL ES}
+%% \label{sec:backgroundandrelatedwork_opengles}
+%% OpenGL~ES is an API for 3D-graphics on an assortment of embedded systems, such as mobile devices or vehicle displays~\dvtcmdcitebib{publications:munshi:2008}.
+%% The OpenGL~ES set of APIs is developed by Khronos, the same consortium responsible for the development of the OpenGL APIs, which - unlike OpenGL for embedded systems - is intended for desktop graphics~\dvtcmdcitebib{publications:wright:2010}.
+%% The OpenGL~ES APIs are traditionally derived from the standard OpenGL APIs, and are thus similar in appearance albeit more limited~\dvtcmdcitebib{publications:wright:2010}.
+
+%% The OpenGL~ES~$2.0$ API is selected for use due to its programmable shaders and reduced function set, in addition to accelerated support for the API in the Android emulator.
+
+%% The OpenGL~ES specification is intended to adhere to the following specifications, in relation to the original OpenGL APIs~\dvtcmdcitebib{publications:munshi:2008}:
+%% \begin{itemize}[noitemsep]
+%%         \item Reduce complexity, but attempt maintain compatibility with OpenGL when possible.
+%%         \item Optimize power consumption for embedded devices.
+%%         \item Incorporate a set of quality specifiers into the OpenGL~ES specification. This includes minimum quality specifiers for image quality into the standard; accommodating for limited screen sizes in embedded systems.
+%% \end{itemize}
+
+%% OpenGL~ES~$2.0$ consists of two Khronos specifications; being the OpenGL~ES~$2.0$ API specification and the OpenGL~ES Shading Language Specification~\dvtcmdcitebib{publications:munshi:2008}.
+%% Being derived from the OpenGL ~$2.0$ specification~\dvtcmdcitebib{publications:wright:2010}, OpenGL~ES~$2.0$ supports programmable shaders and is no longer encumbered by the fixed functionality that characterized earlier versions of the OpenGL and OpenGL~ES APIs~\dvtcmdcitebib{publications:munshi:2008}; making the API a modern contestant amongst a variety of applications on a range of platforms, such as the Android and iOS operating systems~\dvtcmdcitebib{publications:wright:2010}, popular on modern smartphones.
