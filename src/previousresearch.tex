@@ -78,7 +78,7 @@ Accordingly, simulated systems may be run in reverse; including virtualized hard
 
 % Graphics Virtualization
 \subsection{Graphics Virtualization}
-\label{sec:backgroundandrelatedwork_graphicsvirtualization}
+\label{sec:previousresearch_graphicsvirtualization}
 There are a number of ways of virtualizing GPUs in system simulators, a few of which accommodate for hardware acceleration of GPU kernels.
 When faced with tackling the issue of GPU virtualization, there are equally many variables to consider as there are options; the first of which is the purpose of said virtualization.
 The Simics architectural simulator is by all means a full-system simulator; meaning, as portrayed in chapter \ref{sec:simics}, that it may run real-software stacks without modification.
@@ -89,7 +89,7 @@ Summaries of these methodologies are presented in this section.
 
 % GPU Modeling
 \paragraph{GPU Modeling}
-\label{par:backgroundandrelatedwork_graphicsvirtualization_gpumodeling}
+\label{par:previousresearch_graphicsvirtualization_gpumodeling}
 One may consider developing a full-fletched GPU model; that is, virtualizing the GPU ISA.
 This methodology may be appropriate for the purposes of low-level development close to GPU hardware.
 For example, one might imagine the scenario of driver development for next-generation GPUs.
@@ -100,7 +100,7 @@ Furthermore, the modeling of massively parallelized GPU technology on CPUs induc
 
 % PCI Passthrough
 \paragraph{PCI Passthrough}
-\label{par:backgroundandrelatedwork_graphicsvirtualization_pcipassthrough}
+\label{par:previousresearch_graphicsvirtualization_pcipassthrough}
 Furthermore, one ought to examine the benefits of PCI~passthrough; allowing virtual systems first-hand access to host machine devices~\dvtcmdciteref{web:jones:2009}.
 The direct contact with host system devices accommodated by methodologies such as PCI~passthrough enable fully-fledged hardware accelerated graphics.
 Yet the methodology suffers from several disadvantages, such as requiring dedicated hardware, causing the host system to lose access to devices during the course of simulation.
@@ -111,7 +111,7 @@ As such, and in line with a paravirtualized approach, PCI~passthrough requires m
 
 % Soft Modeling
 \paragraph{Soft Modeling}
-\label{par:backgroundandrelatedwork_graphicsvirtualization_softmodeling}
+\label{par:previousresearch_graphicsvirtualization_softmodeling}
 As an alternative to precise modeling of GPU devices, one might analyze the feasibility of high-speed software rasterization.
 Albeit not up to hardware accelerated speeds, some results indicate an increased feasibility of high-speed software rasterization in modern graphics frameworks (see \dvtcmdciteref{papers:nilsson:2013}), where traditional software rasterization is accelerated using thread pooling optimizations and SIMD technologies~\dvtcmdciteref{web:microsoft:2013:warp}; all for the purposes of optimizing execution for CPU, rather than GPU, execution.
 As such, one may avoid some of the overhead induced by simulating GPU workload on CPUs, which is traditionally not fit for purpose.
@@ -120,7 +120,7 @@ However, without native execution speeds or used with complex GPU workloads, the
 
 % Paravirtualization
 \paragraph{Paravirtualization}
-\label{par:backgroundandrelatedwork_graphicsvirtualization_paravirtualization}
+\label{par:previousresearch_graphicsvirtualization_paravirtualization}
 At a higher level of abstraction, there is the option of virtualization by paravirtualization.
 By selectively modifying target systems, one may modify the inner workings of system attributes and add functionality such as graphics hardware support.
 For the purposes of graphics acceleration, such a system attribute may be a graphics library or a kernel driver.
@@ -137,7 +137,7 @@ In this way, paravirtualization may be considered to be a decent leveling of the
 
 % QEMU
 \subsection{QEMU}
-\label{sec:backgroundandrelatedwork_qemu}
+\label{sec:previousresearch_qemu}
 QEMU ('Quick~Emulator') is an open-source virtual platform described as a full system emulator~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005} and a high-speed functional simulator~\dvtcmdcitebib[p.~1]{inproceedings:shen:2010} (see \dvtcmdciteref[p.~69]{magazines:bartholomew:2006} for an overview of QEMU).
 It supports simulation of several common system architectures and hardware devices and can, like Simics, save and restore the state of a simulation~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005}.
 As such, QEMU may, like Simics, run unmodified target software such as OSs, drivers, and other applications.
@@ -153,7 +153,7 @@ As of Android $4.4$, the Android emulator uses QEMU to simulate ARM and x86 devi
 
 % Magic Instructions
 \subsection{Magic Instructions}
-\label{sec:backgroundandrelatedwork_magicinstructions}
+\label{sec:previousresearch_magicinstructions}
 Sometimes during system simulation, there may be reasons as to why one would like to escape the simulation and resume execution in the real world.
 Such a scenario would be a debugging breakpoint, to share data in-between target and host systems, or for any reason modify the simulation state.
 There are a number of ways to communicate with the outside world (including the host machine) from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as the - arguably - legitimately coined 'magic instruction'.
@@ -167,7 +167,7 @@ However, the solution is often designed to only respond to magic instructions wh
 
 %% % Virtual Time
 %% \subsection{Virtual Time}
-%% \label{sec:backgroundandrelatedwork_virtualtime}
+%% \label{sec:previousresearch_virtualtime}
 %% In terms of system simulation, time often becomes abstract; since it is not necessarily the same for an observer outside of the simulation as that of an observer from the inside.
 %% The variance in virtual time, as compared to that of real-world time, is called 'simulation slowdown' and may reach orders of magnitude faster than that of real-world time, or likewise orders of magnitude slower.
 
@@ -177,7 +177,7 @@ However, the solution is often designed to only respond to magic instructions wh
 %% However, there are cases in which virtual time is worthwhile to profile, such as the performance of virtual system drivers.
 
 %% \subsection{GPU Architecture}
-%% \label{sec:backgroundandrelatedwork_gpuarchitecture}
+%% \label{sec:previousresearch_gpuarchitecture}
 %% GPUs are massively parallel numeric computing processors often used for 3D graphics acceleration.
 %% While CPUs are designed to maximize sequential performance, GPUs are designed to maximize floating-point operations per second throughput; originally required for the floating point linear algebra often needed by 3D graphics.
 %% Additionally, the continuous need for faster processing units, slowed down by the heat dissipation issues limiting clock frequency since 2003~\dvtcmdcitebib{publications:kirk:2010}, has driven the utilization of GPUs for general purpose workloads.
@@ -198,7 +198,7 @@ However, the solution is often designed to only respond to magic instructions wh
 %% However, without hardware-assisted virtualization, the execution of GPU workloads on CPUs quickly becomes unfeasible; inducing the need of more advanced graphics simulation methodologies.
 
 %% \subsection{OpenGL ES}
-%% \label{sec:backgroundandrelatedwork_opengles}
+%% \label{sec:previousresearch_opengles}
 %% OpenGL~ES is an API for 3D-graphics on an assortment of embedded systems, such as mobile devices or vehicle displays~\dvtcmdcitebib{publications:munshi:2008}.
 %% The OpenGL~ES set of APIs is developed by Khronos, the same consortium responsible for the development of the OpenGL APIs, which - unlike OpenGL for embedded systems - is intended for desktop graphics~\dvtcmdcitebib{publications:wright:2010}.
 %% The OpenGL~ES APIs are traditionally derived from the standard OpenGL APIs, and are thus similar in appearance albeit more limited~\dvtcmdcitebib{publications:wright:2010}.

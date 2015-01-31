@@ -4,7 +4,7 @@
 \section{Problem Formulation}
 \label{sec:problemformulation}
 The study presented in this document consists of implementing paravirtualization of a graphics API (being OpenGL~ES~$2.0$ ) in the Simics full-system simulator developed by Intel\circledR and sold through Intel\circledR 's subsidiary Wind River Systems, Inc. 
-The solution devised to accelerate OpenGL adheres to that of the Android emulator, which is elaborated upon in section \ref{sec:backgroundandrelatedwork_qemu}.
+The solution devised to accelerate OpenGL adheres to that of the Android emulator, which is elaborated upon in section \ref{sec:previousresearch_qemu}.
 As such, this study concerns investigating the performance, and the feasibility of extended benefits and advanced functionality, of paravirtualized graphics in a virtual platform.
 This entails investigation, analysis, and development of methods and techniques for efficient communication and execution in the Simics run-time environment.
 Furthermore, the study comprises analysis of the liabilities of paravirtualized technologies in regards to Simics philosophy (being high-performance determinism and repeatability~\dvtcmdcitebib{journals:aarno:2013}).
@@ -17,7 +17,7 @@ The benchmarks are designed to stress latency and bandwidth in target -to-host c
 Based on the devised solution, in coagency with the benchmarks, this study comprises an analysis of the performance of paravirtualized graphics compared to that of traditional software rasterization.
 The objectives of the paper is to evaluate the feasibility of paravirtualization as an approach to accelerate graphics in virtual platforms; along with identifying its strengths and weaknesses.
 
-In line with previous work in the area specified in chapter \ref{cha:backgroundandrelatedwork}, there has been no indication - in academic writing - of any pre-existing solution of paravirtualized graphics APIs signifying deterministic behavior; paving the way for supporting reverse execution graphics.
+In line with previous work in the area specified in chapter \ref{cha:previousresearch}, there has been no indication - in academic writing - of any pre-existing solution of paravirtualized graphics APIs signifying deterministic behavior; paving the way for supporting reverse execution graphics.
 Such functionality could simplify debugging, testing, and profiling of applications comprising some GPU -bound workload; not limited to graphics- or GPU utilization in its entirety.
 Entailed by these research gaps, the research questions formulated in this chapter are considered to be lacking in the field.
 
