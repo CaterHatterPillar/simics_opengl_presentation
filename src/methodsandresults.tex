@@ -59,18 +59,17 @@ As with the the target system libraries, the receiving end of an OpenGL method d
 % Windowing Systems
 \subsection{Windowing Systems}
 \label{sec:proposedsolutionandimplementation_windowingsystems}
-Due to variations in the creation and maintenance of windows on different platforms (i.e., Fedora 19 and Android ), incurred by said platforms utilizing different interfaces for the purpose, the window to which OpenGL renders is kept on the simulation host.
-The problem may be summarized as the dilemma of the target system libraries having to communicate with the correct window (located in the simulation host ), yet having the target system window reporting successful initialization.
-After all, it would be problematic if the OpenGL -utilizing application would have to be modified in order to be paravirtualized.
+Due to variations in the creation and maintenance of windows on different platforms (Fedora, Android, etc.), the window to which OpenGL renders is kept on the simulation host.
+This incurs the dilemma of the target system libraries having to communicate with the fraudelent window to which OpenGL renders (in the simulation host) \textit{and} the native window (for example, reporting successful initialization).
+After all, it would be problematic if the target OpenGL application would have to be modified in order to be paravirtualized.
 Effectively, this means that it would be desirable to maintain the native functionality of the target system EGL library.
-However, in order to swap the backbuffers to which OpenGL renders (in the window present in the host system), one must use EGL methods.
-In this way, the problem comprises a conflict in-between wanting to keep the functionality of the native EGL library, yet modify a small subset of it. 
-This issue is overcome by the use of symbol overriding\footnote{Utilizing \dvtcmdcodeinline{LD_PRELOAD} on the Linux platform.}, which allows the target system libraries to overload a function, serialize and forward the invocation to the host system, locate the next occurrence of the symbol in the symbol table (being the original native EGL function definition), and invoke the original function.
-As such, the target system EGL library does not replace the native target EGL library, as with the OpenGL library, but rather overloads some of its definition.
-This gives the effect of a successfully created window, not having returned any errors in the window creation and maintenance - yet having the application actually communicating with a different window (present in the host system).
+However, in order to swap the backbuffers to which OpenGL renders, one must use EGL.
+In this way, the problem arises of a conflict between wanting to keep the functionality of the native EGL library, yet modify a small subset of it.
+ 
+This issue is overcome by overriding symbols in the target libraries, which allows us to overload a function, serialize and forward the invocation to the host system, locate the next occurrence of the symbol in the symbol table (being the original native EGL function definition), and invoke the original function.
+Accordingly, the target system EGL library does not replace the native target EGL library in its entirety, as with the OpenGL library, but rather extends it a bit.
+This gives the effect of a successfully created window, not having returned any errors in the window creation and maintenance - yet having the application actually communicating with a different window.
 As such, the target system libraries are effectively performing a man-in-the-middle attack on the target EGL library.
-
-In order to run the benchmarks described in section \ref{sec:experimentalmethodology_benchmarks}, the target system libraries need simply overload the \dvtcmdcodeinline{eglSwapBuffers} function, but the solution could easily be extended to listen in on requested window dimensions and other window attributes; effectively circumventing the need to heed any differences in-between platform-specific windowing systems.
 
 % Simics Pipe
 \subsection{Simics Pipe}
