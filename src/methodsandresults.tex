@@ -3,58 +3,58 @@
 % Methods and Results
 \section{Methods and Results}
 \label{sec:methodsandresults}
+We present the implementation of paravirtualized graphics acceleration in the Simics full-system simulator.
+This method encompasses three overall components, being the target system libraries, the host system libraries, and the communications channel betwixt them aptly named the Simics pipe.
+These components, along with elaboration of the methodologies accomodating them, are described in this section.
 
-The implementation constitutes the realization of the paravirtualized technology described in this document.
-From the implementation, several concepts and phrases may be recognized and related to the Android Hardware OpenGL ES emulation design overview (see \dvtcmdciteref{technicaldocs:google:2014}).
-In accordance to the Android emulator, paravirtualized graphics acceleration is achieved by the means of three overall components; being the Target System Libraries, the Host System Libraries, and the communications channel aptly named the Simics Pipe.
-These components, along with elaboration on the methodologies accommodating them, are described in this chapter (see figure \ref{fig:overview} for an overview of the components and their relationships).
-
-% OpenGL ABI Generation
-\subsection{OpenGL ABI Generation}
+% OpenGL Framework Generation
+\subsection{OpenGL Framework Generation}
 \label{sec:proposedsolutionandimplementation_openglabigeneration}
-For the purposes of ensuring scalability of the solution during development, a set of scripts automating the generation of library source code is used to compile the majority of the target - and host system libraries.
-As such, a large amount of the OpenGL function definitions encoded and decoded by the components described in sections \ref{sec:proposedsolutionandimplementation_targetsystemlibraries} and \ref{sec:proposedsolutionandimplementation_hostsystemlibraries} are produced by this tool.
-The functionality is implemented in a set of 	exttt{Python} scripts that, from a number of specification/configuration files detailing function signatures and argument attributes, generate both headers and source files in 	exttt{C}; thus collocating the target OpenGL and EGL ABIs, along with the corresponding host decoding libraries.
+For the purposes of ensuring scalability of the solution during development, a set of scripts automating the generation of library source code is used to compile the majority of target- and host system libraries.
+As such, a large amount of the OpenGL function definitions encoded and decoded by the these libraries are produced by this tool.
+For this, we use a \texttt{Python} program that, from framework specification files detailing function signatures and argument attributes, generate both headers and source files in \texttt{C}; thus constructing the target OpenGL and EGL frameworks, along with the corresponding host decoding libraries.
 The tool generates all but the methods that need special treatment (due to state saving) and may thus generate methods with return values and inout arguments.
 See figure \ref{fig:abigeneration} for an overview of the code generation process.
 
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{img/yedabigeneration.pdf}
-  \caption[The ABI code generation process]{Visualization of the ABI code generating process performed to compile the target- and host system libraries.}
+  \caption[The framework generation process]{Visualization of the framework code generating process performed to compile the target- and host system libraries.}
   \label{fig:abigeneration}
 \end{figure}
 
 \subsection{Target System Libraries}
 \label{sec:proposedsolutionandimplementation_targetsystemlibraries}
-The target system libraries are compiled from 	exttt{C} and 	exttt{C++}, and comprise implementations of the EGL - and OpenGL APIs.
-Due to the tight coupling in-between OpenGL and the platform windowing system, the solution must also accelerate the Khronos EGL API - the interface between OpenGL and the underlying platform windowing system (see section \ref{sec:proposedsolutionandimplementation_windowingsystems} for an elaboration on the full extent of EGL interaction).
-As may be derived from the name, the target system libraries run on the simulation target system and replace the existing Khronos libraries.
+Compiled from \texttt{C} and \texttt{C++} sources output by the generation program, the target system libraries compose implementations of the EGL and OpenGL APIs.
+Due to the tight coupling ibetween OpenGL and the platform windowing system, the solution must also accelerate the Khronos EGL API - the interface between OpenGL and the underlying platform windowing system.
+As may be derived from the name, the target system libraries run on the simulation target system and replace any existing Khronos libraries.
 
-As such, the target systems libraries implement the EGL - and OpenGL~ES~$2.0$ APIs and lures whatever application it is being linked to that it is, in fact, the expected platform libraries.
-Given that the target system libraries adheres to the OpenGL headers defined in the system, the application is na\"{\i}ve in terms of it's paravirtualized status.
+Accordingly, the target system libraries implement the EGL and OpenGL~ES~$2.0$ APIs and lures whatever application it is being linked to that it is, in fact, the expected platform libraries.
+Given that the target system libraries adheres to the OpenGL headers defined in the system, the application is na\"{\i}ve in terms of its paravirtualized status.
 The interplay with the original OpenGL~ES headers also results in the solution adhering to the platform-dependent type definition, flags, and constants; as originally defined by Khronos.
-However, instead of communicating with the platform windowing system (in terms of EGL ) and the graphics device (in terms of OpenGL ) - and instructing said device in coagency with the user; the target system libraries rather serialize the given command stream and forwards it to the simulation host.
-However, the transmission of the command stream is not necessarily performed at once, or in the designated order due to the formation of the OpenGL~ES~$2.0$ framework.
-This complex of problems involve uncertainties of the proportion of argument data, as size is not necessarily specified by the user.
+However, instead of communicating with the platform windowing system (in terms of EGL) and the graphics device (in terms of OpenGL) - and instructing said device in accordance to the user; the target system libraries serialize the given command stream and forwards it to the simulation host.
+However, the transmission of the command stream is not necessarily performed at once, or in the designated order, due to the formation of the OpenGL~ES~$2.0$ framework.
+This complex of problems involve uncertainties of the proportion of argument data, as size is not necessarily given by the user or apperent at that time.
 As such, certain serialization may have to be delayed until further information surrounding the argument dimensions have been relayed to the OpenGL library.
 Furthermore, a subset of the OpenGL state need be maintained by the target system libraries.
 These attributes are comprised by, inter alia, bound vertex- and index element buffers, in addition to properties of OpenGL vertex attributes.
 Such states must be kept in the target system libraries due to the asynchronous nature of serialization of OpenGL invocations in the paravirtualized solution.
 
 The serialization described in the above paragraph is thus formatted and encoded in accordance to a certain data format, which is kept as minimal as possible throughout execution.
-This encoding includes packing variable length data types, such as $8$-bit characters, $16$-bit fields, or $64$-bit integer values, into fixed length structures, so that the host system may interpret these values independently of how corresponding types are defined on that unrelated platform\footnote{It should be noted, however, that the solution assumes a little endian architecture and IEEE 754 standard for floating point representation. If the host system would not conform to these prerequisites, the solution would have to be complemented with additional support.}.
+This encoding includes packing variable length data types, such as $8$-bit characters, $16$-bit fields, or $64$-bit integer values, into fixed length structures, so that the host system may interpret these values independently of how corresponding types are defined on that unrelated platform.
+
+%\footnote{It should be noted, however, that the solution assumes a little endian architecture and IEEE 754 standard for floating point representation. If the host system would not conform to these prerequisites, the solution would have to be complemented with additional support.}.
 
 % Host System Libraries
 \subsection{Host System Libraries}
 \label{sec:proposedsolutionandimplementation_hostsystemlibraries}
-In collaboration with the target system libraries, the host system libraries - running on the host system - subsequently decodes and interprets the received byte stream.
-Said decoding involves unpacking data from fixed length storage into variable-size types that the OpenGL - and EGL libraries expect.
-Furthermore, and again similarly to the target system libraries, due to design inherent in the OpenGL~ES~$2.0$ framework, the host system libraries need maintain some data; in particular - vertex attributes.
-Such data is buffered in the host system libraries until drawn in a later, and separate, OpenGL invocation\footnote{A possible optimization would be to cache said data, to avoid the need to transmit unmodified vertices multiple times, despite so being specified by the user.}.
-When the requested OpenGL invocation has been performed, any return- or in-out values are returned to the target system using the Simics Pipe (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
+In collaboration with the target system libraries, the host system libraries subsequently decodes and interprets the received byte stream.
+Said decoding involves unpacking data from fixed length storage into variable-size types that OpenGL and EGL libraries expect.
+Furthermore, and again similarly to the target system libraries, due to design inherent in the OpenGL~ES~$2.0$ framework, the host system libraries need maintain some data for state saving purposes.
+Such data is buffered in the host system libraries until used (drawn) in a later, and separate, OpenGL invocation.
+%\footnote{A possible optimization would be to cache said data, to avoid the need to transmit unmodified vertices multiple times, despite so being specified by the user.}.
+When the requested OpenGL invocation has been performed, any return- or in-out values are returned to the target system using the Simics pipe.
 As with the the target system libraries, the receiving end of an OpenGL method definitions in the host system libraries are likewise generated to a large degree.
-The host system libraries are written in \texttt{C} and \texttt{C++}.
 
 % Windowing Systems
 \subsection{Windowing Systems}
