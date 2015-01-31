@@ -586,3 +586,17 @@ In fact, considering the large similarities in the paravirtualized methodology f
 
 These comparisons suggest that the recorded performance for the benchmarks, devised for the purpose of this study, is not necessarily representative for paravirtualized graphics in general.
 Furthermore, the comparison to the QEMU -derived Android emulator indicates that the shaping of the magic instruction -utilizing Simics Pipe - as established being the bottleneck during execution of the paravirtualized Chess benchmark (see section \ref{sec:results_magicinstructionoverhead}) - may have potential of improvement of approximately one order of magnitude (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalpara}).
+
+%% % Magic Instructions
+%% \subsection{Magic Instructions}
+%% \label{sec:previousresearch_magicinstructions}
+%% Sometimes during system simulation, there may be reasons as to why one would like to escape the simulation and resume execution in the real world.
+%% Such a scenario would be a debugging breakpoint, to share data in-between target and host systems, or for any reason modify the simulation state.
+%% There are a number of ways to communicate with the outside world (including the host machine) from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as the - arguably - legitimately coined 'magic instruction'.
+
+%% The magic instruction is a concept used to denote a \dvtcmdcodeinline{nop}-type instruction, meaning an instruction that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} - '\hl{Swap contents in registers} \dvtcmdcodeinline{ebx} \hl{and} \dvtcmdcodeinline{ebx}' - on the x86 -architecture), which, when executed on the simulated hardware in a virtual platform, invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
+%% An advantage of this methodology is an often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
+%% Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system.
+%% Another advantage of the magic instruction paradigm is that the system invoking such an instruction may, without complications, run outside of a simulation - as this would simply result in regular \dvtcmdcodeinline{nop}-behavior.
+%% In effect, implementation of magic instructions requires replacing one- or more instructions in the target instruction set; thereby making the magic instruction platform-dependent.
+%% However, the solution is often designed to only respond to magic instructions wherein a certain magic number, sometimes called a 'leaf number'~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}, is present in an arbitrary processor register.
