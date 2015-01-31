@@ -74,24 +74,30 @@ As such, the target system libraries are effectively performing a man-in-the-mid
 % Simics Pipe
 \subsection{Simics Pipe}
 \label{sec:proposedsolutionandimplementation_simicspipe}
-The so named 'Simics Pipe' constitutes the target -to-host communications channel in Simics.
-As such, it is responsible for transferring a serialized command stream - or byte stream - to- and from the simulation host using magic instructions.
-The role of the Simics Pipe is comprised of the allocation and maintenance of page locked target memory.
-Furthermore, the Simics Pipe utilizes a magic instruction to relay the starting address of said memory space to the simulation host; where the responsibilities of the Simics Pipe end.
+The Simics pipe constitutes the target-to-host communications channel in Simics.
+As such, it is responsible for transferring a serialized command stream to- and from the simulation host.
+In order to do this, the pipe requires a way to exchange information with the outside world; a recurring issue in terms of virtual platforms.
 
-There are a numerous methodologies to communicate with the outside world from inside of the simulation, such as utilizing UNIX sockets or other networking technologies.
-However, due to the inherent performance demands brought on by serialization of real-time graphics invocations, the methodology of magic instructions were selected for use for the purpose of this study.
+There may be reasons as to why one would like to escape the simulation and resume execution in the real world.
+Such a scenario would be a debugging breakpoint, to share data in-between target and host systems, or for any reason modify the simulation state.
+There are a number of ways to communicate with the outside world (including the host machine) from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as the - arguably - legitimately coined 'magic instruction'.
+
+The magic instruction is a concept used to denote a \dvtcmdcodeinline{nop}-type instruction, meaning an instruction that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} on the x86), which, when executed on the simulated hardware in a virtual platform, invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
+An advantage of this methodology is an often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
+Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system.
+In effect, implementation of magic instructions requires replacing one- or more instructions in the target instruction set; thereby making the magic instruction platform-dependent.
+However, the solution is often designed to only respond to magic instructions wherein a certain magic number, sometimes called a 'leaf number'~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}, is present in an arbitrary processor register.
+
+Due to the inherent performance demands brought on by serialization of real-time graphics invocations, magic instructions are a suitable candidate to exchange information between target host systems.
 Magic instructions allow for fast, in the pretext of the simulation target - almost instant - escape from the simulation context, and may carry a limited amount of information with it from inside the simulation out into the real world.
-However, other - albeit slower, methodologies may be fast enough to for use in graphics paravirtualization; the Android emulator, in addition to magic instructions, supports TCP/IP communication\footnote{It may be of interest to know that the Simics OpenGL~ES paravirtualization technology, during development, was accommodated by a TCP/IP client-/server model.}.
+The role of the Simics pipe is comprised of the allocation and maintenance of page locked target memory to accomodate the use of magic instructions; which the Simics pipe uses to relay the starting address of said memory space to the simulation host.
 
-In order to perform a magic instruction, the Simics Pipe uses \texttt{GCC} Extended Asm to directly inject \dvtcmdcodeinline{__volatile__}-flagged (as to prevent the compiler from reordering memory accesses during optimization) \texttt{assembly} instructions into 	exttt{C} code, in which - in addition to 	exttt{C++} - the Simics Pipe is written.
-During said instruction, one may simply write an arbitrary 64-bit address to any register fit for the purpose (the number- and size of processor registers being the data-sharing bottleneck of the magic instruction paradigm).
-Not being the first time magic instructions have been used for the purposes of hardware acceleration~\dvtcmdcitebib[p.~32]{publications:leupers:2010}, the Simics Pipe utilizes such methodology, namely the \dvtcmdcodeinline{CPUID} x86 instruction, to carry a lone memory address (being the address of the serialized command stream) in the target \dvtcmdcodeinline{rbx}\footnote{Accordingly, if the simulation target should correspond to a 32-bit x86 system, said register would translate to the \dvtcmdcodeinline{ebx} register.} register.
-The execution of the injected instruction in a simulated processor, in line with the magic instruction paradigm, invokes a callback method in the host side of the Simics Pipe; having effectively escaped the simulation and paused the simulation state.
-Knowing the occurrence of a magic instruction with the corresponding leaf number, one may assume the existence of a target memory address in the simulated target CPU register \dvtcmdcodeinline{rbx}.
+During a magic instruction, we may write an arbitrary 64-bit address to any register fit for purpose (the number and size of processor registers being the data-sharing bottleneck of the method).
+Not being the first time magic instructions have been used for the purposes of hardware acceleration~\dvtcmdcitebib[p.~32]{publications:leupers:2010}, the Simics Pipe utilizes such methodology, namely the \dvtcmdcodeinline{CPUID} x86 instruction, to carry a lone memory address (the starting address of the serialized command stream) in one of the target system registers.
+The execution of the injected instruction in a simulated processor invokes a callback method in the host side of the Simics Pipe; having effectively escaped the simulation and paused the simulation state.
+Knowing the occurrence of a magic instruction with the corresponding leaf number, one may assume the existence of a target memory address in the simulated target CPU register, as agreed upon.
 Note that, at this point, the retrieved address is in the format of a target system virtual address; the destination of which is unknown to the simulation host.
 As such, this address need be translated in order to retrieve the package contents said memory address points to.
-See section \ref{sec:proposedsolutionandimplementation_pagetabletraversal} for more information on how the address is interpreted and how the entirety of the intended sequence of bytes is retrieved from target system primary memory.
 
 \begin{figure}
 \centering
@@ -585,17 +591,3 @@ In fact, considering the large similarities in the paravirtualized methodology f
 
 These comparisons suggest that the recorded performance for the benchmarks, devised for the purpose of this study, is not necessarily representative for paravirtualized graphics in general.
 Furthermore, the comparison to the QEMU -derived Android emulator indicates that the shaping of the magic instruction -utilizing Simics Pipe - as established being the bottleneck during execution of the paravirtualized Chess benchmark (see section \ref{sec:results_magicinstructionoverhead}) - may have potential of improvement of approximately one order of magnitude (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalpara}).
-
-%% % Magic Instructions
-%% \subsection{Magic Instructions}
-%% \label{sec:previousresearch_magicinstructions}
-%% Sometimes during system simulation, there may be reasons as to why one would like to escape the simulation and resume execution in the real world.
-%% Such a scenario would be a debugging breakpoint, to share data in-between target and host systems, or for any reason modify the simulation state.
-%% There are a number of ways to communicate with the outside world (including the host machine) from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as the - arguably - legitimately coined 'magic instruction'.
-
-%% The magic instruction is a concept used to denote a \dvtcmdcodeinline{nop}-type instruction, meaning an instruction that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} - '\hl{Swap contents in registers} \dvtcmdcodeinline{ebx} \hl{and} \dvtcmdcodeinline{ebx}' - on the x86 -architecture), which, when executed on the simulated hardware in a virtual platform, invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
-%% An advantage of this methodology is an often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
-%% Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system.
-%% Another advantage of the magic instruction paradigm is that the system invoking such an instruction may, without complications, run outside of a simulation - as this would simply result in regular \dvtcmdcodeinline{nop}-behavior.
-%% In effect, implementation of magic instructions requires replacing one- or more instructions in the target instruction set; thereby making the magic instruction platform-dependent.
-%% However, the solution is often designed to only respond to magic instructions wherein a certain magic number, sometimes called a 'leaf number'~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}, is present in an arbitrary processor register.
