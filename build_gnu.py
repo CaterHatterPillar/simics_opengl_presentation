@@ -4,21 +4,7 @@
 import os
 import subprocess
 
-g_gnuHistogram = "gnu/histogram1x1.gnu"
 g_gnuHistograms = "gnu/histogram2x3.gnu"
-g_gnuHistogramsStacked = "gnu/histogram1x3.gnu"
-
-# Draw 1x1 histograms:
-cmd = "gnuplot -e \"arg_data='%s';arg_terminal='%s';arg_output='%s'\" " \
-      + g_gnuHistogram
-arg1 = "magicinstrprofileeach.dat"
-arg2 = "epslatex"
-arg3 = "gnuhistogrammagicinstructionsforeach.tex"
-
-sp = subprocess.Popen(cmd % (arg1,arg2,arg3), shell=True)
-sp.wait()
-
-# Draw 3x2 histograms:
 cmd = "gnuplot -e \"arg_data1='%s';arg_data2='%s';arg_data3='%s';arg_data4='%s';arg_data5='%s';arg_data6='%s';arg_ylabel1='%s';arg_ylabel2='%s';arg_ylabel3='%s';arg_terminal='%s';arg_output='%s'\" " + g_gnuHistograms;
 
 arg1 = "simicschess60x60.dat"
@@ -53,31 +39,4 @@ arg10 = "epslatex"
 arg11 = "gnuhistogramssimicsparajulia.tex"
 sp = subprocess.Popen(cmd % (arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,
                              arg11), shell=True)
-sp.wait()
-
-# Draw 3x1 histograms:
-cmd = "gnuplot -e \"arg_data1='%s';arg_data2='%s';arg_data3='%s';arg_title1='%s';arg_title2='%s';arg_title3='%s';arg_terminal='%s';arg_output='%s'\" " + g_gnuHistogramsStacked;
-
-arg1 = "hostchess84x84.dat"
-arg2 = "hostjulia450.dat"
-arg3 = "hostphong2048x2048.dat"
-arg4 = "Chess"
-arg5 = "Julia"
-arg6 = "Phong"
-arg7 = "epslatex"
-arg8 = "gnuhistogramshost.tex"
-sp = subprocess.Popen(cmd % (arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8),
-                      shell=True)
-sp.wait()
-
-arg1 = "qemuchess84x84.dat"
-arg2 = "qemujulia450.dat"
-arg3 = "qemuphong2048x2048.dat"
-arg4 = "Chess"
-arg5 = "Julia"
-arg6 = "Phong"
-arg7 = "epslatex"
-arg8 = "gnuhistogramsqemu.tex"
-sp = subprocess.Popen(cmd % (arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8),
-                      shell=True)
 sp.wait()

@@ -1,9 +1,0 @@
-for(unsigned i=0;i<1000;i++){
-	write(sercon,"start",5);
-	tcdrain(sercon);
-
-	magic_instruction();
-
-	write(sercon,"stop",4);
-	tcdrain(sercon);
-}
