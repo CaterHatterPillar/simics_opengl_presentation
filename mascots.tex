@@ -17,6 +17,15 @@
 %   breaking out the contents of the subsections under the overhead title.
 % * Consider placing the section on OpenGL Framework Generation after
 %   descriptions of target and host libraries.
+% * I've commented out descriptions on the setup of the QEMU Android
+%   emulator from the Experimental Methodology section. Consider
+%   adding them to the document if we're to expand on the comparisons
+%   with the android emulator.
+% * The 'input variations' tables under section Benchmarks could probably be
+%   made considerably smaller now that the Phong benchmark is not involed
+%   anymore. Do they have to be seperate tables?
+% * Include the platform profiling bits from Threats to Validity when describing
+%   how the time samples were collected.
 
 % TODO Minor:
 % * Correct formatting of multiple references [4][34] -> [4,34].
@@ -46,6 +55,7 @@
 \usepackage{graphicx} % Displaying pdf graphics.
 \usepackage{multirow} % Used for specialized tables (multirow).
 \usepackage{rotating} % Used to rotate figures sideways.
+\usepackage{todonotes} % Used to add TODOs in the document. Remove when no longer needed.
 \usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
 
 % correct bad hyphenation here

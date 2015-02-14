@@ -55,23 +55,6 @@ sp = subprocess.Popen(cmd % (arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,
                              arg11), shell=True)
 sp.wait()
 
-arg1 = "simicsphong1448x1448.dat"
-arg2 = "paraphong1448x1448.dat"
-arg3 = "simicsphong2048x2048.dat"
-arg4 = "paraphong2048x2048.dat"
-arg5 = "simicsphong2896x2896.dat"
-arg6 = "paraphong2896x2896.dat"
-
-arg7 = "1448x1448"
-arg8 = "2048x2048"
-arg9 = "2896x2896"
-
-arg10 = "epslatex"
-arg11 = "gnuhistogramssimicsparaphong.tex"
-sp = subprocess.Popen(cmd % (arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,
-                             arg11), shell=True)
-sp.wait()
-
 # Draw 3x1 histograms:
 cmd = "gnuplot -e \"arg_data1='%s';arg_data2='%s';arg_data3='%s';arg_title1='%s';arg_title2='%s';arg_title3='%s';arg_terminal='%s';arg_output='%s'\" " + g_gnuHistogramsStacked;
 
