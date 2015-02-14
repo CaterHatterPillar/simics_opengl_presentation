@@ -109,25 +109,25 @@ As such, this address need be translated in order to retrieve the package conten
 % Page Table Traversal
 \subsection{Page Table Traversal}
 \label{sec:proposedsolutionandimplementation_pagetabletraversal}
-As outlined in section \ref{sec:proposedsolutionandimplementation_simicspipe}, target -/host memory sharing in the Simics Pipe is performed by the means of exposing a target virtual address to the simulation host.
-Said virtual address is, understandably so, only valid in the simulated system and bears no relevance in the real world; outside of the fact that the data to which the virtual address refers - in the target system - is, in turn, hidden behind layers of abstraction somewhere in host system memory.
-
-Using Simics to utilize the MMU of the target system, one may translate a target virtual address (or 'virtualized virtual address') to a (target ) physical device address; to-/from which - again, using Simics - we may access an arbitrary number of bytes in physical memory.
+As outlined in section \ref{sec:proposedsolutionandimplementation_simicspipe}, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
+Using Simics to access the MMU of the target system, one may translate a target virtual address to a (target) physical device address; to/from which we may access an arbitrary number of bytes in physical memory.
 However, due to the complexity induced by circumventing the abstraction of virtual memory, there is no guarantee that the memory page to which the exposed physical address refers has not been swapped out of primary memory.
-In order to solve this, using some OSs (e.g., Fedora 19 \footnote{Using the \dvtcmdcodeinline{MAP_LOCKED} flag during invocation of the Linux \dvtcmdcodeinline{mmap}-system call; alternatively using the specific \dvtcmdcodeinline{mlock}-system call.}), one may 'lock' pages in order to prevent them from being swapped to disk.
-This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still existent in target primary memory when the simulation state has been paused\footnote{Other methods to achieve this include repeatedly 'polling' the corresponding memory pages in the target system before inducing the simulation context switch to the host system.}.
+In order to solve this, we must 'lock' target system memory pages to prevent them from being swapped to disk.
+This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
+Other methods to achieve this include repeatedly 'polling' the corresponding memory pages in the target system.
+
 Furthermore, and again induced by the unorthodox circumvention of the virtual memory paradigm, it is probable that the multiple memory pages making out particularly large serialized command streams, such as the transmission of vertex or texture data, are not consecutively aligned in physical memory, although guaranteed to be continuous blocks in terms of virtual memory.
 As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis; effectively 'traversing' the virtual memory table (see figure \ref{fig:virtualmemory}).
-This can be done in a trivial manner by simply iterating the original virtual address with the \textit{target } page size, in our case, $4096$ bytes.
-Naturally, said process must be performed regardless of data being read or written to-/from the intended - physical - memory space.
+This can be done in a trivial manner by simply iterating the original virtual address with the (target) page size.
+In our case, $4096$ bytes.
+Naturally, said process must be performed regardless of data being read or written to-/from the intended (physical) memory space.
 
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{img/yedvirtualmemory.pdf}
-\caption[Memory translation overview]{Memory translation overview. The OpenGL process hands a virtual memory address, pointing somewhere in the target system \textit{primary} memory, to the paravirtualized solution - which inquiries the target system MMU to retrieve designated bytestream directly from target physical memory.}
+\caption[Memory translation overview]{\hl{Memory translation overview. The OpenGL process hands a virtual memory address, pointing somewhere in the target system \textit{primary} memory, to the paravirtualized solution - which inquiries the target system MMU to retrieve designated bytestream directly from target physical memory.}}
 \label{fig:virtualmemory}
 \end{figure}
-% \footnote{Observe that said bytestream may not be present in secondary storage, due to memory page locking.}
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
