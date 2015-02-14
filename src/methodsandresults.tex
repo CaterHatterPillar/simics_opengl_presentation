@@ -256,84 +256,79 @@ The remainder of this chapter will present a benchmark-wise analysis of the data
 For the sake of brevity, these analyses are segmented into paragraphs for each benchmark.
 These paragraphs are presented below.
 
-% tab:keyvalhost
-\begin{table}
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\multirow{2}{*}{Benchmark} & \multicolumn{4}{p{6cm}|}{\centering Elapsed time (milliseconds)} \\
-\cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
-Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
-\end{tabular}
-\caption[Benchmark results - hardware accelerated on the simulation host]{Benchmarking results whilst hardware accelerated on the simulation host system.}
-\label{tab:keyvalhost}
-\end{table}
+\providecommand{\chesskeyone}{$60\times60$ tiles}
+\providecommand{\chesskeytwo}{$84\times84$ tiles}
+\providecommand{\chesskeythree}{$118\times118$ tiles}
 
-% tab:keyvalqemu
-\begin{table}
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\multirow{2}{*}{Benchmark} & \multicolumn{4}{p{6cm}|}{\centering Elapsed time (milliseconds)} \\
-\cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-Chess & \dvtcmdfirstline{qemuchess84x84.dat.min} & \dvtcmdfirstline{qemuchess84x84.dat.max} & \dvtcmdfirstline{qemuchess84x84.dat.std} & \dvtcmdfirstline{qemuchess84x84.dat.avg} \\ \hline
-Julia & \dvtcmdfirstline{qemujulia450.dat.min} & \dvtcmdfirstline{qemujulia450.dat.max}	& \dvtcmdfirstline{qemujulia450.dat.std} & \dvtcmdfirstline{qemujulia450.dat.avg} \\ \hline
-\end{tabular}
-\caption[Benchmark results - paravirtualized in the Android emulator]{Benchmarking results whilst paravirtualized in the QEMU-derived Android emulator.}
-\label{tab:keyvalqemu}
-\end{table}
+\providecommand{\juliakeyone}{$225$ iterations}
+\providecommand{\juliakeytwo}{$450$ iterations}
+\providecommand{\juliakeythree}{$900$ iterations}
 
-% tab:keyvalsimics
-\begin{table*}
-  \centering
-  \providecommand{\chesskeyone}{$60\times60$ tiles}
-  \providecommand{\chesskeytwo}{$84\times84$ tiles}
-  \providecommand{\chesskeythree}{$118\times118$ tiles}
-
-  \providecommand{\juliakeyone}{$225$ iterations}
-  \providecommand{\juliakeytwo}{$450$ iterations}
-  \providecommand{\juliakeythree}{$900$ iterations}
-
-  \begin{tabular}{|c|c|c|c|c|c|}
-    \hline
-    \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{6cm}|}{\centering Elapsed time (milliseconds)} \\
-    \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-    \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{simicschess60x60.dat.min} & \dvtcmdfirstline{simicschess60x60.dat.max}	& \dvtcmdfirstline{simicschess60x60.dat.std} & \dvtcmdfirstline{simicschess60x60.dat.avg} \\ %\cline{2-6}
-    & \chesskeytwo & \dvtcmdfirstline{simicschess84x84.dat.min} & \dvtcmdfirstline{simicschess84x84.dat.max} & \dvtcmdfirstline{simicschess84x84.dat.std} & \dvtcmdfirstline{simicschess84x84.dat.avg} \\ %\cline{2-6}
-    & \chesskeythree & \dvtcmdfirstline{simicschess118x118.dat.min} & \dvtcmdfirstline{simicschess118x118.dat.max} & \dvtcmdfirstline{simicschess118x118.dat.std} & \dvtcmdfirstline{simicschess118x118.dat.avg} \\ \hline
-    \multirow{3}{*}{Julia} & \juliakeyone & \dvtcmdfirstline{simicsjulia225.dat.min} & \dvtcmdfirstline{simicsjulia225.dat.max} & \dvtcmdfirstline{simicsjulia225.dat.std} & \dvtcmdfirstline{simicsjulia225.dat.avg} \\ %\cline{2-6}
-    & \juliakeytwo & \dvtcmdfirstline{simicsjulia450.dat.min} & \dvtcmdfirstline{simicsjulia450.dat.max} & \dvtcmdfirstline{simicsjulia450.dat.std} & \dvtcmdfirstline{simicsjulia450.dat.avg} \\ %\cline{2-6}
-    & \juliakeythree & \dvtcmdfirstline{simicsjulia900.dat.min} & \dvtcmdfirstline{simicsjulia900.dat.max} & \dvtcmdfirstline{simicsjulia900.dat.std} & \dvtcmdfirstline{simicsjulia900.dat.avg} \\ \hline
-  \end{tabular}
-  \caption[Benchmark results - software rasterized in Simics]{Benchmarking results whilst software rasterized in the Simics full-system simulator.}
-  \label{tab:keyvalsimics}
-\end{table*}
-
-% tab:keyalpara
-\begin{table*}
-  \centering
-  \providecommand{\chesskeyone}{$60\times60$ tiles}
-  \providecommand{\chesskeytwo}{$84\times84$ tiles}
-  \providecommand{\chesskeythree}{$118\times118$ tiles}
-
-  \providecommand{\juliakeyone}{$225$ iterations}
-  \providecommand{\juliakeytwo}{$450$ iterations}
-  \providecommand{\juliakeythree}{$900$ iterations}
-
-  \begin{tabular}{|c|c|c|c|c|c|}
-    \hline
-    \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{6cm}|}{\centering Elapsed time (milliseconds)} \\
-    \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-    \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{parachess60x60.dat.min} & \dvtcmdfirstline{parachess60x60.dat.max} & \dvtcmdfirstline{parachess60x60.dat.std} & \dvtcmdfirstline{parachess60x60.dat.avg} \\
-    & \chesskeytwo & \dvtcmdfirstline{parachess84x84.dat.min} & \dvtcmdfirstline{parachess84x84.dat.max} & \dvtcmdfirstline{parachess84x84.dat.std} & \dvtcmdfirstline{parachess84x84.dat.avg} \\
-    & \chesskeythree & \dvtcmdfirstline{parachess118x118.dat.min} & \dvtcmdfirstline{parachess118x118.dat.max} & \dvtcmdfirstline{parachess118x118.dat.std} & \dvtcmdfirstline{parachess118x118.dat.avg} \\ \hline
-    \multirow{3}{*}{Julia} & \juliakeyone & \dvtcmdfirstline{parajulia225.dat.min} & \dvtcmdfirstline{parajulia225.dat.max}	& \dvtcmdfirstline{parajulia225.dat.std} & \dvtcmdfirstline{parajulia225.dat.avg} \\
-    & \juliakeytwo & \dvtcmdfirstline{parajulia450.dat.min} & \dvtcmdfirstline{parajulia450.dat.max} & \dvtcmdfirstline{parajulia450.dat.std} & \dvtcmdfirstline{parajulia450.dat.avg} \\
-    & \juliakeythree & \dvtcmdfirstline{parajulia900.dat.min} & \dvtcmdfirstline{parajulia900.dat.max} & \dvtcmdfirstline{parajulia900.dat.std} & \dvtcmdfirstline{parajulia900.dat.avg} \\ \hline
-  \end{tabular}
-  \caption[Benchmark results - paravirtualized in Simics]{Benchmarking results whilst paravirtualized in the Simics full-system simulator.}
-  \label{tab:keyvalpara}
+\begin{table*}[ht] 
+  \begin{minipage}[b]{0.5\linewidth}
+    % tab:keyvalsimics
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+      \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{simicschess60x60.dat.min} & \dvtcmdfirstline{simicschess60x60.dat.max}	& \dvtcmdfirstline{simicschess60x60.dat.std} & \dvtcmdfirstline{simicschess60x60.dat.avg} \\ %\cline{2-6}
+      & \chesskeytwo & \dvtcmdfirstline{simicschess84x84.dat.min} & \dvtcmdfirstline{simicschess84x84.dat.max} & \dvtcmdfirstline{simicschess84x84.dat.std} & \dvtcmdfirstline{simicschess84x84.dat.avg} \\ %\cline{2-6}
+      & \chesskeythree & \dvtcmdfirstline{simicschess118x118.dat.min} & \dvtcmdfirstline{simicschess118x118.dat.max} & \dvtcmdfirstline{simicschess118x118.dat.std} & \dvtcmdfirstline{simicschess118x118.dat.avg} \\ \hline
+      \multirow{3}{*}{Julia} & \juliakeyone & \dvtcmdfirstline{simicsjulia225.dat.min} & \dvtcmdfirstline{simicsjulia225.dat.max} & \dvtcmdfirstline{simicsjulia225.dat.std} & \dvtcmdfirstline{simicsjulia225.dat.avg} \\ %\cline{2-6}
+      & \juliakeytwo & \dvtcmdfirstline{simicsjulia450.dat.min} & \dvtcmdfirstline{simicsjulia450.dat.max} & \dvtcmdfirstline{simicsjulia450.dat.std} & \dvtcmdfirstline{simicsjulia450.dat.avg} \\ %\cline{2-6}
+      & \juliakeythree & \dvtcmdfirstline{simicsjulia900.dat.min} & \dvtcmdfirstline{simicsjulia900.dat.max} & \dvtcmdfirstline{simicsjulia900.dat.std} & \dvtcmdfirstline{simicsjulia900.dat.avg} \\ \hline
+    \end{tabular}
+    \caption[Benchmark results - software rasterized in Simics]{Benchmarking results whilst software rasterized in the Simics full-system simulator.}
+    \label{tab:keyvalsimics}
+    \vspace{4ex}
+  \end{minipage}%%
+  \begin{minipage}[b]{0.5\linewidth}
+    % tab:keyvalhost
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+      Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
+      Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
+    \end{tabular}
+    \caption[Benchmark results - hardware accelerated on the simulation host]{Benchmarking results whilst hardware accelerated on the simulation host system.}
+    \label{tab:keyvalhost}
+    \vspace{4ex}
+  \end{minipage} 
+  \begin{minipage}[b]{0.5\linewidth}
+    % tab:keyvalpara
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+      \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{parachess60x60.dat.min} & \dvtcmdfirstline{parachess60x60.dat.max} & \dvtcmdfirstline{parachess60x60.dat.std} & \dvtcmdfirstline{parachess60x60.dat.avg} \\
+      & \chesskeytwo & \dvtcmdfirstline{parachess84x84.dat.min} & \dvtcmdfirstline{parachess84x84.dat.max} & \dvtcmdfirstline{parachess84x84.dat.std} & \dvtcmdfirstline{parachess84x84.dat.avg} \\
+      & \chesskeythree & \dvtcmdfirstline{parachess118x118.dat.min} & \dvtcmdfirstline{parachess118x118.dat.max} & \dvtcmdfirstline{parachess118x118.dat.std} & \dvtcmdfirstline{parachess118x118.dat.avg} \\ \hline
+      \multirow{3}{*}{Julia} & \juliakeyone & \dvtcmdfirstline{parajulia225.dat.min} & \dvtcmdfirstline{parajulia225.dat.max}	& \dvtcmdfirstline{parajulia225.dat.std} & \dvtcmdfirstline{parajulia225.dat.avg} \\
+      & \juliakeytwo & \dvtcmdfirstline{parajulia450.dat.min} & \dvtcmdfirstline{parajulia450.dat.max} & \dvtcmdfirstline{parajulia450.dat.std} & \dvtcmdfirstline{parajulia450.dat.avg} \\
+      & \juliakeythree & \dvtcmdfirstline{parajulia900.dat.min} & \dvtcmdfirstline{parajulia900.dat.max} & \dvtcmdfirstline{parajulia900.dat.std} & \dvtcmdfirstline{parajulia900.dat.avg} \\ \hline
+    \end{tabular}
+    \caption[Benchmark results - paravirtualized in Simics]{Benchmarking results whilst paravirtualized in the Simics full-system simulator.}
+    \label{tab:keyvalpara}
+    \vspace{4ex}
+  \end{minipage}%% 
+  \begin{minipage}[b]{0.5\linewidth}
+    % tab:keyvalqemu
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+      Chess & \dvtcmdfirstline{qemuchess84x84.dat.min} & \dvtcmdfirstline{qemuchess84x84.dat.max} & \dvtcmdfirstline{qemuchess84x84.dat.std} & \dvtcmdfirstline{qemuchess84x84.dat.avg} \\ \hline
+      Julia & \dvtcmdfirstline{qemujulia450.dat.min} & \dvtcmdfirstline{qemujulia450.dat.max}	& \dvtcmdfirstline{qemujulia450.dat.std} & \dvtcmdfirstline{qemujulia450.dat.avg} \\ \hline
+    \end{tabular}
+    \caption[Benchmark results - paravirtualized in the Android emulator]{Benchmarking results whilst paravirtualized in the QEMU-derived Android emulator.}
+    \label{tab:keyvalqemu}
+    \vspace{4ex}
+  \end{minipage} 
 \end{table*}
 
 % fig:hostgramssimicsparachess
