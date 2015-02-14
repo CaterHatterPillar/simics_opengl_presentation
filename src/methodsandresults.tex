@@ -336,6 +336,19 @@ Julia & \dvtcmdfirstline{qemujulia450.dat.min} & \dvtcmdfirstline{qemujulia450.d
   \label{tab:keyvalpara}
 \end{table*}
 
+% fig:hostgramssimicsparachess
+% fig:histogramssimicsparajulia
+\begin{figure*}
+  \centering
+  \input{gnuhistogramssimicsparachess.tex}
+  \caption[Benchmark results - paravirtualized in Simics, Chess]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Chess benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \label{fig:histogramssimicsparachess}
+
+  \input{gnuhistogramssimicsparajulia.tex}
+  \caption[Benchmark results - paravirtualized in Simics, Julia]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Julia benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \label{fig:histogramssimicsparajulia}
+\end{figure*}
+
 % Chess
 \paragraph{Chess}
 \label{par:results_chess}
@@ -353,14 +366,6 @@ The conclusions that may be drawn from these further stresses analysis into what
 Results related to this matter are presented in section \ref{sec:results_magicinstructionoverhead}. 
 Indeed, if proceeding from the findings of section \ref{sec:results_magicinstructionoverhead}, magic instruction overhead accounts for the majority of the elapsed average when paravirtualized in Simics.
 
-% fig:hostgramssimicsparachess
-\begin{sidewaysfigure*}
-  \centering
-  \input{gnuhistogramssimicsparachess.tex}
-  \caption[Benchmark results - paravirtualized in Simics, Chess]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Chess benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
-  \label{fig:histogramssimicsparachess}
-\end{sidewaysfigure*}
-
 % Julia
 \paragraph{Julia}
 \label{par:results_julia}
@@ -372,14 +377,6 @@ What causes this behavior is unclear, as frame-to-frame branching in the fractal
 The Julia benchmark is incorporated into the experiment to establish how the paravirtualized solution performed under computational stress (see section \ref{sec:experimentalmethodology_benchmarks}).
 Using this benchmark, a performance weakness in the software rasterized Simics platform has been identified, with frame times well above the two second mark (see table \ref{tab:keyvalsimics}); with the corresponding maximum frame time in the paravirtualized Simics platform measuring up to to a mere \dvtcmdfirstline{parajulia900.dat.max} ms.
 With the Julia benchmark, as visualized in figure \ref{fig:histogramssimicsparajulia}, we have showcased radical performance improvements for computationally intensive graphics kernels and - in turn - identified the capabilities of graphics paravirtualization in the Simics full-system simulator.
-
-% fig:histogramssimicsparajulia
-\begin{sidewaysfigure*}
-  \centering
-  \input{gnuhistogramssimicsparajulia.tex}
-  \caption[Benchmark results - paravirtualized in Simics, Julia]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Julia benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
-  \label{fig:histogramssimicsparajulia}
-\end{sidewaysfigure*}
 
 % Magic Instruction Overhead
 \subsubsection{Magic Instruction Overhead}
