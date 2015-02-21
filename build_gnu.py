@@ -4,7 +4,7 @@
 import os
 import subprocess
 
-g_gnuHistograms = "gnu/histogram2x3.gnu"
+g_gnuHistograms = "histogram2x3.gnu"
 cmd = "gnuplot -e \"arg_data1='%s';arg_data2='%s';arg_data3='%s';arg_data4='%s';arg_data5='%s';arg_data6='%s';arg_ylabel1='%s';arg_ylabel2='%s';arg_ylabel3='%s';arg_terminal='%s';arg_output='%s'\" " + g_gnuHistograms;
 
 arg1 = "simicschess60x60.dat"
