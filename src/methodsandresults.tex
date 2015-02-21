@@ -138,9 +138,6 @@ The system upon which the experiment is performed is an x86-compatible Haswell I
 %% Furthermore, the solution also utilize KVM in order to provide similar native execution on the host hardware\footnote{Had the solution been running on the Windows OS, the solution would have utilized Intel\circledR\ HAXM (see ~\dvtcmdciteref{technicaldocs:intel:2013:haxm}) to accommodate for said native execution~\dvtcmdciteref{web:hofemeier:2010}.}.
 %% %Paravirtualized Android $4.4$\footnote{Android KitKat - API level $19$.} QEMU target system
 
-% Benchmarks
-\subsubsection{Benchmarks}
-\label{sec:experimentalmethodology_benchmarks}
 Throughout the course of the pilot study, no existing OpenGL~ES~$2.0$ benchmark (featuring cross-platform profiling support for \hl{Android} and X11 Linux) was deemed appropriate for for the purposes of this experiment.
 As such, a pair of benchmarks have been devised on-site for the purposes of stress-testing the paravirtualized technology described in this document.
 The benchmarks are intended to stress suspected bottlenecks in the implementation; a large number of relatively insignificant OpenGL~ES invocations and computationally intensive GPU workload.
