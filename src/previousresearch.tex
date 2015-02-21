@@ -5,22 +5,18 @@
 \label{sec:previousresearch}
 System simulators are abundant and exist in corporate~\dvtcmdcitebib{magazines:bohrer:2004}, academic~\dvtcmdcitebib{journals:rosenblum:1995}, and open-source variations~\dvtcmdciteref{magazines:bartholomew:2006}.
 Such platforms, like Simics, have been used for a variety of purposes including, but not limited to, thermal control strategies in multicores~\dvtcmdcitebib{inproceedings:bartolini:2010}, networking timing analysis~\dvtcmdcitebib{journals:ortiz:2009}, web server performance evaluation~\dvtcmdcitebib{journals:villa:2005}, and to simulate costly hardware financially unfeasible to researchers~\dvtcmdcitebib{journals:alameldeen:2003}.
-Furthermore, such simulators may also be used to port OSs to new processors~\dvtcmdciteref{technicaldocs:netbsd:2014}.
+Furthermore, these simulators may also be used to port OSs to new processors~\dvtcmdciteref{technicaldocs:netbsd:2014}.
 
 For the purposes of graphics acceleration in virtual platforms, strategies are numerous.
-From a number of core strategies, such as device modeling, passthrough technologies, and paravirtualization, there are several attempts at accelerating simulator graphics; many of which require modification of both target- and host systems.
+From a number of core strategies, such as device modeling, passthrough technologies, and paravirtualization, there are several attempts at accelerating simulator graphics; many of which require modification of both target and host systems.
 One such instance is presented by Hansen in his work on the Blink display system~\dvtcmdcitebib{inproceedings:hansen:2007}.
-
-Neither are the concepts of advanced simulatory features new to GPU virtualization.
-For example, there are multiple attempts to implement the checkpoint/restart model in a GPU context, such as the work by Guo et al.~\dvtcmdcitebib{inproceedings:guo:2013}.
-Another instance that also adheres to the checkpoint/restart scheme is VMGL by Lagar-Cavilla et al., which accelerates OpenGL~$1.5$ through paravirtualization~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
-The groundwork produced by Lagar-Cavilla et al. showcase the potential for paravirtualized graphics as the VMGL framework, for a certain set of benchmarks, attains improvements of roughly two orders of magnitude in comparison to software rasterization.
+Another is VMGL by Lagar-Cavilla et al., who accelerates OpenGL~$1.5$ roughly two orders of magnitude using paravirtualization~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
 
 QEMU ('Quick~Emulator') is an open-source virtual platform described as a full system emulator~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005} and a high-speed functional simulator~\dvtcmdcitebib[p.~1]{inproceedings:shen:2010}.
 As such, QEMU may run unmodified target software such as OSs, drivers, and other applications~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005}.
-The platform is widely used in academia, and is the subject of several articles and reports cited throughout this document, such as the graphics acceleration described by Lagar-Cavilla et al., and the work by Guo et al.
+The platform is widely used in academia, and is the subject of several articles and reports cited throughout this document.
 Additionally, QEMU powers the Android emulator, which helps mobile developers bring about software for the Android OS.
-Using QEMU, the Android emulator accelerates the OpenGL~ES~$1.1$- and $2.0$ frameworks; granting developers significant performance boosts~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
+Using QEMU, the Android emulator accelerates OpenGL~ES~$1.1$ and $2.0$; granting developers significant performance boosts~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
 
 Other promising GPU virtualization projects include the Virgil3D-project~\dvtcmdciteref{technicaldocs:qemudevel:2014}.
 As described at the project homepage, the project strives to create a virtual GPU which may utilize host hardware to accelerate 3D rendering.
@@ -31,78 +27,63 @@ One such example is VMware,~Inc.~\dvtcmdciteref{technicaldocs:vmware:2014}.
 % Simics
 \subsection{Simics}
 \label{sec:simics}
-Simics is a full-system simulator developed by Intel\circledR\ and sold through Intel\circledR\ subsidiary Wind~River~Systems,Inc.
-Simics was originally developed by the simulation group at the Swedish Institute of Computer Science; the first instance of an academic group running an unmodified OS in an entirely simulated environment.
+Simics is a full-system simulator developed by Intel\circledR\ and sold through Intel\circledR 's subsidiary Wind~River~Systems,~Inc.
+Simics was developed by the simulation group at the Swedish Institute of Computer Science; the first instance of an academic group running an unmodified OS in an entirely simulated environment.
 The product was was commercially launched by Virtutech in $1998$~\dvtcmdcitebib{journals:magnusson:2013} and subsequently acquired by Intel\circledR\ in $2010$~\dvtcmdciteref{web:miller:2010}.
 
 As an architectural simulator, Simics' primary client group is software and systems developers that produce software for complex systems involving software and hardware interaction~\dvtcmdcitebib{journals:aarno:2013}.
 For that reson, key attributes of Simics are scalability, repeatability, and high-performance simulation.
-As such, the simulator utilizes hardware-assisted virtualization and other performance boosting technologies such as hypersimulation~\dvtcmdcitebib[p.~38]{publications:leupers:2010} to accelerate simulation speeds.
+The simulator utilizes hardware-assisted virtualization and other performance boosting technologies such as hypersimulation~\dvtcmdcitebib[p.~38]{publications:leupers:2010} to accelerate simulation speeds.
+Simics also feature advanced functionalities adhering to the deterministic nature of the simulator, such as checkpointing and reverse execution~\dvtcmdcitebib{publications:leupers:2010}.
 
 The ability to simulate the entirety of an unmodified software stack has led to Simics being used to simulate a variety of systems including, but not limited to, single-processor embedded boards, multiprocessor servers, and heterogeneous telecom clusters~\dvtcmdcitebib{journals:aarno:2013}.
-Employers of the Simics full-system simulator include IBM~\dvtcmdcitebib[p.~12:1,~12:6]{journals:koerner:2009}, NASA~\dvtcmdciteref{web:windriver:2014}\dvtcmdciteref{web:nasa:2014}, and Lockheed Martin~\dvtcmdciteref{web:miller:2010}.
+Employers of the Simics full-system simulator include IBM~\dvtcmdcitebib[p.~12:1,~12:6]{journals:koerner:2009}, NASA~\dvtcmdciteref{web:windriver:2014, web:nasa:2014}, and Lockheed Martin~\dvtcmdciteref{web:miller:2010}.
 Additionally, the simulator has a strong academic tradition; being known to operate in over $300$ universities throughout the world~\dvtcmdcitebib[p.~252]{journals:villa:2005}.
-
-Simics also feature advanced functionalities adhering to the deterministic nature of the simulator, such as checkpointing and reverse execution~\dvtcmdcitebib{publications:leupers:2010}.
 
 % Graphics Virtualization
 \subsection{Graphics Virtualization}
 \label{sec:previousresearch_graphicsvirtualization}
-There are a number of ways of virtualizing GPUs in system simulators, a few of which accommodate hardware acceleration.
-When faced with tackling the issue of GPU virtualization, we must consider suitable methods through the lens of what our objectives are.
-The Simics architectural simulator is by all means a full-system simulator; meaning that it may run real software stacks without modification.
-However, Simics is intended to feature low level timing fidelity for the purposes of high performance, and is - as such - not a cycle-accurate simulator.
-In this way, one must analyze and balance simulation level of detail with the objective in mind.
+There are a number of ways of virtualizing GPUs in system simulators, a few of which accommodate hardware acceleration, but fewer that suit all needs.
+It is therefore important to balance required simulation level of detail with performance requirements.
 As such, methodologies with varying simulatory accuracy present themselves, from slow low-level instruction set modeling to fast high level paravirtualization.
 Summaries of viable strategies are presented below.
 
 % GPU Modeling
-\subsubsection{GPU Modeling}
+\paragraph{GPU Modeling}
 \label{par:previousresearch_graphicsvirtualization_gpumodeling}
-One may consider developing a full-fletched GPU model; that is, virtualizing the GPU ISA.
-This methodology may be appropriate for the purposes of low-level development close to GPU hardware.
+Some may consider developing a full-fletched GPU model; that is, virtualizing the GPU ISA.
+Such methodologies may be appropriate for the purposes of low-level development close to GPU hardware.
 For example, one might imagine the scenario of driver development for next-generation GPUs.
 
 However, the development of GPU models, similar to that of common architectural model development for the Simics full-system simulator, incurs a number of flaws.
-The first of these flaws encompasses estimated development costs reaching unsustainable levels, due to GPU hardware often being poorly documented~\dvtcmdcitebib{inproceedings:lagarcavilla:2007} on the contrary to CPU architectures.
-Furthermore, the modeling of massively parallelized GPU technology on CPUs induce high costs rendering the methodology less preferable for development requiring high application speed.
+The first of these flaws encompass estimated development costs reaching unsustainable levels, due to GPU hardware often being poorly documented~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}, on the contrary to CPU architectures.
+Furthermore, modeling massively parallelized GPU technology on CPUs induce high costs rendering the methodology less preferable for development requiring anything but slow simulation speed.
 
 % PCI Passthrough
-\subsubsection{PCI Passthrough}
+\paragraph{PCI Passthrough}
 \label{par:previousresearch_graphicsvirtualization_pcipassthrough}
-Furthermore, one ought to examine the benefits of PCI~passthrough; allowing virtual systems first-hand access to host machine devices~\dvtcmdciteref{web:jones:2009}.
-The direct contact with host system devices accommodated by methodologies such as PCI~passthrough enable fully-fledged hardware accelerated graphics.
+PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\dvtcmdciteref{web:jones:2009}.
+The direct contact with host system devices accommodated by these technologies enable fully-fledged hardware accelerated workloads.
 Yet the methodology suffers from several disadvantages, such as requiring dedicated hardware, causing the host system to lose access to devices during the course of simulation.
-In terms of GPU virtualization, this would induce the necessity of the host machine featuring multiple graphics cards.
-Additionally, and mayhaps the biggest flaw of passthrough methodologies, is the requirement of modifying the simulation target to utilize host hardware; effectively restricting what systems may be simulated.
-This restriction encompasses, inter alia, the utilization of corresponding device drivers to the host system, rendering the methodology inflexible in terms of GPU virtualization diversity.
-As such, and in line with a paravirtualized approach, PCI~passthrough requires modification of the target system - in addition to configuration of the simulation host.
-
-% Soft Modeling
-\subsubsection{Soft Modeling}
-\label{par:previousresearch_graphicsvirtualization_softmodeling}
-As an alternative to precise modeling of GPU devices, one might analyze the feasibility of high-speed software rasterization.
-Albeit not up to hardware accelerated speeds, some results indicate an increased feasibility of high-speed software rasterization in modern graphics frameworks (see \dvtcmdciteref{papers:nilsson:2013}), where traditional software rasterization is accelerated using thread pooling optimizations and SIMD technologies~\dvtcmdciteref{web:microsoft:2013:warp}; all for the purposes of optimizing execution for CPU, rather than GPU, execution.
-As such, one may avoid some of the overhead induced by simulating GPU workload on CPUs, which is traditionally not fit for purpose.
-One might speculate that using such technologies in collaboration with hardware-assisted virtualization might bring software rasterization up to competitive speeds fit for some simulatory development purposes, \hl{replacing} the need for more sophisticated virtualization techniques.
-However, without native execution speeds or used with complex GPU workloads, the technique may fall short.
+In terms of GPU virtualization, this would induce the necessity of multiple graphics cards to the host system.
+Additionally, and mayhaps the gratest flaw of passthrough technologies, is the requirement of modifying the simulation target to utilize host hardware; effectively restricting what systems may be simulated.
+This restriction encompasses the utilization of corresponding device drivers to the host system, rendering the methodology inflexible in terms of GPU virtualization diversity.
 
 % Paravirtualization
-\subsubsection{Paravirtualization}
+\paragraph{Paravirtualization}
 \label{par:previousresearch_graphicsvirtualization_paravirtualization}
 At a higher level of abstraction, there is the option of virtualization by paravirtualization.
-By selectively modifying target systems, one may modify the inner workings of system attributes and add functionality such as graphics hardware support.
-For the purposes of graphics acceleration, such a system attribute may be a graphics library or a kernel driver.
+By selectively modifying target system, we may control the inner workings of system attributes and add functionality such as graphics hardware support.
+For graphics acceleration, such a system attribute may be a graphics library or a kernel driver (see figure \ref{fig:overview}).
 
-Often, paravirtualized methodologies incurs the benefits of host hardware acceleration of some graphics framework, and is implemented at a relatively high abstraction level (see figure \ref{fig:overview}).
-Inherent from its higher abstraction, paravirtualization may be relatively cost-effective to implement in comparison to alternatives such as GPU modeling.
-Additionally, virtualizing at the graphics library software level circumvents the need for users to re-link or modify the application they wish accelerated.
-Furthermore, the serialization of framework invocations by the means of fast communications channels may accommodate for significant performance improvements when compared to that of networking solutions (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
-
-However, despite the possibility for significant performance improvements, graphics virtualization by the means of paravirtualization is not without inherent flaws.
+Inherent by higher abstraction, paravirtualization may be relatively cost-effective in comparison to device modeling.
+Additionally, by selectively modifying at the graphics library software level, there is no need for users to modify the application they wish to accelerate.
+Furthermore, by utilizing fast communications channels, one may accommodate for significant performance gains when compared to networking solutions (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
+Unfortunately, paravirtualization is not without inherent flaws.
 In particular, a paravirtualized graphics library may be expensive to maintain as frameworks evolve and specifications change.
-Additionally, the means of paravirtualization requires the target system to be modified; albeit not necessarily being a substantial defect as a paravirtualized framework may still accelerate unmodified target applications utilizing the library.
-In this way, paravirtualization may be considered to be a decent leveling of the benefits and drawbacks of the various virtualization methodologies presented in this section.
+Additionally, paravirtualized methodologies requires modification of target systems; albeit not necessarily being a defect as a paravirtualized framework may still accelerate unmodified target applications.
+
+For the purposes of graphics acceleration in a virtual platform, paravirtualization is a decent levelling of benefits and drawbacks, and is therefore considered a suitable candidate for accelerating graphics in the Simics full-system simulator.
 
 %% % Virtual Time
 %% \subsection{Virtual Time}
