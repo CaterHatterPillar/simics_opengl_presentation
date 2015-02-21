@@ -27,6 +27,9 @@
 % * Explain Future Work?
 % * Merge the Target and Host system libraries sections.
 % * Merge the Simics Pipe and page table traversal sections.
+% * The 'read-first-line-from-file'-command seems to carry about some
+%   unnecessary whitespace with it. Remove. When this has been done, it is
+%   plausible that the tables may be put side-by-side.
 
 % TODO Minor:
 % * Correct formatting of multiple references [4][34] -> [4,34].
@@ -71,12 +74,7 @@
 \newcommand{\dvtcmdcodeinline}[1]{\colorbox{black!5}{\lstinline[basicstyle=\ttfamily\color{black}]{#1}}}
 % Command to read, and ouput the first line of a file:
 \newread\file
-\newcommand{\dvtcmdfirstline}[1]{
-  \openin\file=#1
-  \read\file to \keyval
-  \keyval % Return keyval.
-  \closein\file
-}
+\newcommand{\dvtcmdfirstline}[1]{\input{#1}\unskip}
 
 \begin{document}
 
