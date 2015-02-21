@@ -156,7 +156,7 @@ These benchmarks are configured to run at roughly $16$~\milli\second , which wou
 The benchmarks are devised in this way in order to reflect the expected load of a modern real-time interactive application.
 As such, the purpose of developed benchmarks is to be representative of typical scenarios induced by modern graphics applications whilst utilizing a graphics framework such as OpenGL.
 When run during the experiment, each benchmark instance measures the elapsed time of $1000$ frames which makes up the data subsequently analyzed.
-Frame captures of the benchmarks are presented in figures \ref{fig:benchmarks_chess} and \ref{fig:benchmarks_julia}.
+Frame captures of the benchmarks are presented in figures \ref{fig:benchmarks} and \ref{fig:benchmarks}.
 
 In order to detect anything but linear potential of scaling in software rasterized- and paravirtualized Simics platforms,  we run the benchmarks in three separate instances, respectively.
 These benchmark versions differ in terms of input data; where said input is a changed variable that could potentially worsen benchmark performance (e.g., more vertex points).
@@ -164,16 +164,15 @@ The purpose of this is to detect any unexpected results in execution; and thus i
 For consistency, each variation - of which there are two; resulting in three unique experiments per benchmark - have been produced to halve- and subsequently double the corresponding input data.
 The specifics of these instances are described along with the benchmarks below.
 
+% fig:benchmarks
 \begin{figure}
-  \minipage{0.5\linewidth}
+  \minipage{\linewidth}
   \includegraphics[width=\linewidth]{img/imgchess.png}
-  \caption[Chess benchmark screen capture]{Chess.}
-  \label{fig:benchmarks_chess}
-  \endminipage\hfill
-  \minipage{0.4\linewidth}
+  \endminipage\\[6pt]
+  \minipage{\linewidth}
   \includegraphics[width=\linewidth]{img/imgjulia.png}
-  \caption[Julia benchmark screen capture]{Julia.}
-  \label{fig:benchmarks_julia}
+  \caption[Benchmark screen captures]{Benchmark screen captures.}
+  \label{fig:benchmarks}
   \endminipage
 \end{figure}
 
