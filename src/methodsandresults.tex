@@ -198,6 +198,25 @@ The case is selected for use as the computation of a fractal is trivially scalab
 
 We perform the Julia benchmark with $225$, $450$, and $900$ iterations per frame, all of which induce $16$ magic instructions per frame.
 
+\subsubsection{Platform Profiling}
+\label{sec:platformprofiling}
+In the presence of complications caused by virtual time, profiling of elapsed time in simulators dictate special measures.
+This is due to the fact that profiling of elapsed time outside of the simulation - that is, time in the context of the observer - may be more relevant than profiling of virtual time.
+This is often the case if the simulation has outside dependencies of some sort.
+Naturally, it is so in terms of real-time interaction and rendering.
+
+In order to profile elapsed frametimes, profiling must take place outside of the simulation.
+One way of achieving this is to listen in on activity passing through a target serial port; being a traditional front-end to the machine.
+In this way, the simulator is instructed to listen in on, and set a simulation breakpoint at the occurrence of, a specialized sequence of bytes being written (via a serial console) to a UART serial port.
+This is the method we use to profile frametime performance in Simics.
+
+When using serial ports in this manner, one may introduce a profiling cost.
+Such overhead may be induced file descriptors not immediately transmitting a concerned byte sequence via the system UART.
+We have measured this cost to be on average \dvtcmdfirstline{profile.dat.avg}~ms, with a minimum and maximum elapsed time of \dvtcmdfirstline{profile.dat.min} and \dvtcmdfirstline{profile.dat.max}, respectively, adhering to a standard deviation of \dvtcmdfirstline{profile.dat.std}.
+From these measurements, we may deduce that profiling overhead cost may occasionally be volatile.
+However, with a standard deviation of \dvtcmdfirstline{profile.dat.std} ms, slightly below that of the average, such large deviation is to be quite rare.
+If not specified otherwise, all results have taken into account the average of this profiling cost; being \dvtcmdfirstline{profile.dat.avg}~ms.
+
 \subsection{Results}
 \label{sec:results}
 Results gathered from execution on the host are presented in table~\ref{tab:keyvalhost} and results compiled from execution in \hl{QEMU} are presented in table\ref{tab:keyvalqemu}, while results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
