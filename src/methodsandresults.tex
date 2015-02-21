@@ -14,14 +14,6 @@ For the purposes of ensuring scalability of the solution during development, a s
 As such, a large amount of the OpenGL function definitions encoded and decoded by the these libraries are produced by this tool.
 For this, we use a \texttt{Python} program that, from framework specification files detailing function signatures and argument attributes, generate both headers and source files in \texttt{C}; thus constructing the target OpenGL and EGL frameworks, along with the corresponding host decoding libraries.
 The tool generates all but the methods that need special treatment (due to state saving) and may thus generate methods with return values and inout arguments.
-See figure \ref{fig:abigeneration} for an overview of the code generation process.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{img/yedabigeneration.pdf}
-  \caption[The framework generation process]{Visualization of the framework code generating process performed to compile the target- and host system libraries.}
-  \label{fig:abigeneration}
-\end{figure}
 
 \subsection{Target System Libraries}
 \label{sec:proposedsolutionandimplementation_targetsystemlibraries}

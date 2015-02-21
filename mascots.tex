@@ -6,13 +6,8 @@
 %   execution on x86. Accentuate why it is probable that x86 is not the target
 %   platform, and that the solution would probably speed up graphics by orders
 %   of magnitude more should virtualization extensions not be used.
-% * Consider adding the OpenGL ES section, or at least part of it (explaining
-%   why OpenGL ES was chosen for the purposes of this study) to the contribution
-%   section. Currently commented out under Previous Research.
-% * Consider removing the sections on Simics Deterministic Execution,
-%   Checkpointing and Reverse Execution. Alternatively, take the relevant
-%   contents and just stick them under the overhead Simics section without
-%   seperate rubrics.
+% * Briefly mention that OpenGL ES 2.0 is chosen because it's often used for
+%   embedded platforms (which is one of Simics' strenths).
 % * The section on GPU Modeling can probably be shortened quite a bit. Consider
 %   breaking out the contents of the subsections under the overhead title.
 % * Consider placing the section on OpenGL Framework Generation after
@@ -21,16 +16,11 @@
 %   emulator from the Experimental Methodology section. Consider
 %   adding them to the document if we're to expand on the comparisons
 %   with the android emulator.
-% * The 'input variations' tables under section Benchmarks could probably be
-%   made considerably smaller now that the Phong benchmark is not involed
-%   anymore. Do they have to be seperate tables?
 % * Include the platfor profiling bits from Threats to Validity when describing
 %   how the time samples were collected.
 % * The Platform Comparison section (commented out under Methods and Results)
 %   should probably be uncommented and moved to a later section if we want to
 %   bring up QEMU.
-% * (Consider) Don't call the benchmarks 'Chess' and 'Julia'. Instead refer
-%   to them as the latency benchmark and the performance benchmark, or similar.
 % * Explain in detail why paravirtualization is a good balancing of
 %   the problems facing graphics acceleration in system simulation.
 % * Refer to the benchmarks, not at Chess or Julia, but as the 'latency' and
@@ -42,11 +32,10 @@
 
 % TODO Minor:
 % * Correct formatting of multiple references [4][34] -> [4,34].
+% * Indentation at the start of sections.
 
 % Thesis chapters yet to import contents from:
-% * Threats to validity (the first section probably, but the second one can
-%   hopefully be skipped since we won't be (in the future) presenting the
-%   texture benchmark results.
+% * Threats to validity (platform profiling overhead)
 % * Discussion
 % * Future work
 
@@ -128,7 +117,3 @@ Email: \href{mailto:eric.nilsson@intel.com}{eric.nilsson@intel.com}}}
 \bibliography{mascots}
 
 \end{document}
-
-% Notes:
-% no keywords
-% conference papers do not normally have an appendix
