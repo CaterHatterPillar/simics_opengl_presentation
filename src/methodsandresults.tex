@@ -18,7 +18,7 @@ The tool generates all but the methods that need special treatment (due to state
 \subsection{Target System Libraries}
 \label{sec:proposedsolutionandimplementation_targetsystemlibraries}
 Compiled from \texttt{C} and \texttt{C++} sources output by the generation program, the target system libraries compose implementations of the EGL and OpenGL APIs.
-Due to the tight coupling ibetween OpenGL and the platform windowing system, the solution must also accelerate the Khronos EGL API -- the interface between OpenGL and the underlying platform windowing system.
+Due to the tight coupling between OpenGL and the platform windowing system, the solution must also accelerate the Khronos EGL API -- the interface between OpenGL and the underlying platform windowing system.
 As may be derived from the name, the target system libraries run on the simulation target system and replace any existing Khronos libraries.
 
 Accordingly, the target system libraries implement the EGL and OpenGL~ES~$2.0$ APIs and lures whatever application it is being linked to that it is, in fact, the expected platform libraries.
@@ -80,7 +80,7 @@ Furthermore, being a greatly desirable attribute, magic instructions require no 
 In effect, implementation of magic instructions requires replacing one or more instructions in the target instruction set, thereby making the magic instruction platform-dependent.
 However, the solution is often designed to only respond to magic instructions wherein a certain magic number, sometimes called a 'leaf number'~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}, is present in an arbitrary processor register.
 
-Due to the inherent performance demands brought on by serialization of real-time graphics invocations, magic instructions are a suitable candidate to exchange information between target host systems.
+Due to the inherent performance demands brought on by serialization of real-time graphics invocations, magic instructions are a suitable candidate for the exchange of information between target and host system.
 Magic instructions allow for fast, in the pretext of the simulation target -- almost instant -- escape from the simulation context, and may carry a limited amount of information with it from inside the simulation out into the real world.
 The role of the Simics pipe is comprised of the allocation and maintenance of page locked target memory to accomodate the use of magic instructions, which the Simics pipe uses to relay the starting address of said memory space to the simulation host.
 
@@ -174,7 +174,7 @@ It is so named because of the chess-like tileset the graphics kernel produces.
 The benchmark is designed to perform a multitude of OpenGL~ES~$2.0$ library invocations per frame, in which each invocation is relatively lightweight in execution and carries a small amount of data in its arguments.
 In the Chess benchmark, this is achieved by rendering a grid of colored (black or white, in order to adhere to the chess paradigm) rectangles where each tile is represented by four two-dimensional vertices in screen-space, in addition to six indices outlining the rectangular shape.
 Since the vertices are already transformed into screen-space, the graphics kernel need perform no additional transformation, adhering to the desired lightweight behavior of each kernel invocation.
-Additionally, the tileset vertices and indices are pre-loaded into OpenGL vertex and index element buffers, so that a lone buffer identifier may be carried over in-place of the heavier vertex set load.
+Additionally, the tileset vertices and indices are pre-loaded into OpenGL vertex and index element buffers, so that a lone buffer identifier may be transferred instead of the heavier vertex set load.
 Each tile is then individually drawn to the backbuffer, rendering the chess-like appearance of the benchmark.
 Effectively, this means that, for each tile, the benchmark need only bind a vertex and an index element buffer, set the corresponding tile color, and lastly invoke the rendering of said tile.
 
@@ -330,7 +330,7 @@ As such, in great numbers, magic instructions may greatly affect performance.
 We performed further study into this matter to establish what those overhead costs may be.
 To do this, we measured elapsed time for escaping simulation $1000$ times using magic instructions, collecting minimum (\dvtcmdfirstline{magicinstrprofileall.dat.min}), maximum (\dvtcmdfirstline{magicinstrprofileall.dat.max}), average (\dvtcmdfirstline{magicinstrprofileall.dat.avg}), the standard deviation thereof (\dvtcmdfirstline{magicinstrprofileall.dat.std}), time to do so.
 From these findings, we may conclude that the execution of $1000$ magic instructions is expected to induce an average overhead of \dvtcmdfirstline{magicinstrprofileall.dat.avg}~ms per magic instruction.
-Indeed, these findings indicate that magic instruction overhead could ver well account for the majority of the elapsed average frametimes when paravirtualized in Simics.
+Indeed, these findings indicate that magic instruction overhead could very well account for the majority of the elapsed average frametimes when paravirtualized in Simics.
 
 In figure \ref{fig:histogramssimicsparajulia}, we may observe double to triple peak behavior in the distribution of the sample density, both in software rasterized and paravirtualized platforms.
 What causes this behavior is unclear, as frame-to-frame branching in the fractal algorithm is minor and ought not cause such a variance.

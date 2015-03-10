@@ -66,7 +66,7 @@ PCI~passthrough technologies allow virtual systems first-hand access to host mac
 The direct contact with host system devices accommodated by these technologies enable fully-fledged hardware accelerated workloads.
 Yet the methodology suffers from several disadvantages, such as requiring dedicated hardware, causing the host system to lose access to devices during the course of simulation.
 In terms of GPU virtualization, this would induce the necessity of multiple graphics cards to the host system.
-Additionally, and mayhaps the gratest flaw of passthrough technologies, is the requirement of modifying the simulation target to utilize host hardware; effectively restricting what systems may be simulated.
+Additionally, and perhaps the greatest flaw of passthrough technologies, is the requirement of modifying the simulation target to utilize host hardware, effectively restricting what systems may be simulated.
 This restriction encompasses the utilization of corresponding device drivers to the host system, rendering the methodology inflexible in terms of GPU virtualization diversity.
 
 % Paravirtualization
@@ -83,7 +83,7 @@ Unfortunately, paravirtualization is not without inherent flaws.
 In particular, a paravirtualized graphics library may be expensive to maintain as frameworks evolve and specifications change.
 Additionally, paravirtualized methodologies requires modification of target systems; albeit not necessarily being a defect as a paravirtualized framework may still accelerate unmodified target applications.
 
-For the purposes of graphics acceleration in a virtual platform, paravirtualization is a decent levelling of benefits and drawbacks, and is therefore considered a suitable candidate for accelerating graphics in the Simics full-system simulator.
+For the purposes of graphics acceleration in a virtual platform, paravirtualization offers a decent balance between benefits and drawbacks, and is therefore considered a suitable candidate for accelerating graphics in the Simics full-system simulator.
 
 %% % Virtual Time
 %% \subsection{Virtual Time}
