@@ -10,7 +10,7 @@ These components, along with elaboration of the methodologies accomodating them,
 % OpenGL Framework Generation
 \subsection{OpenGL Framework Generation}
 \label{sec:proposedsolutionandimplementation_openglabigeneration}
-For the purposes of ensuring scalability of the solution during development, a set of scripts automating the generation of library source code is used to compile the majority of target- and host system libraries.
+For the purposes of ensuring scalability of the solution during development, a set of scripts automating the generation of library source code is used to compile the majority of target and host system libraries.
 As such, a large amount of the OpenGL function definitions encoded and decoded by the these libraries are produced by this tool.
 For this, we use a \texttt{Python} program that, from framework specification files detailing function signatures and argument attributes, generate both headers and source files in \texttt{C}, thus constructing the target OpenGL and EGL frameworks, along with the corresponding host decoding libraries.
 The tool generates all but the methods that need special treatment (due to state saving) and may thus generate methods with return values and inout arguments.
@@ -29,7 +29,7 @@ However, the transmission of the command stream is not necessarily performed at 
 This complex of problems involve uncertainties of the proportion of argument data, as size is not necessarily given by the user or apperent at that time.
 As such, certain serialization may have to be delayed until further information surrounding the argument dimensions have been relayed to the OpenGL library.
 Furthermore, a subset of the OpenGL state need be maintained by the target system libraries.
-These attributes are comprised by, inter alia, bound vertex- and index element buffers, in addition to properties of OpenGL vertex attributes.
+These attributes are comprised by, inter alia, bound vertex and index element buffers, in addition to properties of OpenGL vertex attributes.
 Such states must be kept in the target system libraries due to the asynchronous nature of serialization of OpenGL invocations in the paravirtualized solution.
 
 The serialization described in the above paragraph is thus formatted and encoded in accordance to a certain data format, which is kept as minimal as possible throughout execution.
@@ -45,7 +45,7 @@ Said decoding involves unpacking data from fixed length storage into variable-si
 Furthermore, and again similarly to the target system libraries, due to design inherent in the OpenGL~ES~$2.0$ framework, the host system libraries need maintain some data for state saving purposes.
 Such data is buffered in the host system libraries until used (drawn) in a later, and separate, OpenGL invocation.
 %\footnote{A possible optimization would be to cache said data, to avoid the need to transmit unmodified vertices multiple times, despite so being specified by the user.}.
-When the requested OpenGL invocation has been performed, any return- or in-out values are returned to the target system using the Simics pipe.
+When the requested OpenGL invocation has been performed, any return or inout values are returned to the target system using the Simics pipe.
 As with the the target system libraries, the receiving end of an OpenGL method definitions in the host system libraries are likewise generated to a large degree.
 
 % Windowing Systems
@@ -174,9 +174,9 @@ It is so named because of the chess-like tileset the graphics kernel produces.
 The benchmark is designed to perform a multitude of OpenGL~ES~$2.0$ library invocations per frame, in which each invocation is relatively lightweight in execution and carries a small amount of data in its arguments.
 In the Chess benchmark, this is achieved by rendering a grid of colored (black or white, in order to adhere to the chess paradigm) rectangles where each tile is represented by four two-dimensional vertices in screen-space, in addition to six indices outlining the rectangular shape.
 Since the vertices are already transformed into screen-space, the graphics kernel need perform no additional transformation, adhering to the desired lightweight behavior of each kernel invocation.
-Additionally, the tileset vertices and indices are pre-loaded into OpenGL vertex- and index element buffers, so that a lone buffer identifier may be carried over in-place of the heavier vertex set load.
+Additionally, the tileset vertices and indices are pre-loaded into OpenGL vertex and index element buffers, so that a lone buffer identifier may be carried over in-place of the heavier vertex set load.
 Each tile is then individually drawn to the backbuffer, rendering the chess-like appearance of the benchmark.
-Effectively, this means that, for each tile, the benchmark need only bind a vertex- and an index element buffer, set the corresponding tile color, and lastly invoke the rendering of said tile.
+Effectively, this means that, for each tile, the benchmark need only bind a vertex and an index element buffer, set the corresponding tile color, and lastly invoke the rendering of said tile.
 
 For each frame rendered, depending on the number of drawn tiles, the solution will perform a large number of magic instructions.
 This induces a high utilization of the Simics Pipe, which is intended to stress magic instruction overhead (section \ref{sec:results_magicinstructionoverhead}).
@@ -303,11 +303,11 @@ The remainder of this section presents an analysis of the data compiled from exe
 \begin{figure*}
   \centering
   \input{gnuhistogramssimicsparachess.tex}
-  \caption[Benchmark results -- paravirtualized in Simics, Chess]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Chess benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \caption[Benchmark results -- paravirtualized in Simics, Chess]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Chess benchmark key figure variations whilst software rasterized and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
   \label{fig:histogramssimicsparachess}
 
   \input{gnuhistogramssimicsparajulia.tex}
-  \caption[Benchmark results -- paravirtualized in Simics, Julia]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Julia benchmark key figure variations whilst software rasterized- and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
+  \caption[Benchmark results -- paravirtualized in Simics, Julia]{Histograms depicting benchmark elapsed frametimes in milliseconds and the density distribution of 1000 frames for the Julia benchmark key figure variations whilst software rasterized and paravirtualized in Simics. The $Y$ axis thus depict sample density. Its axis keys have been removed as they bear no relevance to the outcomes presented in this document.}
   \label{fig:histogramssimicsparajulia}
 \end{figure*}
 
