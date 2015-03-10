@@ -33,7 +33,7 @@ These attributes are comprised by, inter alia, bound vertex and index element bu
 Such states must be kept in the target system libraries due to the asynchronous nature of serialization of OpenGL invocations in the paravirtualized solution.
 
 The serialization described in the above paragraph is thus formatted and encoded in accordance to a certain data format, which is kept as minimal as possible throughout execution.
-This encoding includes packing variable length data types, such as $8$-bit characters, $16$-bit fields, or $64$-bit integer values, into fixed length structures, so that the host system may interpret these values independently of how corresponding types are defined on that unrelated platform.
+The library on the target side packs data types of various lengths, such as $8$-bit characters, $16$-bit fields, or $64$-bit integer values, into fixed-length structures, so that the host system may interpret these values independently of how corresponding types are defined on that unrelated target platform.
 
 %\footnote{It should be noted, however, that the solution assumes a little endian architecture and IEEE 754 standard for floating point representation. If the host system would not conform to these prerequisites, the solution would have to be complemented with additional support.}.
 
@@ -102,7 +102,7 @@ As such, this address need be translated in order to retrieve the package conten
 \subsection{Page Table Traversal}
 \label{sec:proposedsolutionandimplementation_pagetabletraversal}
 As outlined in section \ref{sec:proposedsolutionandimplementation_simicspipe}, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
-Using Simics to access the MMU of the target system, one may translate a target virtual address to a (target) physical device address; to/from which we may access an arbitrary number of bytes in physical memory.
+The simulation host can access the MMU of the target system to translate a target virtual address to a (target) physical address. The devised physical address can in turn be used to find the corresponding location in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
 However, due to the complexity induced by circumventing the abstraction of virtual memory, there is no guarantee that the memory page to which the exposed physical address refers has not been swapped out of primary memory.
 In order to solve this, we must 'lock' target system memory pages to prevent them from being swapped to disk.
 This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
@@ -110,9 +110,8 @@ Other methods to achieve this include repeatedly 'polling' the corresponding mem
 
 Furthermore, and again induced by the unorthodox circumvention of the virtual memory paradigm, it is probable that the multiple memory pages making out particularly large serialized command streams, such as the transmission of vertex or texture data, are not consecutively aligned in physical memory, although guaranteed to be continuous blocks in terms of virtual memory.
 As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see figure \ref{fig:virtualmemory}).
-This can be done in a trivial manner by simply iterating the original virtual address with the (target) page size.
-In our case, $4096$ bytes.
-Naturally, said process must be performed regardless of data being read or written to-/from the intended (physical) memory space.
+This can be done in a trivial manner by simply iterating the original virtual address with the (target) page size. In our case, the page size is $4096$ bytes.
+Naturally, said process must be performed regardless whether data is being read or written.
 
 \begin{figure}
 \centering
@@ -139,19 +138,22 @@ The system upon which the experiment is performed is an x86-compatible Haswell I
 %% %Paravirtualized Android $4.4$\footnote{Android KitKat - API level $19$.} QEMU target system
 
 Throughout the course of the pilot study, no existing OpenGL~ES~$2.0$ benchmark (featuring cross-platform profiling support for \hl{Android} and X11 Linux) was deemed appropriate for for the purposes of this experiment.
-As such, a pair of benchmarks have been devised on-site for the purposes of stress-testing the paravirtualized technology described in this document.
-The benchmarks are intended to stress suspected bottlenecks in the implementation; a large number of relatively insignificant OpenGL~ES invocations and computationally intensive GPU workload.
-These benchmarks are configured to run at roughly $16$~\milli\second , which would correspond to roughly $60$~frames per second, when hardware accelerated on the host system.
+As such, two benchmarks have been devised on-site for the purposes of stress-testing the paravirtualized technology described in this document.
+Each benchmark is intended to stress one suspected bottleneck in the implementation: One benchmark performs a large number of relatively insignificant OpenGL~ES invocations, while the other has a computationally intensive GPU workload.
+Both benchmarks are configured to run at roughly $16$~\milli\second , which would correspond to roughly $60$~frames per second, when hardware accelerated on the host system.
 The benchmarks are devised in this way in order to reflect the expected load of a modern real-time interactive application.
 As such, the purpose of developed benchmarks is to be representative of typical scenarios induced by modern graphics applications whilst utilizing a graphics framework such as OpenGL.
 When run during the experiment, each benchmark instance measures the elapsed time of $1000$ frames which makes up the data subsequently analyzed.
 Frame captures of the benchmarks are presented in figures \ref{fig:benchmarks} and \ref{fig:benchmarks}.
 
-In order to detect anything but linear potential of scaling in software rasterized- and paravirtualized Simics platforms,  we run the benchmarks in three separate instances, respectively.
-These benchmark versions differ in terms of input data; where said input is a changed variable that could potentially worsen benchmark performance (e.g., more vertex points).
-The purpose of this is to detect any unexpected results in execution; and thus identify any performance complexity issues in software rasterized- and paravirtualized Simics platforms.
-For consistency, each variation - of which there are two; resulting in three unique experiments per benchmark - have been produced to halve- and subsequently double the corresponding input data.
-The specifics of these instances are described along with the benchmarks below.
+In order to further analyze how performance scales, we run three
+instances of each benchmark, using different input data. In addition
+to the reference run of $16$~\milli\second , it is also run with
+smaller and larger input data, tuned to yield approximately half and
+double frame time, respectively, assuming that the benchmark really
+stresses the bottlenecks it was designed for.  The specifics of the
+input data sizes are described below, along with the respective
+benchmark.
 
 % fig:benchmarks
 \begin{figure}
