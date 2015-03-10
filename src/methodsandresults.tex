@@ -13,7 +13,7 @@ These components, along with elaboration of the methodologies accomodating them,
 For the purposes of ensuring scalability of the solution during development, a set of scripts automating the generation of library source code is used to compile the majority of target and host system libraries.
 As such, a large amount of the OpenGL function definitions encoded and decoded by the these libraries are produced by this tool.
 For this, we use a \texttt{Python} program that, from framework specification files detailing function signatures and argument attributes, generate both headers and source files in \texttt{C}, thus constructing the target OpenGL and EGL frameworks, along with the corresponding host decoding libraries.
-The tool generates all but the methods that need special treatment (due to state saving) and may thus generate methods with return values and inout arguments.
+The tool generates all but the methods that need special treatment (due to state saving) and may thus generate methods with return values and inout\todo{inout vedertaget begrepp?} arguments.
 
 \subsection{Target System Libraries}
 \label{sec:proposedsolutionandimplementation_targetsystemlibraries}
@@ -70,13 +70,13 @@ The Simics pipe constitutes the target-to-host communications channel in Simics.
 As such, it is responsible for transferring a serialized command stream between target software and simulation host.
 In order to do this, the pipe requires a way to exchange information with the outside world.
 
-There may be reasons as to why one would like to escape the simulation and resume execution in the real world.
-Such a scenario would be a debugging breakpoint, to share data in-between target and host systems, or for any reason modify the simulation state.
+There may be reasons why target software would like to escape the simulation and trigger that execution is resumed on the simulation host.
+Such a scenario would be a debugging breakpoint, to share data between target and host systems, or for any reason modify the simulation state \todo{I don't understand this sentence}.
 There are a number of ways to communicate with the outside world (including the host machine) from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as the -- arguably -- legitimately coined 'magic instruction'.
 
 The magic instruction is a concept used to denote a \dvtcmdcodeinline{nop}-type instruction, meaning an instruction that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} on the x86), which, when executed on the simulated hardware in a virtual platform, invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
 An advantage of this methodology is an often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
-Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system.
+Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system \todo{joho! magiska instr ar ju en modifiering av target, man andrar ju pa instruktioner. Syftar du pa att man inte behover lagga till latsashardvara? eller att mjukvara med MI aven funkar pa riktig HW? om det senare, sa ar detta orelevant for paravirtualisering}.
 In effect, implementation of magic instructions requires replacing one or more instructions in the target instruction set, thereby making the magic instruction platform-dependent.
 However, the solution is often designed to only respond to magic instructions wherein a certain magic number, sometimes called a 'leaf number'~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}, is present in an arbitrary processor register.
 
@@ -122,8 +122,8 @@ Naturally, said process must be performed regardless whether data is being read 
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
-The experiment is performed in software rasterized- and paravirtualized Simics platforms, respectively, in addition to reference runs on the host system.
-Simics is configured to simulate an Intel\circledR\ Core \texttrademark\ i7; the same processor series to that of simulation host hardware.
+The experiment is performed in software rasterized and paravirtualized Simics platforms, respectively, in addition to reference runs on the host system.
+Simics is configured to simulate an Intel\circledR\ Core \texttrademark\ i7\todo{i7 is not a processor series, it's a marketing brand. I suppose the crucial similarity is that both use 64-bit x86 architectures?}, the same processor series to that of simulation host hardware.
 During simulation, we utilize KVM to accelerate simulation by running target x86 instructions natively on host (x86) hardware.
 The simulation systems are, like the host system, set up to run Fedora $19$ Linux and use the Mesa llvmpipe driver for OpenGL software rasterization.
 
@@ -168,7 +168,7 @@ benchmark.
 \end{figure}
 
 % Benchmark: Chess
-\paragraph{Benchmark: Chess}
+\paragraph{Benchmark: Chess\todo{incorrect paragraph numbering}}
 \label{par:experimentalmethodology_benchmarking_benchmarkchess}
 \index{Chess benchmark}
 The 'Chess' benchmark is developed for the purposes of stressing the latency between target and host systems.
@@ -197,7 +197,7 @@ The case is selected for use as the computation of a fractal is trivially scalab
 
 We perform the Julia benchmark with $225$, $450$, and $900$ iterations per frame, all of which induce $16$ magic instructions per frame.
 
-\subsubsection{Platform Profiling}
+\subsubsection{Platform Profiling\todo{strange numbering again}}
 \label{sec:platformprofiling}
 In the presence of complications caused by virtual time, profiling of elapsed time in simulators dictate special measures.
 This is due to the fact that profiling of elapsed time outside of the simulation -- that is, time in the context of the observer -- may be more relevant than profiling of virtual time.
@@ -218,10 +218,10 @@ If not specified otherwise, all results have taken into account the average of t
 
 \subsection{Results}
 \label{sec:results}
-Results gathered from execution on the host are presented in table~\ref{tab:keyvalhost} and results compiled from execution in \hl{QEMU} are presented in table\ref{tab:keyvalqemu}, while results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
-In figures~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms; visualizing elapsed time in milliseconds to sample density.
-As such, the $Y$ axis showcase sample density; although the axis keys have been removed as they bear little relevance to the outcomes presented in this material.
-The histograms each feature $100$ bins; into which a $1000$ samples, for each experiment performed, are rounded into.
+Results gathered from execution on the host are presented in table~\ref{tab:keyvalhost} and results compiled from execution in \hl{QEMU} are presented in table~\ref{tab:keyvalqemu}, while results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
+In figures~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
+As such, the $Y$ axis showcase sample density, although the axis keys have been removed as they bear little relevance to the outcomes presented in this material.
+The histograms each feature $100$ bins, into which $1000$ samples, for each experiment performed \todo{unclear reference -- Do you mean that for each experiment, you put 1000 samples into 100 bins? maybe clearer if you split in 2 sentences}, are rounded into.
 For the purposes of visualization, values outside of the standard deviation are not featured in the figures.
 The remainder of this section presents an analysis of the data compiled from executing the experiment on the software rasterized and paravirtualized Simics platforms.
 
@@ -330,7 +330,7 @@ It also entails Simics no longer being able to utilize just-in-time compilation 
 As such, in great numbers, magic instructions may greatly affect performance.
 
 We performed further study into this matter to establish what those overhead costs may be.
-To do this, we measured elapsed time for escaping simulation $1000$ times using magic instructions, collecting minimum (\dvtcmdfirstline{magicinstrprofileall.dat.min}), maximum (\dvtcmdfirstline{magicinstrprofileall.dat.max}), average (\dvtcmdfirstline{magicinstrprofileall.dat.avg}), the standard deviation thereof (\dvtcmdfirstline{magicinstrprofileall.dat.std}), time to do so.
+To do this, we measured elapsed time for escaping simulation $1000$ times using magic instructions, collecting minimum (\dvtcmdfirstline{magicinstrprofileall.dat.min}), maximum (\dvtcmdfirstline{magicinstrprofileall.dat.max}), average (\dvtcmdfirstline{magicinstrprofileall.dat.avg}), the standard deviation thereof (\dvtcmdfirstline{magicinstrprofileall.dat.std}), time to do so \todo{kan meningen forenklas lite? lite val komplexa syftningar}.
 From these findings, we may conclude that the execution of $1000$ magic instructions is expected to induce an average overhead of \dvtcmdfirstline{magicinstrprofileall.dat.avg}~ms per magic instruction.
 Indeed, these findings indicate that magic instruction overhead could very well account for the majority of the elapsed average frametimes when paravirtualized in Simics.
 
