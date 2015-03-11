@@ -132,13 +132,6 @@ The simulation systems are, like the host system, set up to run Fedora $19$ Linu
 The system upon which the experiment is performed is an x86-compatible Haswell Intel\circledR system running Fedora 19 Linux with the following specifications:
 \todo{Add host system specs.}
 
-% TODO: include in document or remove.
-% QEMU SETUP
-%% For QEMU reference tests, we profile the performance of the (QEMU) Android emulator to relate the devised solution to pre-existing technologies, in addition to execution on the hardware accelerated host platform as a reference case.
-%% In order to accommodate for similar acceleration in QEMU, Android is configured to run on the Intel\circledR Android x86 system image (see \dvtcmdciteref{technicaldocs:intel:2013:x86}), circumventing the need to interpret ARM instructions~\dvtcmdciteref{web:stylianou:2010}.
-%% Furthermore, the solution also utilize KVM in order to provide similar native execution on the host hardware\footnote{Had the solution been running on the Windows OS, the solution would have utilized Intel\circledR\ HAXM (see ~\dvtcmdciteref{technicaldocs:intel:2013:haxm}) to accommodate for said native execution~\dvtcmdciteref{web:hofemeier:2010}.}.
-%% %Paravirtualized Android $4.4$\footnote{Android KitKat - API level $19$.} QEMU target system
-
 Throughout the course of the pilot study, no existing OpenGL~ES~$2.0$ benchmark (featuring cross-platform profiling support for \hl{Android} and X11 Linux) was deemed appropriate for for the purposes of this experiment.
 As such, two benchmarks have been devised on-site for the purposes of stress-testing the paravirtualized technology described in this document.
 Each benchmark is intended to stress one suspected bottleneck in the implementation: One benchmark performs a large number of relatively insignificant OpenGL~ES invocations, while the other has a computationally intensive GPU workload.
