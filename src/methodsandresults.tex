@@ -102,7 +102,8 @@ As such, this address need be translated in order to retrieve the package conten
 \subsection{Page Table Traversal}
 \label{sec:proposedsolutionandimplementation_pagetabletraversal}
 As outlined in section \ref{sec:proposedsolutionandimplementation_simicspipe}, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
-The simulation host can access the MMU of the target system to translate a target virtual address to a (target) physical address. The devised physical address can in turn be used to find the corresponding location in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
+The simulation host can access the MMU of the target system to translate a target virtual address to a (target) physical address.
+The devised physical address can in turn be used to find the corresponding location in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
 However, due to the complexity induced by circumventing the abstraction of virtual memory, there is no guarantee that the memory page to which the exposed physical address refers has not been swapped out of primary memory.
 In order to solve this, we must 'lock' target system memory pages to prevent them from being swapped to disk.
 This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
@@ -110,7 +111,8 @@ Other methods to achieve this include repeatedly 'polling' the corresponding mem
 
 Furthermore, and again induced by the unorthodox circumvention of the virtual memory paradigm, it is probable that the multiple memory pages making out particularly large serialized command streams, such as the transmission of vertex or texture data, are not consecutively aligned in physical memory, although guaranteed to be continuous blocks in terms of virtual memory.
 As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see figure \ref{fig:virtualmemory}).
-This can be done in a trivial manner by simply iterating the original virtual address with the (target) page size. In our case, the page size is $4096$ bytes.
+This can be done in a trivial manner by simply iterating the original virtual address with the (target) page size.
+In our case, the page size is $4096$ bytes.
 Naturally, said process must be performed regardless whether data is being read or written.
 
 \begin{figure}
@@ -146,14 +148,9 @@ As such, the purpose of developed benchmarks is to be representative of typical 
 When run during the experiment, each benchmark instance measures the elapsed time of $1000$ frames which makes up the data subsequently analyzed.
 Frame captures of the benchmarks are presented in figures \ref{fig:benchmarks} and \ref{fig:benchmarks}.
 
-In order to further analyze how performance scales, we run three
-instances of each benchmark, using different input data. In addition
-to the reference run of $16$~\milli\second , it is also run with
-smaller and larger input data, tuned to yield approximately half and
-double frame time, respectively, assuming that the benchmark really
-stresses the bottlenecks it was designed for.  The specifics of the
-input data sizes are described below, along with the respective
-benchmark.
+In order to further analyze how performance scales, we run three instances of each benchmark, using different input data.
+In addition to the reference run of $16$~\milli\second , it is also run with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmark really stresses the bottlenecks it was designed for.
+The specifics of the input data sizes are described below, along with the respective benchmark.
 
 % fig:benchmarks
 \begin{figure}
@@ -262,7 +259,11 @@ The remainder of this section presents an analysis of the data compiled from exe
       Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
       Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
     \end{tabular}
+<<<<<<< Updated upstream
     \caption[Benchmark results -- hardware accelerated on the simulation host]{Benchmarking results whilst hardware accelerated on the simulation host system.}
+=======
+    \caption[Benchmark results - hardware accelerated on the simulation host]{\hl{Benchmarking results whilst hardware accelerated on the simulation host system.}}
+>>>>>>> Stashed changes
     \label{tab:keyvalhost}
     \vspace{4ex}
   \end{minipage} 
@@ -294,7 +295,11 @@ The remainder of this section presents an analysis of the data compiled from exe
       Chess & \dvtcmdfirstline{qemuchess84x84.dat.min} & \dvtcmdfirstline{qemuchess84x84.dat.max} & \dvtcmdfirstline{qemuchess84x84.dat.std} & \dvtcmdfirstline{qemuchess84x84.dat.avg} \\ \hline
       Julia & \dvtcmdfirstline{qemujulia450.dat.min} & \dvtcmdfirstline{qemujulia450.dat.max}	& \dvtcmdfirstline{qemujulia450.dat.std} & \dvtcmdfirstline{qemujulia450.dat.avg} \\ \hline
     \end{tabular}
+<<<<<<< Updated upstream
     \caption[Benchmark results -- paravirtualized in the Android emulator]{Benchmarking results whilst paravirtualized in the QEMU-derived Android emulator.}
+=======
+    \caption[Benchmark results - paravirtualized in the Android emulator]{\hl{Benchmarking results whilst paravirtualized in the QEMU-derived Android emulator.}}
+>>>>>>> Stashed changes
     \label{tab:keyvalqemu}
     \vspace{4ex}
   \end{minipage} 
