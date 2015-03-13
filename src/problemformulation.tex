@@ -3,12 +3,11 @@
 % Problem Formulation
 \section{Problem Formulation}
 \label{sec:problemformulation}
-This paper presents the paravirtualization of a graphics API (being OpenGL~ES~$2.0$) in the Simics full-system simulator developed by Intel and sold through Intel's subsidiary Wind River Systems,~Inc. 
+This paper presents the paravirtualization of the OpenGL~ES~$2.0$ graphics API in the Simics full-system simulator. 
 As such, this study concerns investigating the performance of paravirtualized graphics in a modern virtual platform.
 This entails investigation, analysis, and development of methods and techniques for efficient communication and execution in the Simics run-time environment.
 
-Accordingly, we devise a paravirtualized solution for graphics acceleration in Simics.
-To accommodate the analysis of benefits and drawbacks of paravirtualized graphics, we devise a benchmark suite with the goal of locating performance bottlenecks.
+To accommodate the analysis of benefits and drawbacks of paravirtualized graphics, a benchmark suite -- with the goal of locating performance bottlenecks -- is devised.
 The benchmarks are designed to stress latency in target-to-host communication, in addition to computational intensity brought on by complex GPU workloads.
 In coagency with the benchmarks, this study comprises an analysis of the performance of paravirtualized graphics compared to that of traditional software rasterization.
 The objectives of the paper is to evaluate the feasibility of paravirtualization as an approach to accelerate graphics in virtual platforms, and to identify its strengths and weaknesses.
