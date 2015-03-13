@@ -85,24 +85,3 @@ In particular, a paravirtualized graphics library may be expensive to maintain a
 Additionally, paravirtualized methodologies require modification of target systems; albeit not necessarily being a defect as a paravirtualized framework may still accelerate unmodified target applications \todo{i don't understand this statement}.
 
 For the purposes of graphics acceleration in a virtual platform, paravirtualization is a decent tradeoff between benefits and drawbacks, and is therefore considered a suitable candidate for accelerating graphics in the Simics full-system simulator\todo{Consider removing this sentence.}.
-
-%% \subsection{GPU Architecture}
-%% \label{sec:previousresearch_gpuarchitecture}
-%% GPUs are massively parallel numeric computing processors often used for 3D graphics acceleration.
-%% While CPUs are designed to maximize sequential performance, GPUs are designed to maximize floating-point operations per second throughput; originally required for the floating point linear algebra often needed by 3D graphics.
-%% Additionally, the continuous need for faster processing units, slowed down by the heat dissipation issues limiting clock frequency since 2003~\dvtcmdcitebib{publications:kirk:2010}, has driven the utilization of GPUs for general purpose workloads.
-
-%% Generally, CPUs are designed to optimize the execution of an individual thread.
-%% In order to facilitate sequential performance, the processing pipeline is designed for low-latency operations; including thorough caching methodologies and low-latency arithmetic units.
-%% This design philosophy is often referred to as latency-oriented design, since it strives for low-latency operations to accommodate high performance of individual threads~\dvtcmdcitebib{publications:kirk:2010}.
-
-%% Meanwhile, GPUs are designed to maximize the the throughput of a large number of threads; having less regard for the performance of individual threads.
-%% As such, GPUs do not prioritize caches or other low-latency optimizations like CPUs, but aim to conceal overhead induced by memory references or arithmetic by the execution of many threads, which may perform in place during arithmetic or memory operations.
-%% Such design is often referred to as throughput-oriented design~\dvtcmdcitebib{publications:kirk:2010}.
-
-%% The differing design philosophies of CPU and GPU units are so fundamentally different that they are largely incompatible in terms their workloads, as explained by Kirk and Hwu~\dvtcmdcitebib{publications:kirk:2010}.
-%% As such, programs that feature few threads, CPUs with lower operation latencies may perform better than GPUs; whereas a program with a large number of threads may fully utilize the higher execution throughput of GPUs~\dvtcmdcitebib{publications:kirk:2010}.
-
-%% The introduction of a number of CPU-oriented optimizations for simulating GPU-bound workloads on CPUs has made it possible to simulate such kernels several times faster than traditional simulation.
-%% Although orders of magnitudes slower, such optimizations may ease the simulation of GPU workloads on CPUs, as indicative by some studies~\dvtcmdcitebib{papers:nilsson:2013}.
-%% However, without hardware-assisted virtualization, the execution of GPU workloads on CPUs quickly becomes unfeasible; inducing the need of more advanced graphics simulation methodologies.
