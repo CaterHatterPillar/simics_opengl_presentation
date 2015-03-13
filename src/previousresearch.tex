@@ -14,7 +14,7 @@ Another is VMGL by Lagar-Cavilla et al., who accelerates OpenGL~$1.5$ roughly tw
 QEMU ('Quick~Emulator') is an open-source virtual platform described as a full system emulator~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005} and a high-speed functional simulator~\dvtcmdcitebib[p.~1]{inproceedings:shen:2010}.
 As such, QEMU may run unmodified target software such as OSs, drivers, and other applications~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005}.
 The platform is widely used in academia, and is the subject of several articles and reports cited throughout this document.
-Additionally, QEMU powers the Android emulator, which helps mobile developers bring about software for the Android OS.
+Additionally, QEMU powers the Android emulator, which helps mobile developers develop software for the Android OS.
 The Android emulator accelerates OpenGL~ES~$1.1$ and $2.0$, granting developers significant performance boosts~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
 
 Other promising GPU virtualization projects include the Virgil3D-project~\dvtcmdciteref{technicaldocs:qemudevel:2014}.
@@ -26,6 +26,7 @@ One such example is VMware,~Inc.~\dvtcmdciteref{technicaldocs:vmware:2014}.
 % Simics
 \subsection{Simics}
 \label{sec:simics}
+\todo{Consider moving Simics to a seperate chapter. Alternatively, consider renaming the chapter 'Previous Research and Background.'}
 Simics is a full-system simulator developed by Intel\circledR\ and sold through Intel\circledR 's subsidiary Wind~River~Systems,~Inc.
 Simics was developed by the simulation group at the Swedish Institute of Computer Science, which was the first academic group to run an unmodified OS in an entirely simulated environment.
 The product was was commercially launched by Virtutech in $1998$~\dvtcmdcitebib{journals:magnusson:2013} and subsequently acquired by Intel\circledR\ in $2010$~\dvtcmdciteref{web:miller:2010}.
@@ -36,7 +37,7 @@ The simulator utilizes hardware-assisted virtualization and other performance bo
 Simics also feature advanced functionalities adhering to the deterministic nature of the simulator, such as checkpointing and reverse execution~\dvtcmdcitebib{publications:leupers:2010}.
 
 The ability to simulate the entirety of an unmodified software stack has led to Simics being used to simulate a variety of systems including, but not limited to, single-processor embedded boards, multiprocessor servers, and heterogeneous telecom clusters~\dvtcmdcitebib{journals:aarno:2013}.
-Employers of the Simics full-system simulator include IBM~\dvtcmdcitebib[p.~12:1,~12:6]{journals:koerner:2009}, NASA~\dvtcmdciteref{web:windriver:2014, web:nasa:2014}, and Lockheed Martin~\dvtcmdciteref{web:miller:2010}.
+Employers of the Simics full-system simulator include IBM~\dvtcmdcitebib[p.~12:1,~12:6]{journals:koerner:2009}, NASA~\dvtcmdciteref{web:windriver:2014, web:nasa:2014}, and Lockheed Martin~\dvtcmdciteref{web:miller:2010}.\todo{Add Intel to this list.}
 Additionally, the simulator has a strong academic tradition, being known to operate in over $300$ universities throughout the world~\dvtcmdcitebib[p.~252]{journals:villa:2005}.
 
 % Graphics Virtualization
@@ -55,7 +56,7 @@ Such methodologies may be appropriate for the purposes of low-level development 
 For example, one might imagine the scenario of driver development for next-generation GPUs.
 
 However, the development of GPU models, similar to that of common architectural model development for the Simics full-system simulator, incurs a number of flaws.
-The first of these flaws encompass estimated development costs reaching unsustainable levels, due to GPU hardware often being poorly documented~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}, on the contrary to CPU architectures.
+The first of these flaws encompass estimated development costs reaching unsustainable levels, due to GPU hardware often being poorly documented~\dvtcmdcitebib{inproceedings:lagarcavilla:2007} compared to CPU architectures.
 Furthermore, modeling massively parallelized GPU technology on CPUs induce high costs rendering the methodology less preferable for development requiring anything but slow simulation speed.
 
 % PCI Passthrough
@@ -73,7 +74,7 @@ This restriction encompasses the utilization of corresponding device drivers to 
 \paragraph{Paravirtualization}
 \label{par:previousresearch_graphicsvirtualization_paravirtualization}
 At a higher level of abstraction, there is the option of virtualization by paravirtualization.
-By selectively modifying target system, we may control the inner workings of system attributes and add functionality such as graphics hardware support.
+By selectively modifying the target system, it is possible to control system attributes and add functionality, such as graphics hardware support.
 For graphics acceleration, such a system attribute may be a graphics library or a kernel driver (see figure \ref{fig:overview}).
 
 Inherent by higher abstraction, paravirtualization may be relatively cost-effective\todo{cost-effective in what sense? performance, development cost?} in comparison to device modeling.
@@ -83,7 +84,7 @@ Unfortunately, paravirtualization is not without inherent flaws.
 In particular, a paravirtualized graphics library may be expensive to maintain as frameworks evolve and specifications change.
 Additionally, paravirtualized methodologies require modification of target systems; albeit not necessarily being a defect as a paravirtualized framework may still accelerate unmodified target applications \todo{i don't understand this statement}.
 
-For the purposes of graphics acceleration in a virtual platform, paravirtualization offers a decent balance between benefits and drawbacks, and is therefore considered a suitable candidate for accelerating graphics in the Simics full-system simulator.
+For the purposes of graphics acceleration in a virtual platform, paravirtualization is a decent tradeoff between benefits and drawbacks, and is therefore considered a suitable candidate for accelerating graphics in the Simics full-system simulator\todo{Consider removing this sentence.}.
 
 %% % Virtual Time
 %% \subsection{Virtual Time}
