@@ -1,14 +1,14 @@
 %% abstract.tex
 
 \begin{abstract}
-Full-system simulators provide benefits to developers in terms of a more rapid development cycle since development may begin prior to that of next-generation hardware being available.
-However, there is a distinct lack of graphics virtualization in industry-grade virtual platforms, leading to performance issues that may obfuscate the benefits virtual platforms otherwise have over execution on actual hardware.
+Virtual platforms provide benefits to developers in terms of a more rapid development cycle since development may begin before next-generation hardware is available.
+However, there is a distinct lack of graphics virtualization in industry-grade virtual platforms, leading to performance issues that may reduce the benefits virtual platforms otherwise have over execution on actual hardware.
 
-This paper concerns graphics acceleration by the means of paravirtualizing OpenGL~ES~$2.0$ in the Simics full-system simulator.
-The study illustrates the benefits and drawbacks of paravirtualized methodology, in addition to performance analysis of strengths and weaknesses compared with software rasterization.
+This paper concerns graphics acceleration by the means of paravirtualizing OpenGL~ES in the Wind~River Simics full-system simulator.
+The study illustrates the benefits and drawbacks of paravirtualized graphics acceleration and presents a performance analysis of strengths and weaknesses compared to software rasterization.
 We propose a solution for paravirtualized graphics using magic instructions, the implementation of which is subsequently described.
 Additionally, benchmarks are devised to stress key points in the solution, such as communication latency and computationally intensive applications.
 
-We present paravirtualization as a viable method to accelerate graphics in system simulators; improving frametimes up to $34$ times compared to that of software rasterization.
+We present paravirtualization as a viable method to accelerate graphics in system simulators; improving frametimes up to 34 times compared to that of software rasterization.
 Furthermore, magic instructions are identified as the primary bottleneck of communication latency in the implementation.
 \end{abstract}
