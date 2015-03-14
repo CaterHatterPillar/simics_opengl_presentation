@@ -306,17 +306,3 @@ As visualized in Fig. \ref{fig:histogramssimicsparajulia}, we showcase considera
 
 % Albeit the hardware accelerated host profiling (see Fig. \ref{fig:histogramshost}) may, however minor, suggest such a pattern; it is by all means not significant.
 % We may observe similar behavior in the distribution of the sample density when profiling the same benchmark whilst paravirtualized in the QEMU -derived Android emulator (see Fig. \ref{fig:histogramsqemu}).
-
-%% % Platform Comparison
-%% \subsubsection{Platform Comparison}
-%% \label{sec:analysisexperiment_platformcomparison}
-%% \todo{This sections should be moved or removed depending on whether or not we bring up QEMU.}
-%% In the sections above, results have been presented indicating performance gains, and potential for gains, in Simics platforms by the means of accelerating graphics using paravirtualization.
-%% However, in accordance to Fig. \ref{fig:histogramsqemu} and table \ref{tab:keyvalqemu}, the platform on which the these results have been produced also utilizing paravirtualized methodology, there is much potential for improvement.
-%% The benchmarks, when executed in the paravirtualized Android emulator, exhibit better performance in each test performed for the purposes of this paper; most notably outperforming the software rasterized Simics platform for the Chess benchmark.
-%% The Chess benchmark, incurring such an overhead when paravirtualized in Simics (see paragraph \dvtcmdrefname{par:results_chess}) due to overhead induced by magic instructions (see section \ref{sec:results_magicinstructionoverhead}), performs but roughly two times worse than its hardware accelerated counterpart at \dvtcmdfirstline{qemuchess84x84.dat.avg} \milli\second  average (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalhost}).
-%% These results indicate potential for improvement in the target -to-host communications in Simics.
-%% In fact, considering the large similarities in the paravirtualized methodology for graphics acceleration these two platforms share, the reference performance of the QEMU -derived Android emulator may be considered a goal for a potential productification of paravirtualized graphics in the Simics full-system simulator.
-
-%% These comparisons suggest that the recorded performance for the benchmarks, devised for the purpose of this study, is not necessarily representative for paravirtualized graphics in general.
-%% Furthermore, the comparison to the QEMU -derived Android emulator indicates that the shaping of the magic instruction -utilizing Simics Pipe - as established being the bottleneck during execution of the paravirtualized Chess benchmark (see section \ref{sec:results_magicinstructionoverhead}) - may have potential of improvement of approximately one order of magnitude (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalpara}).
