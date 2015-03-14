@@ -230,7 +230,7 @@ The remainder of this section presents an analysis of the data compiled from exe
     \centering
     \begin{tabular}{|c|c|c|c|c|c|}
       \hline
-      \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
       \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
       \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{simicschess60x60.dat.min} & \dvtcmdfirstline{simicschess60x60.dat.max}	& \dvtcmdfirstline{simicschess60x60.dat.std} & \dvtcmdfirstline{simicschess60x60.dat.avg} \\ %\cline{2-6}
       & \chesskeytwo & \dvtcmdfirstline{simicschess84x84.dat.min} & \dvtcmdfirstline{simicschess84x84.dat.max} & \dvtcmdfirstline{simicschess84x84.dat.std} & \dvtcmdfirstline{simicschess84x84.dat.avg} \\ %\cline{2-6}
@@ -248,7 +248,7 @@ The remainder of this section presents an analysis of the data compiled from exe
     \centering
     \begin{tabular}{|c|c|c|c|c|}
       \hline
-      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
       \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
       Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
       Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
@@ -262,7 +262,7 @@ The remainder of this section presents an analysis of the data compiled from exe
     \centering
     \begin{tabular}{|c|c|c|c|c|c|}
       \hline
-      \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Key} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
       \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
       \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{parachess60x60.dat.min} & \dvtcmdfirstline{parachess60x60.dat.max} & \dvtcmdfirstline{parachess60x60.dat.std} & \dvtcmdfirstline{parachess60x60.dat.avg} \\
       & \chesskeytwo & \dvtcmdfirstline{parachess84x84.dat.min} & \dvtcmdfirstline{parachess84x84.dat.max} & \dvtcmdfirstline{parachess84x84.dat.std} & \dvtcmdfirstline{parachess84x84.dat.avg} \\
@@ -280,7 +280,7 @@ The remainder of this section presents an analysis of the data compiled from exe
     \centering
     \begin{tabular}{|c|c|c|c|c|}
       \hline
-      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (milliseconds)} \\
+      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
       \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
       Chess & \dvtcmdfirstline{qemuchess84x84.dat.min} & \dvtcmdfirstline{qemuchess84x84.dat.max} & \dvtcmdfirstline{qemuchess84x84.dat.std} & \dvtcmdfirstline{qemuchess84x84.dat.avg} \\ \hline
       Julia & \dvtcmdfirstline{qemujulia450.dat.min} & \dvtcmdfirstline{qemujulia450.dat.max}	& \dvtcmdfirstline{qemujulia450.dat.std} & \dvtcmdfirstline{qemujulia450.dat.avg} \\ \hline
@@ -341,7 +341,7 @@ As visualized in Fig. \ref{fig:histogramssimicsparajulia}, we showcase considera
 %% In the sections above, results have been presented indicating performance gains, and potential for gains, in Simics platforms by the means of accelerating graphics using paravirtualization.
 %% However, in accordance to Fig. \ref{fig:histogramsqemu} and table \ref{tab:keyvalqemu}, the platform on which the these results have been produced also utilizing paravirtualized methodology, there is much potential for improvement.
 %% The benchmarks, when executed in the paravirtualized Android emulator, exhibit better performance in each test performed for the purposes of this paper; most notably outperforming the software rasterized Simics platform for the Chess benchmark.
-%% The Chess benchmark, incurring such an overhead when paravirtualized in Simics (see paragraph \dvtcmdrefname{par:results_chess}) due to overhead induced by magic instructions (see section \ref{sec:results_magicinstructionoverhead}), performs but roughly two times worse than its hardware accelerated counterpart at \dvtcmdfirstline{qemuchess84x84.dat.avg} milliseconds average (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalhost}).
+%% The Chess benchmark, incurring such an overhead when paravirtualized in Simics (see paragraph \dvtcmdrefname{par:results_chess}) due to overhead induced by magic instructions (see section \ref{sec:results_magicinstructionoverhead}), performs but roughly two times worse than its hardware accelerated counterpart at \dvtcmdfirstline{qemuchess84x84.dat.avg} \milli\second  average (see tables \ref{tab:keyvalqemu} and \ref{tab:keyvalhost}).
 %% These results indicate potential for improvement in the target -to-host communications in Simics.
 %% In fact, considering the large similarities in the paravirtualized methodology for graphics acceleration these two platforms share, the reference performance of the QEMU -derived Android emulator may be considered a goal for a potential productification of paravirtualized graphics in the Simics full-system simulator.
 
