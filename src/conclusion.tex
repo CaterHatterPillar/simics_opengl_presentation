@@ -8,7 +8,7 @@ As such, we have confirmed original suspicions through the use of our benchmarks
 Thus, our study has identified the performance bottleneck inherent in great numbers of paravirtualized function invocations for magic instructions.
 
 Furthermore, compiled results have showcased great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
-As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of \dvtcmdfirstline{simicsjulia900.dat.avg}~ms to the real-time feasible count of \dvtcmdfirstline{parajulia900.dat.avg}~ms.
+As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of \dvtcmdfirstline{simicsjulia900.dat.avg}~\milli\second  to the real-time feasible count of \dvtcmdfirstline{parajulia900.dat.avg}~\milli\second .
 It is likely that this performance improvement would be orders of magnitude greater for virtual platforms that do not utilize hardware-assisted virtualization, such as when using Simics to simulate other systems than x86-compatible ones, or when using breakpoints.
 Accordingly, our experiment has identified the potential of using paravirtualization for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
 Additionally, beyond that of accelerated graphics, results indicate performance improvements in terms of maximum frametimes, inducing significantly improved standard deviation.
