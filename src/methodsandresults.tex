@@ -224,8 +224,8 @@ The remainder of this section presents an analysis of the data compiled from exe
 \providecommand{\juliakeytwo}{$450$ iterations}
 \providecommand{\juliakeythree}{$900$ iterations}
 
-\begin{table*}[ht] 
-  \begin{minipage}[b]{0.5\linewidth}
+\begin{table*}
+  \parbox{.5\textwidth}{
     % tab:keyvalsimics
     \centering
     \begin{tabular}{|c|c|c|c|c|c|}
@@ -239,25 +239,11 @@ The remainder of this section presents an analysis of the data compiled from exe
       & \juliakeytwo & \dvtcmdfirstline{simicsjulia450.dat.min} & \dvtcmdfirstline{simicsjulia450.dat.max} & \dvtcmdfirstline{simicsjulia450.dat.std} & \dvtcmdfirstline{simicsjulia450.dat.avg} \\ %\cline{2-6}
       & \juliakeythree & \dvtcmdfirstline{simicsjulia900.dat.min} & \dvtcmdfirstline{simicsjulia900.dat.max} & \dvtcmdfirstline{simicsjulia900.dat.std} & \dvtcmdfirstline{simicsjulia900.dat.avg} \\ \hline
     \end{tabular}
-    \caption[Benchmark results -- software rasterized in Simics]{Benchmarking results whilst software rasterized in the Simics full-system simulator.}
+    \caption[Benchmark results -- software rasterized in Simics]{Software rasterization benchmarking results in Simics.}
     \label{tab:keyvalsimics}
-    \vspace{4ex}
-  \end{minipage}%%
-  \begin{minipage}[b]{0.5\linewidth}
-    % tab:keyvalhost
-    \centering
-    \begin{tabular}{|c|c|c|c|c|}
-      \hline
-      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
-      \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-      Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
-      Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
-    \end{tabular}
-    \caption[Benchmark results -- hardware accelerated on the simulation host]{\hl{Benchmarking results whilst hardware accelerated on the simulation host system.}}
-    \label{tab:keyvalhost}
-    \vspace{4ex}
-  \end{minipage} 
-  \begin{minipage}[b]{0.5\linewidth}
+  }
+  \hfill
+  \parbox{.5\textwidth}{
     % tab:keyvalpara
     \centering
     \begin{tabular}{|c|c|c|c|c|c|}
@@ -271,25 +257,24 @@ The remainder of this section presents an analysis of the data compiled from exe
       & \juliakeytwo & \dvtcmdfirstline{parajulia450.dat.min} & \dvtcmdfirstline{parajulia450.dat.max} & \dvtcmdfirstline{parajulia450.dat.std} & \dvtcmdfirstline{parajulia450.dat.avg} \\
       & \juliakeythree & \dvtcmdfirstline{parajulia900.dat.min} & \dvtcmdfirstline{parajulia900.dat.max} & \dvtcmdfirstline{parajulia900.dat.std} & \dvtcmdfirstline{parajulia900.dat.avg} \\ \hline
     \end{tabular}
-    \caption[Benchmark results -- paravirtualized in Simics]{Benchmarking results whilst paravirtualized in the Simics full-system simulator.}
+    \caption[Benchmark results -- paravirtualized in Simics]{Paravirtualization benchmarking results in Simics.}
     \label{tab:keyvalpara}
-    \vspace{4ex}
-  \end{minipage}%% 
-  \begin{minipage}[b]{0.5\linewidth}
-    % tab:keyvalqemu
-    \centering
-    \begin{tabular}{|c|c|c|c|c|}
-      \hline
-      \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
-      \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-      Chess & \dvtcmdfirstline{qemuchess84x84.dat.min} & \dvtcmdfirstline{qemuchess84x84.dat.max} & \dvtcmdfirstline{qemuchess84x84.dat.std} & \dvtcmdfirstline{qemuchess84x84.dat.avg} \\ \hline
-      Julia & \dvtcmdfirstline{qemujulia450.dat.min} & \dvtcmdfirstline{qemujulia450.dat.max}	& \dvtcmdfirstline{qemujulia450.dat.std} & \dvtcmdfirstline{qemujulia450.dat.avg} \\ \hline
-    \end{tabular}
-    \caption[Benchmark results -- paravirtualized in the Android emulator]{\hl{Benchmarking results whilst paravirtualized in the QEMU-derived Android emulator.}}
-    \label{tab:keyvalqemu}
-    \vspace{4ex}
-  \end{minipage} 
+  }
 \end{table*}
+
+% tab:keyvalhost
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
+    \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
+    Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
+    Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
+  \end{tabular}
+  \caption[Benchmark results -- hardware accelerated on the simulation host]{\hl{Benchmarking results whilst hardware accelerated on the simulation host system.}}
+  \label{tab:keyvalhost}
+\end{table}
 
 % fig:hostgramssimicsparachess
 % fig:histogramssimicsparajulia
