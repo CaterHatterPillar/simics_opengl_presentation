@@ -22,7 +22,7 @@ The increased utilization of GPUs for general purpose workloads has extended the
 For example, developers interested in benchmarking or driver development for next generation GPUs or CPUs may require detailed simulators that provide insight into execution engines and pipelines~\dvtcmdcitebib[p.~1]{inproceedings:schumacher:2010}.
 Albeit applicable in certain use-cases and capable of running 'toy' applications, such platforms are often orders of magnitude too slow to run commercial workloads~\dvtcmdcitebib[p.~50]{journals:magnusson:2002}.
 Application developers,\todo{also relevant for non-graphics low-level programming running in an UI environment} on the other hand, do not necessarily care for the internal workings of hardware as they typically work at a higher abstraction level.
-As such, some developers may be more interested in achieving decent simulation performance rather than a timing-accurate processor model (see \dvtcmdcitebib[p.~30]{publications:leupers:2010} for an analysis of compromises in system simulation).
+As such, some developers may be more interested in achieving decent simulation performance rather than a timing-accurate processor model~\dvtcmdcitebib{publications:leupers:2010}.
 However, due to large differences between CPU and GPU architecture, simply delegating GPU-bound workloads to the CPU is rarely feasible in terms of performance.
 
 Common approaches to accelerate simulation performance include creating a functionally accurate model of the GPU, where internal details may be simplified, or using software rasterization without involving the GPU model.
