@@ -54,11 +54,15 @@
 \usepackage{graphicx} % Displaying pdf graphics.
 \usepackage{multirow} % Used for specialized tables (multirow).
 \usepackage{rotating} % Used to rotate figures sideways.
+\usepackage{enumitem} % Compact lists.
 \usepackage{todonotes} % Used to add TODOs in the document. Remove when no longer needed.
 \usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
+
+% Compact lists (see enumitem):
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 
 % These should probably be merged into the same bibliography list in
 % the end, but it might be good to have them seperately now so that

@@ -4,29 +4,27 @@
 \section{Methods and Results}
 \label{sec:methodsandresults}
 We present the implementation of paravirtualized graphics acceleration in the Simics full-system simulator.
-This method encompasses three overall components, being the target system libraries, the host system libraries, and the communications channel betwixt them aptly named the Simics pipe.
-These components, along with elaboration of the methodologies accomodating them, are described in this section.
+This method encompasses three overall components, being the target system libraries, the host system libraries, and a communications channel between them named the "Simics pipe".
 
-% OpenGL Framework Generation
-\subsection{OpenGL Framework Generation}
-\label{sec:proposedsolutionandimplementation_openglabigeneration}
-For the purposes of ensuring scalability of the solution during development, a set of scripts automating the generation of library source code is used to compile the majority of target and host system libraries.
-As such, a large amount of the OpenGL function definitions encoded and decoded by the these libraries are produced by this tool.
-For this, we use a \texttt{Python} program that, from framework specification files detailing function signatures and argument attributes, generate both headers and source files in \texttt{C}, thus constructing the target OpenGL and EGL frameworks, along with the corresponding host decoding libraries.
-The tool generates all but the methods that need special treatment (due to state saving) and may thus generate methods with return values and inout\todo{inout vedertaget begrepp?} arguments.
+For the purposes of ensuring scalability of the solution during development, we use code generation to produce the majority of target and host system libraries.
+As such, the outmost majority of paravirtualized OpenGL functions are compiled by this tool.
+The (\texttt{Python}) tool in question generates the OpenGL function definitions, on the sending and recieving end, from framework specification files detailing function signatures and argument attributes.
+It generates all but the methods that require special treatment due to state saving.
+
+The generated libraries, the Simics pipe, and implementation details thereof are presented in this section.
 
 \subsection{Target System Libraries}
 \label{sec:proposedsolutionandimplementation_targetsystemlibraries}
 Compiled from \texttt{C} and \texttt{C++} sources output by the generation program, the target system libraries compose implementations of the EGL and OpenGL APIs.
-Due to the tight coupling between OpenGL and the platform windowing system, the solution must also accelerate the Khronos EGL API -- the interface between OpenGL and the underlying platform windowing system.
-As may be derived from the name, the target system libraries run on the simulation target system and replace any existing Khronos libraries.
+Due to the tight coupling between OpenGL and the platform windowing system, the solution must also accelerate EGL -- the interface between OpenGL and the underlying platform windowing system.
+As may be derived from the name, the target system libraries run on the simulation target.
 
-Accordingly, the target system libraries implement the EGL and OpenGL~ES~$2.0$ APIs and lures whatever application it is being linked to that it is, in fact, the expected platform libraries.
+The target system libraries implement the EGL and OpenGL~ES~$2.0$ APIs and lures whatever application it is being linked to that it is, in fact, the expected platform libraries.
 Given that the target system libraries adheres to the OpenGL headers defined in the system, the application is na\"{\i}ve in terms of its paravirtualized status.
 The interplay with the original OpenGL~ES headers also results in the solution adhering to the platform-dependent type definition, flags, and constants, as originally defined by Khronos.
 However, instead of communicating with the platform windowing system (in terms of EGL) and the graphics device (in terms of OpenGL) -- and instructing said device in accordance to the user; the target system libraries serialize the given command stream and forward it to the simulation host.
-However, the transmission of the command stream is not necessarily performed at once, or in the designated order, due to the formation of the OpenGL~ES~$2.0$ framework.
-This complex of problems involve uncertainties of the proportion of argument data, as size is not necessarily given by the user or apperent at that time.
+However, the transmission of the command stream is not necessarily performed at once, or in the designated order, due to the formation of OpenGL.
+This is because of uncertainties of the proportion of argument data, as size is not necessarily given by the user or apperent at that time.
 As such, certain serialization may have to be delayed until further information surrounding the argument dimensions have been relayed to the OpenGL library.
 Furthermore, a subset of the OpenGL state need be maintained by the target system libraries.
 These attributes are comprised by, inter alia, bound vertex and index element buffers, in addition to properties of OpenGL vertex attributes.
@@ -42,7 +40,7 @@ The library on the target side packs data types of various lengths, such as $8$-
 \label{sec:proposedsolutionandimplementation_hostsystemlibraries}
 In collaboration with the target system libraries, the host system libraries subsequently decodes and interprets the received byte stream.
 Said decoding involves unpacking data from fixed length storage into variable-size types that OpenGL and EGL libraries expect.
-Furthermore, and again similarly to the target system libraries, due to design inherent in the OpenGL~ES~$2.0$ framework, the host system libraries need maintain some data for state saving purposes.
+Furthermore, and again similarly to the target system libraries, due to design inherent in the OpenGL~ES~$2.0$ framework, the host system libraries need to maintain some data for state saving purposes.
 Such data is buffered in the host system libraries until used (drawn) in a later, and separate, OpenGL invocation.
 %\footnote{A possible optimization would be to cache said data, to avoid the need to transmit unmodified vertices multiple times, despite so being specified by the user.}.
 When the requested OpenGL invocation has been performed, any return or inout values are returned to the target system using the Simics pipe.
@@ -52,14 +50,14 @@ As with the the target system libraries, the receiving end of an OpenGL method d
 \subsection{Windowing Systems}
 \label{sec:proposedsolutionandimplementation_windowingsystems}
 Due to variations in the creation and maintenance of windows on different platforms (Fedora, Android, etc.), the window to which OpenGL renders is kept on the simulation host.
-This incurs the dilemma of the target system libraries having to communicate with the fraudelent window to which OpenGL renders (in the simulation host) \textit{and} the native window (for example, reporting successful initialization).
+This incurs the dilemma of the target system libraries having to communicate with the fraudelent window to which OpenGL renders in the simulation host, \textit{and} the native window, for example, reporting successful initialization.
 After all, it would be problematic if the target OpenGL application would have to be modified in order to be paravirtualized.
 Effectively, this means that it would be desirable to maintain the native functionality of the target system EGL library.
 However, in order to swap the backbuffers to which OpenGL renders, one must use EGL.
 In this way, the problem arises of a conflict between wanting to keep the functionality of the native EGL library, yet modify a small subset of it.
  
-This issue is overcome by overriding symbols in the target libraries, which allows us to overload a function, serialize and forward the invocation to the host system, locate the next occurrence of the symbol in the symbol table (being the original native EGL function definition), and invoke the original function.
-Accordingly, the target system EGL library does not replace the native target EGL library in its entirety, as with the OpenGL library, but rather extends it a bit.
+This issue is overcome by overriding symbols in the target libraries, effectively overloading desired functions, serialize and forward invocations to the host system, locate the next occurrence of the symbol in the symbol table, that is the original EGL function definition, and invoke the original function.
+Accordingly, the target system EGL library does not replace the native target EGL library in its entirety, as with the OpenGL library, but rather extends it.
 This gives the effect of a successfully created window, not having returned any errors in the window creation and maintenance -- yet having the application actually communicating with a different window.
 As such, the target system libraries are effectively performing a man-in-the-middle attack on the target EGL library.
 
@@ -72,9 +70,9 @@ In order to do this, the pipe requires a way to exchange information with the ou
 
 There may be reasons why target software would like to escape the simulation and trigger that execution is resumed on the simulation host.
 Such a scenario would be a debugging breakpoint, to share data between target and host systems, or for any reason modify the simulation state \todo{I don't understand this sentence}.
-There are a number of ways to communicate with the outside world (including the host machine) from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as the -- arguably -- legitimately coined 'magic instruction'.
+There are a number of ways to communicate with the outside world, including the host machine, from within the simulation, such as by networking means or specially devised kernel drivers, but few are as instant as "magic instruction".
 
-The magic instruction is a concept used to denote a \dvtcmdcodeinline{nop}-type instruction, meaning an instruction that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} on the x86), which, when executed on the simulated hardware in a virtual platform, invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
+\todo{This section has a lot of potential for trimming. As long as the reader is familiar with what a magic instruction means, we don't have to go into detail.}The magic instruction is a concept used to denote a \dvtcmdcodeinline{nop}-type instruction, meaning an instruction that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} on x86-compatible architectures), which, when executed on the simulated hardware in a virtual platform, invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
 An advantage of this methodology is an often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
 Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system \todo{joho! magiska instr ar ju en modifiering av target, man andrar ju pa instruktioner. Syftar du pa att man inte behover lagga till latsashardvara? eller att mjukvara med MI aven funkar pa riktig HW? om det senare, sa ar detta orelevant for paravirtualisering}.
 In effect, implementation of magic instructions requires replacing one or more instructions in the target instruction set, thereby making the magic instruction platform-dependent.
@@ -84,12 +82,12 @@ Due to the inherent performance demands brought on by serialization of real-time
 Magic instructions allow for fast, in the pretext of the simulation target -- almost instant -- escape from the simulation context, and may carry a limited amount of information with it from inside the simulation out into the real world.
 The role of the Simics pipe is comprised of the allocation and maintenance of page locked target memory to accomodate the use of magic instructions, which the Simics pipe uses to relay the starting address of said memory space to the simulation host.
 
-During a magic instruction, we may write an arbitrary 64-bit address to any register fit for purpose (the number and size of processor registers being the data-sharing bottleneck of the method).
-Not being the first time magic instructions have been used for the purposes of hardware acceleration~\dvtcmdcitebib[p.~32]{publications:leupers:2010}, the Simics Pipe utilizes such methodology, namely the \dvtcmdcodeinline{CPUID} x86 instruction, to carry a lone memory address (the starting address of the serialized command stream) in one of the target system registers.
+During a magic instruction, values may be written to any registers fit for purpose; The number and size of processor registers is the data-sharing bottleneck of this method.
+Not being the first time magic instructions have been used for the purposes of hardware acceleration~\dvtcmdcitebib[p.~32]{publications:leupers:2010}, the Simics Pipe utilizes such methodology, namely the \dvtcmdcodeinline{CPUID} x86 instruction, to carry a lone memory address, the starting address of the serialized command stream, in one of the target system registers.
 The execution of the injected instruction in a simulated processor invokes a callback method in the host side of the Simics Pipe, having effectively escaped the simulation and paused the simulation state.
-Knowing the occurrence of a magic instruction with the corresponding leaf number, one may assume the existence of a target memory address in the simulated target CPU register, as agreed upon.
+Knowing the occurrence of a magic instruction with the corresponding leaf number, the presence of a target virtual address in the agreed-upon CPU register may be assumed.
 Note that, at this point, the retrieved address is in the format of a target system virtual address, the destination of which is unknown to the simulation host.
-As such, this address need be translated in order to retrieve the package contents said memory address points to.
+As such, this address need be translated in order to retrieve the package contents that the memory address points to.
 
 \begin{figure}
 \centering
@@ -102,16 +100,16 @@ As such, this address need be translated in order to retrieve the package conten
 \subsection{Page Table Traversal}
 \label{sec:proposedsolutionandimplementation_pagetabletraversal}
 As outlined in section \ref{sec:proposedsolutionandimplementation_simicspipe}, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
-The simulation host can access the MMU of the target system to translate a target virtual address to a (target) physical address.
+The simulation host can access the MMU of the target system to translate a target virtual address to a target physical address.
 The devised physical address can in turn be used to find the corresponding location in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
 However, due to the complexity induced by circumventing the abstraction of virtual memory, there is no guarantee that the memory page to which the exposed physical address refers has not been swapped out of primary memory.
-In order to solve this, we must 'lock' target system memory pages to prevent them from being swapped to disk.
+In order to solve this, the target system memory pages must be "locked" to prevent them from being swapped to disk.
 This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
 Other methods to achieve this include repeatedly 'polling' the corresponding memory pages in the target system.
 
 Furthermore, and again induced by the unorthodox circumvention of the virtual memory paradigm, it is probable that the multiple memory pages making out particularly large serialized command streams, such as the transmission of vertex or texture data, are not consecutively aligned in physical memory, although guaranteed to be continuous blocks in terms of virtual memory.
 As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see Fig. \ref{fig:virtualmemory}).
-This can be done in a trivial manner by simply iterating the original virtual address with the (target) page size.
+This can be done in a trivial manner by simply iterating the original virtual address with the target page size.
 In our case, the page size is $4096$ bytes.
 Naturally, said process must be performed regardless whether data is being read or written.
 
@@ -124,25 +122,28 @@ Naturally, said process must be performed regardless whether data is being read 
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
-The experiment is performed in software rasterized and paravirtualized Simics platforms, respectively, in addition to reference runs on the host system.
-Simics is configured to simulate an Intel\circledR\ Core \texttrademark\ i7\todo{i7 is not a processor series, it's a marketing brand. I suppose the crucial similarity is that both use 64-bit x86 architectures?}, the same processor series to that of simulation host hardware.
-During simulation, we utilize KVM to accelerate simulation by running target x86 instructions natively on host (x86) hardware.
-The simulation systems are, like the host system, set up to run Fedora $19$ Linux and use the Mesa llvmpipe driver for OpenGL software rasterization.
+The experiments are performed in software rasterized and paravirtualized Simics platforms.
+The results are compared to reference runs on the host system.
+Simics is configured to simulate an Intel\circledR ~Core\texttrademark ~i7 processor.
+During simulation, KVM\todo{Ref?}\ is used to  accelerate simulation by running target x86 instructions natively on the host hardware.
+The simulation systems are, like the host system, set up to run Fedora $19$ Linux and use the Mesa llvmpipe driver\todo{Ref?}\ for OpenGL software rasterization.
 
-The system upon which the experiment is performed is an x86-compatible Haswell Intel\circledR system running Fedora 19 Linux with the following specifications:
-\todo{Add host system specs.}
+The experiments are performed on a system running Fedora~19 Linux with the following specifications:
+\begin{itemize}
+\item Intel\circledR\ Core\texttrademark\ i7-4770HQ
+\item Intel\circledR\ Iris\texttrademark\ Pro Graphics 5200
+\end{itemize}
 
-Throughout the course of the pilot study, no existing OpenGL~ES~$2.0$ benchmark (featuring cross-platform profiling support for \hl{Android} and X11 Linux) was deemed appropriate for for the purposes of this experiment.
-As such, two benchmarks have been devised on-site for the purposes of stress-testing the paravirtualized technology described in this document.
-Each benchmark is intended to stress one suspected bottleneck in the implementation: One benchmark performs a large number of relatively insignificant OpenGL~ES invocations, while the other has a computationally intensive GPU workload.
+\todo{Motivate the development of your own benchmarks?}Two benchmarks are devised on-site for the purposes of stress-testing the paravirtualized technology described in this article.
+Each benchmark is intended to stress one suspected bottleneck in the implementation: One benchmark performs a large number of relatively insignificant OpenGL invocations, while the other has a computationally intensive GPU workload.
 Both benchmarks are configured to run at roughly $16$~\milli\second , which would correspond to roughly $60$~frames per second, when hardware accelerated on the host system.
-The benchmarks are devised in this way in order to reflect the expected load of a modern real-time interactive application.
-As such, the purpose of developed benchmarks is to be representative of typical scenarios induced by modern graphics applications whilst utilizing a graphics framework such as OpenGL.
-When run during the experiment, each benchmark instance measures the elapsed time of $1000$ frames which makes up the data subsequently analyzed.
-Frame captures of the benchmarks are presented in Fig. \ref{fig:benchmarks} and \ref{fig:benchmarks}.
+The benchmarks are shaped this way in order to reflect the expected load of a modern real-time interactive application.
+As such, the purpose of the benchmarks is to be representative of typical scenarios induced by modern graphics applications whilst utilizing a graphics framework such as OpenGL.
+When run during the experiment, each benchmark instance measures the elapsed time of $1000$ frames.
+Frame captures of the benchmarks are presented in Fig. \ref{fig:benchmarks}.
 
 In order to further analyze how performance scales, we run three instances of each benchmark, using different input data.
-In addition to the reference run of $16$~\milli\second , it is also run with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmark really stresses the bottlenecks it was designed for.
+In addition to the reference run of $16$~\milli\second , it is also run with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmark really stresses the bottlenecks it was designed for.\todo{Elaborate}\
 The specifics of the input data sizes are described below, along with the respective benchmark.
 
 % fig:benchmarks
@@ -158,30 +159,30 @@ The specifics of the input data sizes are described below, along with the respec
 \end{figure}
 
 % Benchmark: Chess
-\paragraph{Benchmark: Chess\todo{incorrect paragraph numbering}}
+\paragraph{Benchmark: \hl{Chess}\todo{incorrect paragraph numbering}}
 \label{par:experimentalmethodology_benchmarking_benchmarkchess}
 \index{Chess benchmark}
 The 'Chess' benchmark is developed for the purposes of stressing the latency between target and host systems.
 It is so named because of the chess-like tileset the graphics kernel produces.
 The benchmark is designed to perform a multitude of OpenGL~ES~$2.0$ library invocations per frame, in which each invocation is relatively lightweight in execution and carries a small amount of data in its arguments.
-In the Chess benchmark, this is achieved by rendering a grid of colored (black or white, in order to adhere to the chess paradigm) rectangles where each tile is represented by four two-dimensional vertices in screen-space, in addition to six indices outlining the rectangular shape.
+In the Chess benchmark, this is achieved by rendering a grid of tiles where each tile is represented by four two-dimensional vertices in screen-space, in addition to six indices outlining the rectangular shape.
 Since the vertices are already transformed into screen-space, the graphics kernel need perform no additional transformation, adhering to the desired lightweight behavior of each kernel invocation.
 Additionally, the tileset vertices and indices are pre-loaded into OpenGL vertex and index element buffers, so that a lone buffer identifier may be transferred instead of the heavier vertex set load.
 Each tile is then individually drawn to the backbuffer, rendering the chess-like appearance of the benchmark.
 Effectively, this means that, for each tile, the benchmark need only bind a vertex and an index element buffer, set the corresponding tile color, and lastly invoke the rendering of said tile.
 
 For each frame rendered, depending on the number of drawn tiles, the solution will perform a large number of magic instructions.
-This induces a high utilization of the Simics Pipe, which is intended to stress magic instruction overhead (section \ref{sec:results_magicinstructionoverhead}).
+This induces a high utilization of the Simics Pipe, which is intended to stress magic instruction overhead.
 The repeated invocation of lesser draw calls is representative of common usage of drawing a multitude of shapes with OpenGL, such as a user interface. Additionally, the number of tiles being computed is easily modifiable, rendering the benchmark scalable for the purposes of the experiment described in this document. As such, said benchmark is considered suitable for the purpose of representing a large number of graphics invocations using OpenGL~ES~$2.0$.
 
-We perform the Chess benchmark with $60\times60$, $84\times84$, and $118\times118$ tiles, which entails roughly $9\times60\times60$, $9\times84\times84$, and $9\times118\times118$ magic instructions per frame.
+We perform the Chess benchmark with $60\cdot60$, $84\cdot84$, and $118\cdot118$ tiles, which entails roughly $9\cdot60\cdot60$, $9\cdot84\cdot84$, and $9\cdot118\cdot118$ magic instructions per frame.
 
 % Benchmark: Julia
-\paragraph{Benchmark: Julia}
+\paragraph{Benchmark: \hl{Julia}}
 \label{par:experimentalmethodology_benchmarking_benchmarkjulia}
 \index{Julia fractal benchmark}
 The 'Julia' benchmark is developed for the purposes of stressing computational intensity in software-rasterized and paravirtualized platforms.
-The kernel calculates the Julia fractal, the texturing and frame-wise seeding of which gives the benchmark its distinct look.
+The kernel calculates the Julia fractal\todo{Ref?}, the texturing and frame-wise seeding of which gives the benchmark its distinct look.
 The benchmark is designed to perform a lone computationally intensive graphics kernel invocation, which will stress the computational prowess of the profiled platform.
 The case is selected for use as the computation of a fractal is trivially scalable in terms of complexity, by modifying the number of iterations the fractal algorithm performs, and is thus considered suitable for profiling of computationally intensive graphics kernels.
 
@@ -208,9 +209,9 @@ If not specified otherwise, all results have taken into account the average of t
 
 \subsection{Results}
 \label{sec:results}
-Results gathered from execution on the host are presented in table~\ref{tab:keyvalhost} and results compiled from execution in \hl{QEMU} are presented in table~\ref{tab:keyvalqemu}, while results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
+Results gathered from execution on the host are presented in table~\ref{tab:keyvalhost} and results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
 In Fig.~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
-As such, the $Y$ axis showcase sample density, although the axis keys have been removed as they bear little relevance to the outcomes presented in this material.
+As such, the $Y$ axis illustrate the sample density.
 The histograms each feature $100$ bins, into which $1000$ samples, for each experiment performed \todo{unclear reference -- Do you mean that for each experiment, you put 1000 samples into 100 bins? maybe clearer if you split in 2 sentences}, are rounded into.
 For the purposes of visualization, values outside of the standard deviation are not featured in the figures.
 The remainder of this section presents an analysis of the data compiled from executing the experiment on the software rasterized and paravirtualized Simics platforms.
@@ -303,24 +304,23 @@ The remainder of this section presents an analysis of the data compiled from exe
   \label{fig:histogramssimicsparajulia}
 \end{figure*}
 
-From the data visualized in Fig. \ref{fig:histogramssimicsparachess}, we may observe that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
-The right-hand side of the graph, while also showcasing impaired performance induced by paravirtualization, visualize a decrease in sample density distribution.
+The data visualized in Fig. \ref{fig:histogramssimicsparachess} shows that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
+The right-hand side of the graph, while also showing impaired performance induced by paravirtualization, visualize a decrease in sample density distribution.
 This is supported by the data presented in table \ref{tab:keyvalpara}.
 
 Based on the data summarized in table \ref{tab:keyvalsimics} and comparing said data to that of table \ref{tab:keyvalpara}, we may observe that the software rasterized solution outperforms its paravirtualized counterpart, regardless of number of tiles rendered.
-The only redeeming attributes the paravirtualized solution brings to the table is a decrease in standard deviation.
 % When comparing these results to the uncompromised hardware accelerated counterpart on the host machine (see Fig. \ref{fig:histogramshost}), we may observe - albeit considerably less prominent - an adherence to the single-peak behavior in the distribution of the sample density.
 
-We devised the Chess benchmark to locate any bottlenecks related to the number of paravirtualized invocations, which was predicted a bottleneck during the pilot study.
+The Chess benchmark is designed to locate any bottlenecks related to the number of paravirtualized invocations, which was predicted a bottleneck..
 Evidently, the prediction of a target-to-host communication letency issue has been confirmed, arguably identifying one weakness of graphics paravirtualization in the Simics full-system simulator.
 
-In Simics, magic instructions incur a context switch cost when exiting the simulation and beginning execution in the real world.
+\todo{Elaborate on your non-VMP findings here.}In Simics, magic instructions incur a context switch cost when exiting the simulation and beginning execution on the host.
 This affects the performance by forcing the simulation to no longer be executed in native mode, inhibiting the simulatory performance improvements granted by hardware-assisted virtualization.
 It also entails Simics no longer being able to utilize just-in-time compilation to speed up execution, having to rely on regular code interpretation.
 As such, in great numbers, magic instructions may greatly affect performance.
 
-We performed further study into this matter to establish what those overhead costs may be.
-To do this, we measured elapsed time for escaping simulation $1000$ times using magic instructions, collecting minimum (\dvtcmdfirstline{magicinstrprofileall.dat.min}), maximum (\dvtcmdfirstline{magicinstrprofileall.dat.max}), average (\dvtcmdfirstline{magicinstrprofileall.dat.avg}), the standard deviation thereof (\dvtcmdfirstline{magicinstrprofileall.dat.std}), time to do so \todo{kan meningen forenklas lite? lite val komplexa syftningar}.
+In order to establish what those overhead costs may be, further study into this matter is performed.
+To do this, elapsed time for escaping simulation $1000$ times using magic instructions is measured, collecting minimum (\dvtcmdfirstline{magicinstrprofileall.dat.min}~\milli\second ), maximum (\dvtcmdfirstline{magicinstrprofileall.dat.max}~\milli\second ), average (\dvtcmdfirstline{magicinstrprofileall.dat.avg}~\milli\second ), the standard deviation thereof (\dvtcmdfirstline{magicinstrprofileall.dat.std}~\milli\second ), time to do so \todo{kan meningen forenklas lite? lite val komplexa syftningar}.
 From these findings, we may conclude that the execution of $1000$ magic instructions is expected to induce an average overhead of \dvtcmdfirstline{magicinstrprofileall.dat.avg}~ms per magic instruction.
 Indeed, these findings indicate that magic instruction overhead could very well account for the majority of the elapsed average frametimes when paravirtualized in Simics.
 
