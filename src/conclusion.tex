@@ -27,4 +27,35 @@ To conclude: This paper has demonstrated performance improvements by acceleratin
 Induced benefits are performance improvements of up to $34$ times, speculating in much larger benefits in non-hardware-assisted virtualized use-cases.
 Magic instruction overhead has been identified as the main performance bottleneck.
 As such, a possible drawback of graphics paravirtualization is a weakness to large amounts of framework invocations.
-Thus, this paper claims paravirtualization as a successful formula for system simulator graphics acceleration, and suggests utilizing high-level paravirtualization to accelerate graphics in virtual platforms.\todo{Add future work.}
+Thus, this paper claims paravirtualization as a successful formula for system simulator graphics acceleration, and suggests utilizing high-level paravirtualization to accelerate graphics in virtual platforms.
+
+% TODO: This should probably be merged with the conclusion and not be a seperate section.
+\subsection{Future Work}
+\label{sec:futurework}
+The presented implementation may be advanced in a number of ways in order to support a higher number of platforms and an array of performance enhancements.
+Below, recommendations for future study are presented.
+
+In terms of performance, command serialization batching should be considered for the purposes of minimizing the number of performed magic instructions.
+That is, the ability to queue framework invocations and transmit them in a batch rather than individually.
+Considering that magic instructions are a performance bottleneck, such an optimization could drastically improve simulation performance.
+
+Often, it is desirable to simulate systems other than the simulation host.
+One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
+In this case, it is possible that target software utilize the DirectX framework to render graphics, whereas the host Linux system only feature the OpenGL libraries.
+
+In $2014$, Valve Corporation released software capable of converting DirectX~$9.0$c-code to that of OpenGL~\dvtcmdciteref{technicaldocs:valve:2014}.
+Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform framework may be practical for the purposes of graphics acceleration in virtual platforms.
+An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
+If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, the utilized graphics framework of which the host system lacks the capability to interpret, this might bridge the gap between the practicalities of using paravirtualization to accelerate simulation performance and \hl{generalized methods of modeling modeling graphics for any type of system}\todo{Cross-platform GPU virtualization methods. Phrase better?}.
+Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics accceleration in the Simics full-system simulator.
+
+% Other possible future work to consider:
+% * More verbose benchmarks.
+% * Memory bandwidth benchmark (see EOF).
+% * Consider mentioning making further study into how the overhead cost
+%   for magic instructions might change if using VMP, JIT, or regular
+%   interpretation.
+
+%% Furthermore, and for the purposes of complementing this dissertation in particular, the author would like to suggest additional tests stressing target -to-host communications.
+%% Preferably, said tests would stress the communication by other means than profiling the sampling of a large texture, since such a test may cause volatile performance in the reference material (being software rasterized Simics ), possibly due to cache misses (see section \ref{sec:threatstovalidity_benchmarkvariations}).
+%% When performing such a test, it may be of value to profile the overhead induced by the memory table traversal described in section \ref{sec:proposedsolutionandimplementation_pagetabletraversal}.
