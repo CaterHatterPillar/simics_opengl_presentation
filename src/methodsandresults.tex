@@ -136,7 +136,7 @@ The experiments are performed on a system running Fedora~19 Linux with the follo
 
 \todo{Motivate the development of your own benchmarks?}Two benchmarks are devised on-site for the purposes of stress-testing the paravirtualized technology described in this article.
 Each benchmark is intended to stress one suspected bottleneck in the implementation: One benchmark performs a large number of relatively insignificant OpenGL invocations, while the other has a computationally intensive GPU workload.
-Both benchmarks are configured to run at roughly $16$~\milli\second , which would correspond to roughly $60$~frames per second, when hardware accelerated on the host system.
+Both benchmarks are configured to run at roughly $16$~\milli\second s per frame, which would correspond to roughly $60$~frames per second, when hardware accelerated on the host system.
 The benchmarks are shaped this way in order to reflect the expected load of a modern real-time interactive application.
 As such, the purpose of the benchmarks is to be representative of typical scenarios induced by modern graphics applications whilst utilizing a graphics framework such as OpenGL.
 When run during the experiment, each benchmark instance measures the elapsed time of $1000$ frames.
@@ -175,7 +175,8 @@ For each frame rendered, depending on the number of drawn tiles, the solution wi
 This induces a high utilization of the Simics Pipe, which is intended to stress magic instruction overhead.
 The repeated invocation of lesser draw calls is representative of common usage of drawing a multitude of shapes with OpenGL, such as a user interface. Additionally, the number of tiles being computed is easily modifiable, rendering the benchmark scalable for the purposes of the experiment described in this document. As such, said benchmark is considered suitable for the purpose of representing a large number of graphics invocations using OpenGL~ES~$2.0$.
 
-We perform the Chess benchmark with $60\cdot60$, $84\cdot84$, and $118\cdot118$ tiles, which entails roughly $9\cdot60\cdot60$, $9\cdot84\cdot84$, and $9\cdot118\cdot118$ magic instructions per frame.
+We perform the Chess benchmark with $60\times60$, $84\times84$, and $118\times118$ tiles, which entails roughly $9\cdot60\cdot60$, $9\cdot84\cdot84$, and $9\cdot118\cdot118$ magic instructions per frame.
+When profiled on the host system rendering $84\times84$ tiles, the Chess benchmark averages \dvtcmdfirstline{hostchess84x84.dat.avg} \milli\second .
 
 % Benchmark: Julia
 \paragraph{Benchmark: \hl{Julia}}
@@ -187,6 +188,7 @@ The benchmark is designed to perform a lone computationally intensive graphics k
 The case is selected for use as the computation of a fractal is trivially scalable in terms of complexity, by modifying the number of iterations the fractal algorithm performs, and is thus considered suitable for profiling of computationally intensive graphics kernels.
 
 We perform the Julia benchmark with $225$, $450$, and $900$ iterations per frame, all of which induce $16$ magic instructions per frame.
+Executed on the host system, the Julia benchmark induces an average frametime of \dvtcmdfirstline{hostjulia450.dat.avg} \milli\second .
 
 \subsubsection{Platform Profiling\todo{strange numbering again}}
 \label{sec:platformprofiling}
@@ -209,7 +211,7 @@ If not specified otherwise, all results have taken into account the average of t
 
 \subsection{Results}
 \label{sec:results}
-Results gathered from execution on the host are presented in table~\ref{tab:keyvalhost} and results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
+Results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
 In Fig.~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
 As such, the $Y$ axis illustrate the sample density.
 The histograms each feature $100$ bins, into which $1000$ samples, for each experiment performed \todo{unclear reference -- Do you mean that for each experiment, you put 1000 samples into 100 bins? maybe clearer if you split in 2 sentences}, are rounded into.
@@ -261,20 +263,6 @@ The remainder of this section presents an analysis of the data compiled from exe
     \label{tab:keyvalpara}
   }
 \end{table*}
-
-% tab:keyvalhost
-\begin{table}
-  \centering
-  \begin{tabular}{|c|c|c|c|c|}
-    \hline
-    \multirow{2}{*}{Benchmark} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
-    \cline{2-5} & \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-    Chess & \dvtcmdfirstline{hostchess84x84.dat.min} & \dvtcmdfirstline{hostchess84x84.dat.max} & \dvtcmdfirstline{hostchess84x84.dat.std} & \dvtcmdfirstline{hostchess84x84.dat.avg} \\ \hline
-    Julia & \dvtcmdfirstline{hostjulia450.dat.min} & \dvtcmdfirstline{hostjulia450.dat.max}	& \dvtcmdfirstline{hostjulia450.dat.std} & \dvtcmdfirstline{hostjulia450.dat.avg} \\ \hline
-  \end{tabular}
-  \caption[Benchmark results -- hardware accelerated on the simulation host]{\hl{Benchmarking results whilst hardware accelerated on the simulation host system.}}
-  \label{tab:keyvalhost}
-\end{table}
 
 % fig:hostgramssimicsparachess
 % fig:histogramssimicsparajulia
