@@ -298,9 +298,6 @@ The Julia benchmark is incorporated into the experiment to establish how the par
 Using this benchmark, we highlight weaknesses in Simics software rasterization, with frame times well above the two second mark; the corresponding maximum frame time in the paravirtualized Simics platform measuring up to to a mere \dvtcmdfirstline{parajulia900.dat.max} \milli\second .
 As visualized in Fig. \ref{fig:histogramssimicsparajulia}, we showcase considerable performance improvements and -- in turn -- identify the capabilities of graphics paravirtualization in the Simics full-system simulator.
 
-% Albeit the hardware accelerated host profiling (see Fig. \ref{fig:histogramshost}) may, however minor, suggest such a pattern; it is by all means not significant.
-% We may observe similar behavior in the distribution of the sample density when profiling the same benchmark whilst paravirtualized in the QEMU -derived Android emulator (see Fig. \ref{fig:histogramsqemu}).
-
 %% Advantages of magic instructions include often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
 %% Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system \todo{joho! magiska instr ar ju en modifiering av target, man andrar ju pa instruktioner. Syftar du pa att man inte behover lagga till latsashardvara? eller att mjukvara med MI aven funkar pa riktig HW? om det senare, sa ar detta orelevant for paravirtualisering}.
 %% In effect, implementation of magic instructions requires replacing one or more instructions in the target instruction set, thereby making the magic instruction platform-dependent.
