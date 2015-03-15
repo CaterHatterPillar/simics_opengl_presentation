@@ -29,7 +29,7 @@ Common approaches to accelerate simulation performance include creating a functi
 However, these methodologies traditionally incur heavy performance losses in comparison to hardware acceleration.
 In order to achieve better performance, one may 'offload' such kernels to the GPU of the system on which the simulation runs (often referred to as the simulation host).
 \hl{There are a number of ways to do so, such as relying on PCI~passthrough and similar technologies to grant access to the underlying host hardware from within the virtual platform}~\dvtcmdcitebib[p.~415,~416]{inproceedings:regola:2010}, \hl{or utilizing a concept commonly referred to as "paravirtualization" at a higher level of abstraction, e.g., the graphics library.
-Paravirtualization is defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity}~\dvtcmdcitebib[p.~165-166]{magazines:bartholomew:2006}.
+Paravirtualization is defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity}~\dvtcmdcitebib[p.~165-166]{inproceedings:youseff:2006}.
 Effectively, this entails modifying the virtual machine to be similar, but not identical, to host hardware~\dvtcmdcitebib[p.~165]{journals:barham:2003}.
 As such, one may simplify the virtualization process by neglecting some hardware compatibility~\dvtcmdcitebib[p.~1]{inproceedings:youseff:2006}.
 
