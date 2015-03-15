@@ -44,7 +44,7 @@ As such, virtualization methods with varying simulatory accuracy present themsel
 Summaries of some viable strategies are presented below.
 
 % GPU Modeling
-\paragraph{GPU Modeling}
+\subsubsection{GPU Modeling}
 \label{par:previousresearch_graphicsvirtualization_gpumodeling}
 Some may consider virtualizing the GPU ISA.
 This could be appropriate for the purposes of development close to GPU hardware.
@@ -54,7 +54,7 @@ However, the development of a GPU model might be overly costly, due to GPU hardw
 Furthermore, simulating massively parallelized GPU ISAs induce high performance costs that might render GPU modeling less preferable for development requiring anything but slow simulation speed.
 
 % PCI Passthrough
-\paragraph{PCI Passthrough}
+\subsubsection{PCI Passthrough}
 \label{par:previousresearch_graphicsvirtualization_pcipassthrough}
 PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\dvtcmdciteref{inproceedings:regola:2010}, accomodating for fully-fledged hardware accelerated workloads.
 However, this requires \textit{dedicated} hardware on host systems and requires configuring the simulation target to utilize host hardware.
@@ -62,7 +62,7 @@ For example, this may induce the necessity of multiple graphics cards on the hos
 Furthermore, PCI~passthrough is likely to make it difficult to implement robust checkpointing and reverse execution functionality, should advanced simulatory features be desirable.
 
 % Paravirtualization
-\paragraph{Paravirtualization}
+\subsubsection{Paravirtualization}
 \label{par:previousresearch_graphicsvirtualization_paravirtualization}
 At a higher level of abstraction, there is the option of paravirtualization.
 By selectively modifying the target system, it is possible to control system attributes and add functionality such as device hardware support.
