@@ -6,19 +6,18 @@
 System simulators are abundant and exist in corporate~\dvtcmdcitebib{magazines:bohrer:2004}, academic~\dvtcmdcitebib{journals:rosenblum:1995}, and open-source variations~\dvtcmdciteref{inproceedings:bellard:2005}.
 Such platforms, like Simics, are used for many purposes including thermal control strategies in multicores~\dvtcmdcitebib{inproceedings:bartolini:2010}, networking timing analysis~\dvtcmdcitebib{journals:ortiz:2009}, web server performance evaluation~\dvtcmdcitebib{journals:villa:2005}, and to simulate costly hardware financially unfeasible to researchers~\dvtcmdcitebib{journals:alameldeen:2003}.
 
-Several attempts have been made to accelerate simulator graphics.
-Many of these require modification of both target and host systems.
-A prominent example of accelerated graphics in a virtual platform is presented by Lagar-Cavilla et al., who accelerates OpenGL~$1.5$ roughly two orders of magnitude using paravirtualization methodology~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.\todo{Elaborate here a bit on Lagar-Cavillas work. Proceed to explain your angle in the Problem Formulation section.}
-
 QEMU ('Quick~Emulator') is an open-source virtual platform described as a full system emulator~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005} and a high-speed functional simulator~\dvtcmdcitebib[p.~1]{inproceedings:shen:2010}.
 As such, QEMU may run unmodified target software such as OSs, drivers, and other applications~\dvtcmdcitebib[p.~1]{inproceedings:bellard:2005}.
 The platform is widely used in academia, and is the subject of several articles and reports cited throughout this document.
-Additionally, QEMU powers the Android emulator, which helps mobile developers develop software for the Android OS.
-The Android emulator accelerates OpenGL~ES~$1.1$ and $2.0$, granting developers significant performance boosts~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
 
-Other promising GPU virtualization projects include the Virgil3D-project~\dvtcmdciteref{technicaldocs:qemudevel:2014}.
-As described at the project homepage, the project strives to create a virtual GPU which may utilize host hardware to accelerate 3D rendering.
+Several attempts have been made to accelerate simulator graphics.
+Many of these require modification of both target and host systems.
+For example, the Android emulator, which is powered by QEMU, accelerates OpenGL~ES~$1.1$ and $2.0$, granting Android developers significant performance boosts~\dvtcmdciteref{web:ducrohet:2012:afasteremulator}.
+Another prominent example of accelerated graphics in a virtual platform is presented by Lagar-Cavilla et al., who accelerates OpenGL~$1.5$ roughly two orders of magnitude using paravirtualization methodology~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.\todo{Elaborate here a bit on Lagar-Cavillas work. Proceed to explain your angle in the Problem Formulation section.}
 Other related works include modeling GPU devices in the QEMU full-system simulator with software OpenGL~ES rasterization support, as presented by Shen et al.~\dvtcmdcitebib{inproceedings:shen:2010}.
+
+Current promising GPU virtualization projects include the Virgil3D-project~\dvtcmdciteref{technicaldocs:qemudevel:2014}.
+The project strives to create a virtual GPU which may utilize host hardware to accelerate 3D rendering.
 At the time of writing, graphics virtualization is no longer limited to the academic community as big virtualization players incorporate various graphics acceleration solutions in their products.
 One such example is VMware,~Inc.~\dvtcmdciteref{technicaldocs:vmware:2014}.
 
