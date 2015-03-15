@@ -3,24 +3,25 @@
 % Problem Formulation
 \section{Problem Formulation}
 \label{sec:problemformulation}
-This paper presents the paravirtualization of the OpenGL~ES~$2.0$ graphics API in the Simics full-system simulator. 
-As such, this study concerns investigating the performance of paravirtualized graphics in a modern virtual platform.
-This entails investigation, analysis, and development of methods and techniques for efficient communication and execution in the Simics run-time environment.
-
-To accommodate the analysis of benefits and drawbacks of paravirtualized graphics, a benchmark suite -- with the goal of locating performance bottlenecks -- is devised.
-The benchmarks are designed to stress latency in target-to-host communication, in addition to computational intensity brought on by complex GPU workloads.
-In coagency with the benchmarks, this study comprises an analysis of the performance of paravirtualized graphics compared to that of traditional software rasterization.
-The objectives of the paper is to evaluate the feasibility of paravirtualization as an approach to accelerate graphics in virtual platforms, and to identify its strengths and weaknesses.
-\todo{Also mention goal of analyzing performance of magic instructions.}
-
 \hl{In regards to previous work in the area, there is no indication -- in academic writing -- of existing paravirtualized graphics in a simulator with advanced capabilities such as Simics, featuring deterministic execution, checkpointing and reverse execution.
 Potential performance gains on such a platform are inherently unclear due to these features.}
 Such functionality could simplify debugging, testing, and profiling of applications comprising some GPU-bound workload.
-Entailed by these research gaps, the research questions formulated in this chapter are considered to be lacking in the field.
+Entailed by these research gaps, the research questions formulated in this chapter are considered to be lacking in the field.\todo{Explain angle in regards to Lagar-Cavilla.}
 
-As such, the study performed for the purposes of this paper is relevant to the field of computer science by expanding upon the the knowledge of graphics acceleration in virtual platforms. Graphics acceleration in a virtual platform is relevant because it facilitates debugging, testing, and profiling of software which dependends on GPU graphics acceleration.
+This paper presents the paravirtualization of OpenGL~ES~$2.0$ in the Simics full-system simulator. 
+The study concerns investigating the performance of paravirtualized graphics in a modern virtual platform.
+This entails development and analysis of efficient communication and execution in the Simics run-time environment.
+The objectives of the paper is to evaluate the feasibility of paravirtualization as an approach to accelerate graphics in virtual platforms, and to identify the strengths and weaknesses of using magic instructions as a communications bridge.
+
+To accommodate the analysis of benefits and drawbacks of paravirtualized graphics, two benchmarks are devised.
+The benchmarks are designed to stress latency in target-to-host communication and computational intensity brought on by complex GPU workloads.
+As such, the purposes of these benchmarks is to stress a suspected bottleneck in the communication between target and host systems, and to measure how well the solution performs under computational stress.
+The performance of these benchmarks is compared to that of traditional software rasterization.
+
+Thus, this study is relevant to the field of computer science by expanding upon the the knowledge of graphics acceleration in virtual platforms.
+Graphics acceleration in a virtual platform is relevant because it facilitates debugging, testing, and profiling of software which dependends on GPU graphics acceleration.
 By these means, this paper contributes to the field of computer science by answering these questions from the perspective of graphics paravirtualization in the Simics full-system simulator.
-This paper seeks to answer the following research questions:
+Formally, paper seeks to answer the following research questions:
 
 \begin{enumerate}
   \item What constitutes a viable implementation of paravirtualized graphics?
