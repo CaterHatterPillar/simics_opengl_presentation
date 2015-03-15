@@ -297,17 +297,3 @@ What causes this behavior is unclear, as frame-to-frame branching in the fractal
 The Julia benchmark is incorporated into the experiment to establish how the paravirtualized solution performed under computational stress, which is where benefits induced by hardware acceleration should be made apperent.
 Using this benchmark, we highlight weaknesses in Simics software rasterization, with frame times well above the two second mark; the corresponding maximum frame time in the paravirtualized Simics platform measuring up to to a mere \dvtcmdfirstline{parajulia900.dat.max} \milli\second .
 As visualized in Fig. \ref{fig:histogramssimicsparajulia}, we showcase considerable performance improvements and -- in turn -- identify the capabilities of graphics paravirtualization in the Simics full-system simulator.
-
-%% Advantages of magic instructions include often negligible invocation cost, as the context switch is often instant from the perspective of the target system~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}.
-%% Furthermore, being a greatly desirable attribute, magic instructions require no modification of the target system \todo{joho! magiska instr ar ju en modifiering av target, man andrar ju pa instruktioner. Syftar du pa att man inte behover lagga till latsashardvara? eller att mjukvara med MI aven funkar pa riktig HW? om det senare, sa ar detta orelevant for paravirtualisering}.
-%% In effect, implementation of magic instructions requires replacing one or more instructions in the target instruction set, thereby making the magic instruction platform-dependent.
-%% However, the solution is often designed to only respond to magic instructions wherein a certain magic number, sometimes called a 'leaf number'~\dvtcmdcitebib[p.~131]{journals:rechistov:2013}, is present in an arbitrary processor register.
-
-%% Magic instructions allow for fast, in the pretext of the simulation target -- almost instant -- escape from the simulation context, and may carry a limited amount of information with it from inside the simulation out into the real world.
-%% The role of the Simics pipe is comprised of the allocation and maintenance of page locked target memory to accomodate the use of magic instructions, which the Simics pipe uses to relay the starting address of said memory space to the simulation host.
-
-%% Not being the first time magic instructions have been used for the purposes of hardware acceleration~\dvtcmdcitebib[p.~32]{publications:leupers:2010}, the Simics Pipe utilizes such methodology, namely the \dvtcmdcodeinline{CPUID} x86 instruction, to carry a lone memory address, the starting address of the serialized command stream, in one of the target system registers.
-%% The execution of the injected instruction in a simulated processor invokes a callback method in the host side of the Simics Pipe, having effectively escaped the simulation and paused the simulation state.
-%% Knowing the occurrence of a magic instruction with the corresponding leaf number, the presence of a target virtual address in the agreed-upon CPU register may be assumed.
-%% Note that, at this point, the retrieved address is in the format of a target system virtual address, the destination of which is unknown to the simulation host.
-%% As such, this address need be translated in order to retrieve the package contents that the memory address points to.
