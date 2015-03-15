@@ -25,60 +25,52 @@ One such example is VMware,~Inc.~\dvtcmdciteref{technicaldocs:vmware:2014}.
 \subsection{Simics}
 \label{sec:simics}
 Simics is a full-system simulator developed by Intel and sold through Intel's subsidiary Wind~River~Systems,~Inc.
-Simics was developed by the simulation group at the Swedish Institute of Computer Science~\dvtcmdcitebib{inproceedings:werner:1997}, which was the first academic group to run an unmodified OS in an entirely simulated environment.
-The product was was commercially launched by Virtutech in $1998$~\dvtcmdcitebib{publications:leupers:2010} and subsequently acquired by Intel in $2010$~\dvtcmdcitebib{journals:aarno:2013}.
+Simics was originally developed at the Swedish Institute of Computer Science~\dvtcmdcitebib{inproceedings:werner:1997}, commercially launched by Virtutech in $1998$~\dvtcmdcitebib{publications:leupers:2010}, and subsequently acquired by Intel in $2010$~\dvtcmdcitebib{journals:aarno:2013}.
 
-As an architectural simulator, Simics' primary client group is software and systems developers that produce software for complex systems involving software and hardware interaction~\dvtcmdcitebib{journals:aarno:2013}.
-For that reson, key attributes of Simics are scalability, repeatability, and high-performance simulation.
+As an architectural simulator, Simics' primary client group is software and systems developers that produce software involving software and hardware interaction~\dvtcmdcitebib{journals:aarno:2013}.
 The simulator utilizes hardware-assisted virtualization and other performance boosting technologies such as hypersimulation~\dvtcmdcitebib[p.~38]{publications:leupers:2010} to accelerate simulation speeds.
-Simics also feature advanced functionalities adhering to the deterministic nature of the simulator, such as checkpointing and reverse execution~\dvtcmdcitebib{publications:aarno:2014}.
+Simics also feature advanced functionalities adhering to the deterministic nature of the simulator, such as checkpointing and reverse execution~\dvtcmdcitebib{journals:aarno:2014, publications:aarno:2014}.
 
-The ability to simulate the entirety of an unmodified software stack has led to Simics being used to simulate a variety of systems including, but not limited to, single-processor embedded boards, multiprocessor servers, and heterogeneous telecom clusters~\dvtcmdcitebib{journals:aarno:2013}.
-Employers of the Simics full-system simulator include Intel~\dvtcmdciteref{publications:aarno:2014}, IBM~\dvtcmdcitebib[p.~12:1,~12:6]{journals:koerner:2009}, NASA~\dvtcmdciteref{publications:aarno:2014}, and Lockheed Martin~\dvtcmdciteref{web:miller:2010}.
-Additionally, the simulator has a strong academic tradition -- known to operate in over $300$ universities throughout the world~\dvtcmdcitebib[p.~252]{journals:villa:2005}.
+The ability to simulate an unmodified software stack has led to Simics being used to simulate a variety of systems including single-processor embedded boards, multiprocessor servers, and heterogeneous telecom clusters~\dvtcmdcitebib{journals:aarno:2013}.
+Employers of Simics include Intel~\dvtcmdciteref{publications:aarno:2014}, NASA~\dvtcmdciteref{publications:aarno:2014}, and Lockheed Martin~\dvtcmdciteref{web:miller:2010}.
+Furthermore, the simulator has a strong academic tradition -- known to operate in over $300$ universities~\dvtcmdcitebib[p.~252]{journals:villa:2005}.
 
 % Graphics Virtualization
 \subsection{Graphics Virtualization}
 \label{sec:previousresearch_graphicsvirtualization}
-There are a number of ways of virtualizing GPUs in system simulators, a few of which accommodate hardware acceleration, but fewer that suit all needs.
-It is therefore important to balance required simulation level of detail with performance requirements.
-As such, methodologies with varying simulatory accuracy present themselves, from slow low-level instruction set modeling to fast high level paravirtualization.
-Summaries of viable strategies are presented below.
+There are a number of ways of virtualizing GPUs in virtual platforms, a few of which accommodate hardware acceleration; fewer that suit most needs.
+Therefore, it is important to balance desired simulation level of detail with performance requirements.
+As such, virtualization methods with varying simulatory accuracy present themselves, from slow low level instruction set modeling to fast high level paravirtualization.
+Summaries of some viable strategies are presented below.
 
 % GPU Modeling
 \paragraph{GPU Modeling}
 \label{par:previousresearch_graphicsvirtualization_gpumodeling}
-Some may consider developing a full-fletched GPU model, that is, virtualizing the GPU ISA.
-Such methodologies may be appropriate for the purposes of low-level development close to GPU hardware.
+Some may consider virtualizing the GPU ISA.
+This could be appropriate for the purposes of development close to GPU hardware.
 For example, one might imagine the scenario of driver development for next-generation GPUs.
 
-However, the development of GPU models, similar to that of common architectural model development for the Simics full-system simulator, incurs a number of flaws.
-The first of these flaws encompass estimated development costs reaching unsustainable levels, due to GPU hardware often being poorly documented~\dvtcmdcitebib{inproceedings:lagarcavilla:2007} compared to CPU architectures.
-Furthermore, modeling massively parallelized GPU technology on CPUs induce high costs rendering the methodology less preferable for development requiring anything but slow simulation speed.
+However, the development of a GPU model might be overly costly, due to GPU hardware being poorly documented compared to CPU architectures~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
+Furthermore, simulating massively parallelized GPU ISAs induce high performance costs that might render GPU modeling less preferable for development requiring anything but slow simulation speed.
 
 % PCI Passthrough
 \paragraph{PCI Passthrough}
 \label{par:previousresearch_graphicsvirtualization_pcipassthrough}
-PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\dvtcmdciteref{inproceedings:regola:2010}.
-The direct contact with host system devices accommodated by these technologies enable fully-fledged hardware accelerated workloads.
-Yet the methodology suffers from several disadvantages, such as requiring dedicated hardware, causing the host system to lose access to devices during the course of simulation.
-In terms of GPU virtualization, this would induce the necessity of multiple graphics cards to the host system.
-Additionally, and perhaps the greatest flaw of passthrough technologies, is the requirement of modifying the simulation target to utilize host hardware, effectively restricting what systems may be simulated.
-This restriction encompasses the utilization of corresponding device drivers to the host system, rendering the methodology inflexible in terms of GPU virtualization diversity.
-\todo{IIRC, PCI passthrough necessarily destroys checkpointing and revexec, maybe we should mention that?}
+PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\dvtcmdciteref{inproceedings:regola:2010}, accomodating for fully-fledged hardware accelerated workloads.
+However, this requires \textit{dedicated} hardware on host systems and requires configuring the simulation target to utilize host hardware.
+For example, this may induce the necessity of multiple graphics cards on the host system.
+Furthermore, PCI~passthrough is likely to make it difficult to implement robust checkpointing and reverse execution functionality, should advanced simulatory features be desirable.
 
 % Paravirtualization
 \paragraph{Paravirtualization}
 \label{par:previousresearch_graphicsvirtualization_paravirtualization}
-At a higher level of abstraction, there is the option of virtualization by paravirtualization.
-By selectively modifying the target system, it is possible to control system attributes and add functionality, such as graphics hardware support.
-For graphics acceleration, such a system attribute may be a graphics library or a kernel driver (see Fig. \ref{fig:overview}).
+At a higher level of abstraction, there is the option of paravirtualization.
+By selectively modifying the target system, it is possible to control system attributes and add functionality such as device hardware support.
+For graphics acceleration, such a system attribute could be a graphics library or a kernel driver (see Fig. \ref{fig:overview}).
 
-Inherent by higher abstraction, paravirtualization may be relatively cost-effective\todo{cost-effective in what sense? performance, development cost?} in comparison to device modeling.
-Additionally, by selectively modifying at the graphics library software level, there is no need for users to modify the application they wish to accelerate.
-Furthermore, by utilizing fast communications channels, one may accommodate for significant performance gains when compared to networking solutions\todo{avoid forward references. Maybe just remove the sentence? Or elaborate with enough context to make it understandable by itself, but probably not worth it} (see section \ref{sec:proposedsolutionandimplementation_simicspipe}).
-Unfortunately, paravirtualization is not without inherent flaws.
-In particular, a paravirtualized graphics library may be expensive to maintain as frameworks evolve and specifications change.
-Additionally, paravirtualized methodologies require modification of target systems; albeit not necessarily being a defect as a paravirtualized framework may still accelerate unmodified target applications \todo{i don't understand this statement}.
-
-For the purposes of graphics acceleration in a virtual platform, paravirtualization is a decent tradeoff between benefits and drawbacks, and is therefore considered a suitable candidate for accelerating graphics in the Simics full-system simulator\todo{Consider removing this sentence.}.
+Inherent by higher abstraction, paravirtualization is cheap in terms of development costs, and by selectively modifying at the graphics library level, there is no need for users to modify the software they wish to accelerate.
+Unfortunately, a paravirtualized graphics library may be troublesome to maintain as the framework evolves.
+Furthermore, it requires modification of the simulation target, which may be undesireable for some.
+Optimally, the simulator should run an unmodified target, but if high performance is important enough for compromise, paravirtualization at the graphics library level is a good tradeoff to delimit required modification.
+In this way, the changes are confined to the graphics library.
+Thus, what parts of the simulation are modified can easily be described to systems developers.
