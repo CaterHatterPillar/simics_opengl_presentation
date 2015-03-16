@@ -53,7 +53,6 @@ unset ytics
 
 files = sprintf("%s %s %s %s %s %s", arg_data1, arg_data2, arg_data3, arg_data4, arg_data5, arg_data6)
 ylabels = sprintf("%s %s %s", arg_ylabel1, arg_ylabel2, arg_ylabel3)
-xlabels = sprintf("%s %s", "Software", "Paravirtualized") 
 
 xlabel_index = 1
 ylabel_index = 1
@@ -71,7 +70,12 @@ do for [i=1:words(files)] {
         set ylabel " " #unset ylabel
     }
     if(xlabel_index<3) {
-        set x2label word(xlabels, xlabel_index) tc lt 1
+        if(xlabel_index==1) {
+            set x2label "Software Rasterization" tc lt 1
+        }
+        if(xlabel_index==2) {
+            set x2label "Paravirtualization" tc lt 1
+        }
         xlabel_index = xlabel_index + 1
     } else {
         set x2label " " #unset x2label

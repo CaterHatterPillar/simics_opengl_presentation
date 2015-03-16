@@ -3,20 +3,20 @@
 % Conclusion
 \section{Conclusion}
 \label{sec:conclusion}
-In the \nameref{sec:results}~section, we have established strengths and weaknesses of paravirtualized graphics in the Simics full-system simulator; most notably, the bottleneck introduced by the overhead of magic instructions.
+In section \ref{sec:results}, we have established strengths and weaknesses of paravirtualized graphics in the Simics full-system simulator; most notably, the bottleneck introduced by the overhead of magic instructions.
 As such, we have confirmed original suspicions through the use of our benchmarks.
 Thus, our study has identified the performance bottleneck inherent in great numbers of paravirtualized function invocations for magic instructions.
 
 Furthermore, compiled results have showcased great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
-As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of \dvtcmdfirstline{simicsjulia900.dat.avg}~ms to the real-time feasible count of \dvtcmdfirstline{parajulia900.dat.avg}~ms.
-It is likely that this performance improvement would be orders of magnitude greater for virtual platforms that do not utilize hardware-assisted virtualization, such as when using Simics to simulate other systems than x86-compatible ones, or when using breakpoints.
+As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of \dvtcmdfirstline{simicsjulia900.dat.avg}~\milli\second\ to the real-time feasible count of \dvtcmdfirstline{parajulia900.dat.avg}~\milli\second \todo{Värdesiffror}.
+It is likely that this performance improvement would be orders of magnitude greater for virtual platforms that do not utilize hardware-assisted virtualization, such as when using Simics to simulate other systems than x86-compatible ones, or scenarios where hardware-assisted virtualization is not possible -- such as when using breakpoints\todo{clarify?}.
 Accordingly, our experiment has identified the potential of using paravirtualization for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
 Additionally, beyond that of accelerated graphics, results indicate performance improvements in terms of maximum frametimes, inducing significantly improved standard deviation.
 In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with reduced frametimes, the feasibility of utilizing paravirtualized methodologies for the purposes of accelerating graphics within virtual platforms.
 
-To summarize: We have presented a solution for graphics acceleration implemented in the Simics full-system simulator by the means of paravirtualization.
+To summarize: this paper has presented a solution for graphics acceleration implemented in the Simics full-system simulator by the means of paravirtualization.
 The end-result is a solution which may generate libraries imitating EGL and OpenGL~ES~$2.0$ libraries.
-We may effectively spy on application EGL utilization, without inhibiting said exchange, allowing unmodified OpenGL applications to be accelerated from within the simulation target.
+This solution may effectively spy on application EGL utilization, without inhibiting said exchange, allowing unmodified OpenGL applications to be accelerated from within the simulation target.
 The implementation communicates by the means of low-latency magic instructions with no limit as to how much memory may be shared.
 As such, throughout this document, we have tackled and presented several issues pertaining to paravirtualized graphics acceleration.
 For the purposes of performance testing, we have developed benchmarks with the distinct purpose of highlighting solution weaknesses and strengths.
@@ -29,7 +29,30 @@ Magic instruction overhead has been identified as the main performance bottlenec
 As such, a possible drawback of graphics paravirtualization is a weakness to large amounts of framework invocations.
 Thus, this paper claims paravirtualization as a successful formula for system simulator graphics acceleration, and suggests utilizing high-level paravirtualization to accelerate graphics in virtual platforms.
 
-%% Additionally, the collected results have been compared with another platform using similar methodologies to accelerate the same graphics framework.
-%% Based off of these results, chapter \ref{sec:results} presents an analysis comparing the two platforms; being the QEMU -derived Android emulator and the paravirtualized Simics solution.
-%% From this analysis, we have established points of improvement in the paravirtualized solution developed for the Simics simulator.
-%% Furthermore, and based on the performance boasted by the Android emulator 's paravirtualized graphics acceleration when stressed by the Chess benchmark, we have predicted possible improvements in the Simics Pipe (see section \ref{sec:proposedsolutionandimplementation_simicspipe}) communications link of up to one order of magnitude.
+The presented implementation may be advanced in a number of ways in order to support a higher number of platforms and an array of performance enhancements.
+Below, recommendations for future study are presented.
+
+In terms of performance, command serialization batching should be considered for the purposes of minimizing the number of performed magic instructions.
+That is, the ability to queue framework invocations and transmit them in a batch rather than individually.
+Considering that magic instructions are a performance bottleneck, such an optimization could drastically improve simulation performance.
+
+Often, it is desirable to simulate systems other than the simulation host.
+One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
+In this case, it is possible that target software utilize the DirectX framework to render graphics, whereas the host Linux system only feature the OpenGL libraries.
+
+In $2014$, Valve Corporation released software capable of converting DirectX~$9.0$c-code to that of OpenGL~\dvtcmdciteref{technicaldocs:valve:2014}.
+Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform framework may be practical for the purposes of graphics acceleration in virtual platforms.
+An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
+If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, the utilized graphics framework of which the host system lacks the capability to interpret, this might bridge the gap between the practicalities of using paravirtualization to accelerate simulation performance and \hl{generalized methods of modeling modeling graphics for any type of system}\todo{Cross-platform GPU virtualization methods. Phrase better?}.
+Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics accceleration in the Simics full-system simulator.
+
+% Other possible future work to consider:
+% * More verbose benchmarks.
+% * Memory bandwidth benchmark (see EOF).
+% * Consider mentioning making further study into how the overhead cost
+%   for magic instructions might change if using VMP, JIT, or regular
+%   interpretation.
+
+%% Furthermore, and for the purposes of complementing this dissertation in particular, the author would like to suggest additional tests stressing target -to-host communications.
+%% Preferably, said tests would stress the communication by other means than profiling the sampling of a large texture, since such a test may cause volatile performance in the reference material (being software rasterized Simics ), possibly due to cache misses (see section \ref{sec:threatstovalidity_benchmarkvariations}).
+%% When performing such a test, it may be of value to profile the overhead induced by the memory table traversal described in section \ref{sec:proposedsolutionandimplementation_pagetabletraversal}.
