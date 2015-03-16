@@ -11,8 +11,8 @@ Furthermore, compiled results have showcased great improvements for computationa
 As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of \dvtcmdfirstline{simicsjulia900.dat.avg}~\milli\second\ to the real-time feasible count of \dvtcmdfirstline{parajulia900.dat.avg}~\milli\second \todo{Värdesiffror}.
 It is likely that this performance improvement would be orders of magnitude greater for virtual platforms that do not utilize hardware-assisted virtualization, such as when using Simics to simulate other systems than x86-compatible ones, or scenarios where hardware-assisted virtualization is not possible -- such as when using breakpoints\todo{clarify?}.
 Accordingly, our experiment has identified the potential of using paravirtualization for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
-Additionally, beyond that of accelerated graphics, results indicate performance improvements in terms of maximum frametimes, inducing significantly improved standard deviation.
-In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with reduced frametimes, the feasibility of utilizing paravirtualized methodologies for the purposes of accelerating graphics within virtual platforms.
+Additionally, beyond that of accelerated graphics, results indicate performance improvements in terms of maximum frame times, inducing significantly improved standard deviation.
+In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with reduced frame times, the feasibility of utilizing paravirtualized methodologies for the purposes of accelerating graphics within virtual platforms.
 
 To summarize: this paper has presented a solution for graphics acceleration implemented in the Simics full-system simulator by the means of paravirtualization.
 The end-result is a solution which may generate libraries imitating EGL and OpenGL~ES~$2.0$ libraries.
@@ -44,7 +44,7 @@ In $2014$, Valve Corporation released software capable of converting DirectX~$9.
 Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform framework may be practical for the purposes of graphics acceleration in virtual platforms.
 An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
 If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, the utilized graphics framework of which the host system lacks the capability to interpret, this might bridge the gap between the practicalities of using paravirtualization to accelerate simulation performance and \hl{generalized methods of modeling modeling graphics for any type of system}\todo{Cross-platform GPU virtualization methods. Phrase better?}.
-Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics accceleration in the Simics full-system simulator.
+Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics acceleration in the Simics full-system simulator.
 
 % Other possible future work to consider:
 % * More verbose benchmarks.

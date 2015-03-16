@@ -28,8 +28,8 @@ Simics is a full-system simulator developed by Intel and sold through Intel's su
 Simics was originally developed at the Swedish Institute of Computer Science~\dvtcmdcitebib{inproceedings:werner:1997}, commercially launched by Virtutech in $1998$~\dvtcmdcitebib{publications:leupers:2010}, and subsequently acquired by Intel in $2010$~\dvtcmdcitebib{journals:aarno:2013}.
 
 As an architectural simulator, Simics' primary client group is software and systems developers that produce software involving software and hardware interaction~\dvtcmdcitebib{journals:aarno:2013}.
-The simulator utilizes hardware-assisted virtualization and other performance boosting technologies such as hypersimulation~\dvtcmdcitebib[p.~38]{publications:leupers:2010} to accelerate simulation speeds.
-Simics also feature advanced functionalities adhering to the deterministic nature of the simulator, such as checkpointing and reverse execution~\dvtcmdcitebib{journals:aarno:2014, publications:aarno:2014}.
+The simulator utilizes hardware-assisted virtualization and other performance boosting technologies such as hyper-simulation~\dvtcmdcitebib[p.~38]{publications:leupers:2010} to accelerate simulation speeds.
+Simics also feature advanced functionality adhering to the deterministic nature of the simulator, such as checkpointing and reverse execution~\dvtcmdcitebib{journals:aarno:2014, publications:aarno:2014}.
 
 The ability to simulate an unmodified software stack has led to Simics being used to simulate a variety of systems including single-processor embedded boards, multiprocessor servers, and heterogeneous telecom clusters~\dvtcmdcitebib{journals:aarno:2013}.
 Employers of Simics include Intel~\dvtcmdciteref{publications:aarno:2014}, NASA~\dvtcmdciteref{publications:aarno:2014}, and Lockheed Martin~\dvtcmdciteref{web:miller:2010}.
@@ -56,7 +56,7 @@ Furthermore, simulating massively parallelized GPU ISAs induce high performance 
 % PCI Passthrough
 \subsubsection{PCI Passthrough}
 \label{par:previousresearch_graphicsvirtualization_pcipassthrough}
-PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\dvtcmdciteref{inproceedings:regola:2010}, accomodating for fully-fledged hardware accelerated workloads.
+PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\dvtcmdciteref{inproceedings:regola:2010}, accommodating for fully-fledged hardware accelerated workloads.
 However, this requires \textit{dedicated} hardware on host systems and requires configuring the simulation target to utilize host hardware.
 For example, this may induce the necessity of multiple graphics cards on the host system.
 Furthermore, PCI~passthrough is likely to make it difficult to implement robust checkpointing and reverse execution functionality, should advanced simulatory features be desirable.
@@ -70,7 +70,7 @@ For graphics acceleration, such a system attribute could be a graphics library o
 
 Inherent by higher abstraction, paravirtualization is cheap in terms of development costs, and by selectively modifying at the graphics library level, there is no need for users to modify the software they wish to accelerate.
 Unfortunately, a paravirtualized graphics library may be troublesome to maintain as the framework evolves.
-Furthermore, it requires modification of the simulation target, which may be undesireable for some.
-Optimally, the simulator should run an unmodified target, but if high performance is important enough for compromise, paravirtualization at the graphics library level is a good tradeoff to delimit required modification.
+Furthermore, it requires modification of the simulation target, which may be undesirable for some.
+Optimally, the simulator should run an unmodified target, but if high performance is important enough for compromise, paravirtualization at the graphics library level is a good trade-off to delimit required modification.
 In this way, the changes are confined to the graphics library.
 Thus, what parts of the simulation are modified can easily be described to systems developers.

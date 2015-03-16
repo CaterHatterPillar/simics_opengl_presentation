@@ -24,7 +24,7 @@ Given that the target system libraries adheres to the OpenGL headers defined in 
 However, instead of communicating with the platform windowing system (in terms of EGL) and the graphics device (in terms of OpenGL), the target system libraries serialize the given command stream and forward it to the simulation host.
 This transmission is not necessarily performed at once, or in the designated order, due to the formation of OpenGL.
 This is because of uncertainties of the proportion of argument data.
-For instance, the number of vertices to be rendered does not have to be apperent at a given time, but rather implicit in a later OpenGL invocation.
+For instance, the number of vertices to be rendered does not have to be apparent at a given time, but rather implicit in a later OpenGL invocation.
 Accordingly, certain function calls have to be delayed until more information is known about the OpenGL state.
 
 Additionally, a subset of the OpenGL state need to be maintained by the target system libraries.
@@ -37,8 +37,8 @@ In collaboration with the target system libraries, the host system libraries dec
 This decoding involves unpacking data from fixed length storage into variable-size types that OpenGL and EGL libraries expect on the simulation host.
 The host system libraries subsequently performs the concerned OpenGL functions relayed by the target system libraries.
 
-Similarly to the target system libraries, the host system ibraries need to maintain a subset of the OpenGL state.
-This includes buffering of data that may later be used (drawn) in a seperate function invocation.
+Similarly to the target system libraries, the host system libraries need to maintain a subset of the OpenGL state.
+This includes buffering of data that may later be used (drawn) in a separate function invocation.
 When a requested OpenGL invocation has been performed, any function results are returned to the target system.
 
 % Windowing Systems
@@ -48,7 +48,7 @@ Due to differences in the creation and maintenance of windows on different platf
 This is problematic; it means that the target system libraries have to communicate with a fraudulent window in the simulation host -- \textit{and} the native window.
 For example, it is important that the native window reports successful initialization, lest the OpenGL application concludes an error and quits.
 Effectively, the target system libraries needs to maintain \textit{some} of the native functionality of the EGL library.
-Not all, however, since EGL is used to -- inter alia -- swap target application backbuffers.
+Not all, however, since EGL is used to -- inter alia -- swap target application back buffers.
 Thus, there is a conflict between wanting to keep the functionality of the native EGL library, yet modify a small part of it.
 
 The issue is overcome by overriding symbols in the target libraries so that desired functions may be overloaded.
@@ -74,7 +74,7 @@ Because of the inherent performance demands brought on by real-time graphics, ma
 
 During a magic instruction, we may utilize any available registers; the number and size of registers is the data-sharing bottleneck of this method.
 Thus, we utilize a 64-bit register to transmit a lone memory address -- the starting address of the serialized command stream.
-Having sucessfully escaped the simulation context, we may assume the presence of a target virtual address in the agreed-upon CPU register.
+Having successfully escaped the simulation context, we may assume the presence of a target virtual address in the agreed-upon CPU register.
 Note that, at this point, the retrieved address is a target system virtual address, the destination of which is unknown to the simulation host.
 Accordingly, this address need to be translated in order to retrieve the contents that the memory address points to.
 
@@ -95,7 +95,7 @@ However, due to the circumvention of virtual memory, there is no guarantee that 
 In order to solve this, the target memory pages must be "locked" to prevent them from being swapped to disk.
 This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
 
-Furthermore, it is likely that multiple memory pages making out particularly large bytestreams, such as vertex or texture data, are not consecutively aligned in physical memory (while guaranteed to be continuous in virtual memory).
+Furthermore, it is likely that multiple memory pages making out particularly large byte streams, such as vertex or texture data, are not consecutively aligned in physical memory (while guaranteed to be continuous in virtual memory).
 As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see Fig. \ref{fig:virtualmemory}).
 This can be done in a trivial manner by simply iterating the original virtual address with the target page size.
 In our case, the page size is $4096$ bytes.
@@ -104,7 +104,7 @@ In our case, the page size is $4096$ bytes.
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{img/yedvirtualmemory.pdf}
-\caption{Simics Pipe overview. The target system libraries gives a virtual memory address to the host system libraries, which inquiries the target MMU in order to retrieve the bytestream from target physical memory.}
+\caption{Simics Pipe overview. The target system libraries gives a virtual memory address to the host system libraries, which inquiries the target MMU in order to retrieve the byte stream from target physical memory.}
 \label{fig:virtualmemory}
 \end{figure}
 
@@ -152,12 +152,12 @@ The specifics of the input data sizes are described below, along with each respe
 \subsubsection{Benchmark: Chess}
 \label{par:experimentalmethodology_benchmarking_benchmarkchess}
 The 'Chess' benchmark is developed for the purposes of stressing the latency between target and host systems.
-It is so named because of the chess-like tileset the graphics kernel produces.
+It is so named because of the chess-like tile set the graphics kernel produces.
 The benchmark is designed to perform a multitude of OpenGL invocations per frame, in which each invocation is relatively lightweight and carries a small amount of data in its arguments.
 In the Chess benchmark, this is achieved by rendering a grid of tiles where each tile is represented by four two-dimensional vertices in screen-space, in addition to six indices outlining the rectangular shape.
 Since the vertices are already transformed into screen-space, the graphics kernel does not need to perform any additional transformations.
-Additionally, the tileset vertices and indices are pre-loaded into OpenGL vertex and index element buffers, so that a lone buffer identifier may be transmitted instead of the heavier vertex set load.
-Each tile is then individually drawn to the backbuffer, rendering the chess-like appearance of the benchmark.
+Additionally, the tile set vertices and indices are pre-loaded into OpenGL vertex and index element buffers, so that a lone buffer identifier may be transmitted instead of the heavier vertex set load.
+Each tile is then individually drawn to the back buffer, rendering the chess-like appearance of the benchmark.
 Effectively, this means that, for each tile, the benchmark need only bind a vertex and an index element buffer, set the corresponding tile color, and lastly invoke the rendering of said tile.
 
 For each frame rendered, depending on the number of drawn tiles, the solution will perform a large number of magic instructions.
@@ -178,7 +178,7 @@ The case is selected for use as the computation of a fractal is trivially scalab
 Thus, it is suitable for profiling computationally intensive workloads.
 
 We perform the Julia benchmark with $225$, $450$, and $900$ iterations per frame, all of which induce only $16$ magic instructions per frame.
-Executed on the host system, the Julia benchmark induces an average frametime of \dvtcmdfirstline{hostjulia450.dat.avg} \milli\second \todo{Mention?}.
+Executed on the host system, the Julia benchmark induces an average frame time of \dvtcmdfirstline{hostjulia450.dat.avg} \milli\second \todo{Mention?}.
 
 \subsection{Threats to Validity}
 \label{sec:threatstovalidity}
@@ -187,10 +187,10 @@ This is due to the fact that profiling of elapsed time outside of the simulation
 This is often the case if the simulation has outside dependencies of some sort.
 Naturally, it is so in terms of real-time interaction and rendering.
 
-In order to profile elapsed frametimes, profiling must take place outside of the simulation.
+In order to profile elapsed frame times, profiling must take place outside of the simulation.
 One way of achieving this is to listen in on activity passing through a target serial port; this is a traditional front-end to the machine.
 In this way, the simulator is instructed to listen in on, and set a simulation breakpoint at the occurrence of, a specialized sequence of bytes being written to a UART serial port.
-This is the method we use to profile frametime performance in Simics.
+This is the method we use to profile frame time performance in Simics.
 
 When using serial ports in this manner, one may introduce a profiling cost.
 Such overhead may be induced because of file descriptors not immediately transmitting a concerned byte sequence via the system UART.
@@ -204,7 +204,7 @@ If not specified otherwise, \hl{all results have taken into account the average 
 Results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
 In Fig.~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
 As such, the $Y$ axis illustrate the sample density.
-For each experiment, the collected ($1000$) frametime samples are subdivided into $100$ bins.
+For each experiment, the collected ($1000$) frame time samples are subdivided into $100$ bins.
 For the purposes of visualization, values outside of the standard deviation are not featured in the figures.
 
 The remainder of this section presents an analysis of the results.
@@ -285,11 +285,11 @@ As such, in great numbers, magic instructions may greatly affect performance.
 In order to establish what those overhead costs may be, further study into this matter is performed.
 To do this, elapsed time for escaping simulation $1000$ times using magic instructions is measured, collecting minimum (\dvtcmdfirstline{magicinstrprofileall.dat.min}~\milli\second ), maximum (\dvtcmdfirstline{magicinstrprofileall.dat.max}~\milli\second ), average (\dvtcmdfirstline{magicinstrprofileall.dat.avg}~\milli\second ), the standard deviation thereof (\dvtcmdfirstline{magicinstrprofileall.dat.std}~\milli\second ), time to do so \todo{Förenkla.}.
 From these findings, we may conclude that the execution of $1000$ magic instructions is expected to induce an average overhead of \dvtcmdfirstline{magicinstrprofileall.dat.avg}~\milli\second  per magic instruction.
-Indeed, these findings indicate that magic instruction overhead could very well account for the majority of the elapsed average frametimes when paravirtualized in Simics.
+Indeed, these findings indicate that magic instruction overhead could very well account for the majority of the elapsed average frame times when paravirtualized in Simics.
 
 In Fig. \ref{fig:histogramssimicsparajulia}, we may observe double to triple peak behavior in the distribution of the sample density, both in software rasterized and paravirtualized platforms.
 What causes this behavior is unclear, as frame-to-frame branching in the fractal algorithm is minor and ought not cause such a variance.
 
-The Julia benchmark is incorporated into the experiment to establish how the paravirtualized solution performed under computational stress, which is where benefits induced by hardware acceleration should be made apperent.
+The Julia benchmark is incorporated into the experiment to establish how the paravirtualized solution performed under computational stress, which is where benefits induced by hardware acceleration should be made apparent.
 Using this benchmark, we highlight weaknesses in Simics software rasterization, with frame times well above the two second mark; the corresponding maximum frame time in the paravirtualized Simics platform measuring up to to a mere \dvtcmdfirstline{parajulia900.dat.max} \milli\second .
 As visualized in Fig. \ref{fig:histogramssimicsparajulia}, we showcase considerable performance improvements and -- in turn -- identify the capabilities of graphics paravirtualization in the Simics full-system simulator.
