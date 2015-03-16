@@ -8,7 +8,6 @@ cp mascots.tex bin/
 cp build_dat.py bin/
 cp build_gnu.py bin/
 cp histogram2x3.gnu bin/
-cp pseudo* bin/
 cp dat/* bin/
 cp -r src bin/
 cp -r img bin/
