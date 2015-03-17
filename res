@@ -3,6 +3,7 @@ magicinstrprofileall:
 	Std: 1.31
 	Min: 3.63
 	Max: 18.23
+
 magicinstrprofileall (no vmp):
 	Avg: 16.41
 	Std: 96.88
@@ -30,29 +31,12 @@ parajulia225 (no vmp):
 	Std: 98.83
 	Min: 10.40
 	Max: 676.36
-parajulia225 (no vmp 2):
-	Avg: 95.05
-	Std: 219.13
-	Min: 10.13
-	Max: 1612.66
-
 parajulia450 (no vmp):
-	Avg: 210.69
-	Std: 254.54
-	Min: 17.53
-	Max: 1722.93
-parajulia450 (no vmp 2):
 	Avg: 66.49
 	Std: 90.88
 	Min: 16.66
 	Max: 499.52
-
 parajulia900 (no vmp):
-	Avg: 265.87
-	Std: 281.90
-	Min: 33.71
-	Max: 1604.11
-parajulia900 (no vmp 2):
 	Avg: 104.08
 	Std: 191.26
 	Min: 29.85
