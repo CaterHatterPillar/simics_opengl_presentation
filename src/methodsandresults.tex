@@ -113,7 +113,7 @@ In our case, the page size is $4096$ bytes.
 The experiments are performed in software rasterized and paravirtualized Simics platforms.
 The results are then compared to reference runs on the host system.
 Simics is configured to simulate an Intel\circledR ~Core\texttrademark ~i7 processor and an Intel\circledR ~X58 chipset.
-During simulation, KVM\todo{Ref?}\ is used to accelerate the simulation by running target x86 instructions natively on the host hardware.
+During simulation, KVM\todo{Replace with common term: hardware assisted virtualization, in order to get rid of required reference.}\ is used to accelerate the simulation by running target x86 instructions natively on the host hardware.
 The simulation systems are, like the host system, set up to run Fedora~$19$ Linux and use the Mesa llvmpipe driver\todo{Ref?}\ for software rasterization.
 
 The experiments are performed on a system running Fedora~$19$ Linux with the following specifications:
