@@ -53,6 +53,8 @@ Frågor gällande MASCOTS:
   sprödtext. Exempelvis för magiska instruktioner och
   profileringsoverhead Behöver vi presentera min, max, och
   std-värden för dessa eller räcker genomsnitt? Nej, avg räcker.
+  Vidare, skippa värdesiffror. E.g. '1000x magiska instruktioner
+  tar drygt 5ms att genomföra'.
 
 * Vissa av våra dataset har _extrema_ avvikelser som långt ökar
   medelvärdet. Hur hanterar man sådana punkter? Kan man bli av
