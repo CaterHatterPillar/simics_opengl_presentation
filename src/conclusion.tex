@@ -40,7 +40,7 @@ Often, it is desirable to simulate systems other than the simulation host.
 One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
 In this case, it is possible that target software utilize the DirectX framework to render graphics, whereas the host Linux system only feature the OpenGL libraries.
 
-In $2014$, Valve Corporation released software capable of converting DirectX~$9.0$c-code to that of OpenGL~\dvtcmdciteref{technicaldocs:valve:2014}.
+In $2014$, Valve released software capable of converting DirectX~$9.0$c-code to that of OpenGL~\dvtcmdciteref{technicaldocs:valve:2014}.
 Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform framework may be practical for the purposes of graphics acceleration in virtual platforms.
 An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
 If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, the utilized graphics framework of which the host system lacks the capability to interpret, this might bridge the gap between the practicalities of using paravirtualization to accelerate simulation performance and \hl{generalized methods of modeling modeling graphics for any type of system}\todo{Cross-platform GPU virtualization methods. Phrase better?}.

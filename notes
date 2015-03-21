@@ -1,35 +1,3 @@
-Slutsatser kring avvaktiverat hårdvarustöd:
-
-* Prestandavinster ökar. Från två storleksordningars reducering i
-  frame time för Julia till 3 storleksordningar. Även erhållna
-  prestandavinster för Chess, med en storleksordnings vinst.
-
-* För vissa laster (Julia) kan vi notera att renderingstiden ej
-  ökar kraftigt. För Julia 450 ökade endast renderingstiden från
-  51 ms till 66 ms. Detta påvisar att prestandavinsten kvarstår.
-
-* Vi kan notera att paravirtualiserad accelerering skalar
-  bättre. Paravirtualiserad renderingstid ökade inte med någon
-  storleksordning för Julia-benchmark, medan mjukvarurastrerad
-  renderingstid ökade med två storeksordningar med hårdvarustöd
-  avstängt. På motsvarande vis ökade paravirtualiserad
-  renderingstid för Chess-benchmark endast med en
-  storleksordning, medan mjukvarurastrering ökade med två
-  storleksordningar. Det är inte så viktigt att påpeka hur mycket
-  bättre lösningen skalar. Troligtvis är det implicit efter vi
-  har presenterat våra prestandamätningar.
-
-* Kostnaden för magiska instruktioner relativt den totala
-  renderingstiden har minskat, trots att kostnaden för en magisk
-  instruktion har ökat.
-
-* Chess erhar enbart så bra mätvärden tack vare en mycket snabb
-  simulator tack vare hårdvaru-virtualiseringsstöd. När vi inte
-  har tillgång till detta, t.e.x. vid exekvering på en PPC, så
-  erhar vår paravirtualiseringsmetod stora vinster eftersom
-  varken JIT-kompilering eller interpretering kan uppnå samma
-  hastighet.
-
 Frågor gällande MASCOTS:
 
 * Sedan tidigare modifierar vi resultat efter
