@@ -193,10 +193,8 @@ This is the method we use to profile frame time performance in Simics.
 
 When using serial ports in this manner, one may introduce a profiling cost.
 Such overhead may be induced because of file descriptors not immediately transmitting a concerned byte sequence via the system UART.
-We have measured this cost to be on average \dvtcmdfirstline{profile.dat.avg}~\milli\second , \hl{with a minimum and maximum elapsed time of} \dvtcmdfirstline{profile.dat.min}\hl{ and }\dvtcmdfirstline{profile.dat.max}\hl{, respectively, adhering to a standard deviation of }\dvtcmdfirstline{profile.dat.std}\todo{Mention only avg?}.
-From these measurements, we may deduce that profiling overhead cost may occasionally be volatile.
-However, with a standard deviation of \dvtcmdfirstline{profile.dat.std} \milli\second , slightly below that of the average, such large deviation is to be quite rare.
-If not specified otherwise, \hl{all results have taken into account the average of this profiling cost}\todo{Do this?}, \dvtcmdfirstline{profile.dat.avg}~\milli\second .
+This overhead cost is measured to be, on average, $1.5$~\milli\second .
+If not specified otherwise, presented results take into account the average of this profiling overhead.
 
 \subsection{Results}
 \label{sec:results}
@@ -295,10 +293,9 @@ This affects the performance by forcing the simulation to no longer be executed 
 It also entails Simics no longer being able to utilize just-in-time compilation to speed up execution, forcing the simulator to rely on regular code interpretation.
 As such, in great numbers, magic instructions may greatly affect performance.
 
-In order to establish what those overhead costs may be, further study into this matter is performed.
-To do this, elapsed time for escaping simulation $1000$ times using magic instructions is measured, collecting minimum (\dvtcmdfirstline{magicinstrprofileall.dat.min}~\milli\second ), maximum (\dvtcmdfirstline{magicinstrprofileall.dat.max}~\milli\second ), average (\dvtcmdfirstline{magicinstrprofileall.dat.avg}~\milli\second ), the standard deviation thereof (\dvtcmdfirstline{magicinstrprofileall.dat.std}~\milli\second ), time to do so \todo{Förenkla.}.
-From these findings, we may conclude that the execution of $1000$ magic instructions is expected to induce an average overhead of \dvtcmdfirstline{magicinstrprofileall.dat.avg}~\milli\second  per magic instruction.
-Indeed, these findings indicate that magic instruction overhead could very well account for the majority of the elapsed average frame times when paravirtualized in Simics.
+In order to establish what those overhead costs may be, further study into this matter is performed by measuring the elapsed time of escaping simulation $1000$ times using magic instructions.
+From these findings, we may conclude that $1000$ consecutive magic instructions induce an average overhead of roughly $5$~\milli\second , minus profiling cost.
+These findings indicate that magic instruction overhead could account for the majority of elapsed frame times when paravirtualized in Simics.
 
 In Fig. \ref{fig:histogramssimicsparajulia}, we may observe double to triple peak behavior in the distribution of the sample density, both in software rasterized and paravirtualized platforms.
 What causes this behavior is unclear, as frame-to-frame branching in the fractal algorithm is minor and ought not cause such a variance.
