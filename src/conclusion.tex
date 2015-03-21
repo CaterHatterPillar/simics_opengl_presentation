@@ -9,7 +9,9 @@ Thus, our study has identified the performance bottleneck inherent in great numb
 
 Furthermore, compiled results have showcased great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
 As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of $1415$~\milli\second\ to the real-time feasible count of 42~\milli\second .
-It is likely that this performance improvement would be orders of magnitude greater for virtual platforms that do not utilize hardware-assisted virtualization, such as when using Simics to simulate other systems than x86-compatible ones, or scenarios where hardware-assisted virtualization is not possible -- such as when using breakpoints\todo{clarify?}.
+It is likely that this performance improvement would be orders of magnitude greater for virtual platforms that do not utilize hardware-assisted virtualization, such as when using Simics to simulate other systems than x86-compatible ones, or scenarios where hardware-assisted virtualization is not possible.
+Such scenarios may include other platforms than x86, such as PowerPC, or when utilizing certain advanced features in Simics -- e.g. breakpoints.
+
 Accordingly, our experiment has identified the potential of using paravirtualization for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
 Additionally, beyond that of accelerated graphics, results indicate performance improvements in terms of maximum frame times, inducing significantly improved standard deviation.
 In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with reduced frame times, the feasibility of utilizing paravirtualized methodologies for the purposes of accelerating graphics within virtual platforms.
