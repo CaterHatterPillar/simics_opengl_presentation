@@ -68,7 +68,7 @@ There are multiple reasons as to why target software would like to escape the si
 For example, such a scenario is a debugging breakpoint or, in our case, to share data between target and host systems.
 This could be accomplished by networking means or specially devised kernel drivers; yet, the Simics pipe uses "magic instructions".
 
-Magic instructions denotes \dvtcmdcodeinline{nop}-type instructions, meaning instructions that would have no effect if run on the target architecture \hl{(such as }\dvtcmdcodeinline{xchg ebx, ebx}\hl{ on x86-compatible architectures)}.
+Magic instructions denotes \dvtcmdcodeinline{nop}-type instructions, meaning instructions that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} on x86-compatible architectures).
 When executed on the simulated hardware in a virtual platform, it invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
 Because of the inherent performance demands brought on by real-time graphics, magic instructions is a suitable candidate for the exchange of rendering information between target and host systems.
 
