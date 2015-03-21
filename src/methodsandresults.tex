@@ -124,15 +124,15 @@ The experiments are performed on a system running Fedora~$19$ Linux with the fol
 
 Two benchmarks are devised on-site for the purposes of evaluating the paravirtualized implementation.
 Each benchmark is intended to stress one suspected bottleneck in the implementation: one benchmark performs a large number of relatively insignificant OpenGL invocations, while the other has a computationally intensive workload.
-Both benchmarks are configured to run at roughly $16$~\milli\second s per frame when hardware accelerated on the host system; this should roughly correspond to $60$~frames per second.
+Given a target frame time of $16$~\milli\second , both benchmarks are configured to run at between $10$ and $20$~\milli\second\ per frame when hardware accelerated on the host system; a $16$~\milli\second\ frametime should roughly correspond to $60$~frames per second.
 The benchmarks are shaped this way to reflect the expected load of a modern real-time interactive application.
 As such, the benchmarks should be representative of typical scenarios induced by modern applications using OpenGL, such as responsive UIs.
 The developed benchmark suite is open source and available online~\dvtcmdcitebib{web:intel:2014}.
 Frame captures of these benchmarks are presented in Fig. \ref{fig:benchmarks}.
 
 During the experiments, the elapsed times of $1000$ frames is measured for each benchmark.
-In order to gain some understanding on how well the given performance scales, we run three instances of each benchmark using different input data.
-In addition to the reference run of roughly $16$~\milli\second , the benchmarks are also performed with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmarks really stress the bottlenecks they was designed for.\todo{Elaborate?}\
+In order to gain some understanding on how well the given performance scales, we run three instances of each benchmark.
+These benchmark instances are performed with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmarks really stress the bottlenecks they was designed for.\todo{Elaborate?}\
 The specifics of the input data sizes are described below, along with each respective benchmark.
 
 % fig:benchmarks
@@ -165,7 +165,6 @@ The repeated invocation of lesser draw calls is representative of common usage o
 As such, the benchmark is suitable for the purpose of representing a large number of graphics invocations.
 
 We perform the Chess benchmark with $60\times60$, $84\times84$, and $118\times118$ tiles, which entails roughly $9\cdot60\cdot60$, $9\cdot84\cdot84$, and $9\cdot118\cdot118$ magic instructions per frame.
-When profiled on the host system rendering $84\times84$ tiles, the Chess benchmark averages \dvtcmdfirstline{hostchess84x84.dat.avg} \milli\second \todo{Mention?}.
 
 % Benchmark: Julia
 \subsubsection{Benchmark: Julia}
@@ -177,7 +176,6 @@ The case is selected for use as the computation of a fractal is trivially scalab
 Thus, it is suitable for profiling computationally intensive workloads.
 
 We perform the Julia benchmark with $225$, $450$, and $900$ iterations per frame, all of which induce only $16$ magic instructions per frame.
-Executed on the host system, the Julia benchmark induces an average frame time of \dvtcmdfirstline{hostjulia450.dat.avg} \milli\second \todo{Mention?}.
 
 \subsection{Threats to Validity}
 \label{sec:threatstovalidity}
