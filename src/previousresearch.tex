@@ -40,7 +40,7 @@ Furthermore, the simulator has a strong academic tradition -- known to operate i
 \label{sec:previousresearch_graphicsvirtualization}
 There are a number of ways of virtualizing GPUs in virtual platforms, a few of which accommodate hardware acceleration; fewer that suit most needs.
 Therefore, it is important to balance desired simulation level of detail with performance requirements.
-As such, virtualization methods with varying simulatory accuracy present themselves, from slow low level instruction set modeling to fast high level paravirtualization.
+As such, virtualization methods with varying simulation accuracy present themselves, from slow low level instruction set modeling to fast high level paravirtualization.
 Summaries of some viable strategies are presented below.
 
 % GPU Modeling
@@ -59,7 +59,7 @@ Furthermore, simulating massively parallelized GPU ISAs induce high performance 
 PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\dvtcmdciteref{inproceedings:regola:2010}, accommodating for fully-fledged hardware accelerated workloads.
 However, this requires \textit{dedicated} hardware on host systems and requires configuring the simulation target to utilize host hardware.
 For example, this may induce the necessity of multiple graphics cards on the host system.
-Furthermore, PCI~passthrough is likely to make it difficult to implement robust checkpointing and reverse execution functionality, should advanced simulatory features be desirable.
+Furthermore, PCI~passthrough is likely to make it difficult to implement robust checkpointing and reverse execution functionality, should advanced simulation features be desirable.
 
 % Paravirtualization
 \subsubsection{Paravirtualization}

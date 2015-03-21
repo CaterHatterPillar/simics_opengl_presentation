@@ -278,7 +278,7 @@ Evidently, the prediction of a target-to-host communication latency issue has be
 
 \todo{Elaborate on your non-VMP findings here.}
 In Simics, magic instructions incur a context switch cost when exiting the simulation and resuming execution on the host.
-This affects the performance by forcing the simulation to no longer be executed natively, inhibiting the simulatory performance improvements granted by hardware-assisted virtualization.
+This affects the performance by forcing the simulation to no longer be executed natively, inhibiting the performance improvements granted by hardware-assisted virtualization.
 It also entails Simics no longer being able to utilize just-in-time compilation to speed up execution, forcing the simulator to rely on regular code interpretation.
 As such, in great numbers, magic instructions may greatly affect performance.
 
