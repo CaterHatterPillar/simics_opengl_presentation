@@ -37,6 +37,7 @@ Below, recommendations for future study are presented.
 In terms of performance, command serialization batching should be considered for the purposes of minimizing the number of performed magic instructions.
 That is, the ability to queue framework invocations and transmit them in a batch rather than individually.
 Considering that magic instructions are a performance bottleneck, such an optimization could drastically improve simulation performance.
+Furthermore, such an optimization could be paired with WireGL, an OpenGL rendering distribution library~\dvtcmdciteref{web:stanford:2015}.
 
 Often, it is desirable to simulate systems other than the simulation host.
 One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
