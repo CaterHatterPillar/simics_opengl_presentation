@@ -78,6 +78,13 @@ Having successfully escaped the simulation context, we may assume the presence o
 Note that, at this point, the retrieved address is a target system virtual address, the destination of which is unknown to the simulation host.
 Accordingly, this address need to be translated in order to retrieve the contents that the memory address points to.
 
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{img/yedvirtualmemory.pdf}
+\caption{Simics Pipe overview. The target system libraries gives a virtual memory address to the host system libraries, which inquiries the target MMU in order to retrieve the byte stream from target physical memory.}
+\label{fig:virtualmemory}
+\end{figure}
+
 % Page Table Traversal
 \subsection{Page Table Traversal}
 \label{sec:proposedsolutionandimplementation_pagetabletraversal}
@@ -93,13 +100,6 @@ As such, the physical addresses of memory pages must be continuously retrieved a
 This can be done in a trivial manner by simply iterating the original virtual address with the target page size.
 In our case, the page size is $4096$ bytes.
 Naturally, said process must be performed regardless whether data is being read or written.
-
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{img/yedvirtualmemory.pdf}
-\caption{Simics Pipe overview. The target system libraries gives a virtual memory address to the host system libraries, which inquiries the target MMU in order to retrieve the byte stream from target physical memory.}
-\label{fig:virtualmemory}
-\end{figure}
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
