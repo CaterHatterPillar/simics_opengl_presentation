@@ -264,7 +264,7 @@ Based on the data summarized in table \ref{tab:keyvalsimics}, and comparing said
 The Chess benchmark is designed to locate any bottlenecks related to the number of paravirtualized invocations, which is a predicted bottleneck.
 Evidently, the prediction of a target-to-host communication latency issue has been confirmed, arguably identifying one weakness of graphics paravirtualization in the Simics full-system simulator.
 
-If hardware-assisted virtualization is not available, such as if the host platform is PowerPC, we may expect a major hit to performance.
+If hardware-assisted virtualization is not available, such as if the simulated platform is PowerPC, we may expect a major hit to performance.
 For software rasterization, this impact accounts for well over two orders of magnitude increased frame time.
 Meanwhile, performance impacts to paravirtualized Simics is not significant, sometimes as low as a third of the original frame time, except for the Chess benchmark where the frame time may increase with \textit{up to} one order of magnitude; still one order of magnitude less than the performance impact to software rasterization.
 This can be expected, since the paravirtualized method entails that most work is performed on the simulation host.
