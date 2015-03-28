@@ -8,7 +8,7 @@ As such, we confirm original suspicions through the use of the described benchma
 Thus, this study identifies the performance bottleneck inherent in great numbers of paravirtualized function invocations.
 
 Furthermore, compiled results showcase great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
-As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of $1415$~\milli\second\ to the real-time feasible count of 42~\milli\second ; a frame time of 42~\milli\second\ correspond to roughly 24 frames per second.
+As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of $1415$~\milli\second\ to the real-time feasible count of 42~\milli\second ; a frame time of 42~\milli\second\ roughly correspond to 24 frames per second.
 For platforms that cannot utilize hardware-assisted virtualization, paravirtualization is estimated to obtain an additional order of magnitude in frame time reduction, in comparison to software rasterization.
 Such scenarios may include simulating other platforms than x86, such as PowerPC, or when utilizing certain advanced features in Simics -- e.g. breakpoints.
 
@@ -25,7 +25,7 @@ For the purposes of performance testing, we have developed benchmarks with the d
 We have presented an analysis of benchmarking results and concluded the benefits and drawbacks of paravirtualization as means to graphics acceleration in virtual platforms, backed by hard data stressing key points in the implementation.
 Accordingly, the findings of this paper has contributed to our understanding of the difficulties facing paravirtualized graphics acceleration, and has established the feasibility of using paravirtualization to accelerate graphics in virtual platforms to that of real-time qualities.
 
-To conclude: This paper has demonstrated performance improvements by accelerating graphics using paravirtualization.
+To conclude: this paper has demonstrated performance improvements by accelerating graphics using paravirtualization.
 Induced benefits are performance improvements of up to $34$ times -- or two orders of magnitude, paired with larger benefits in non-hardware-accelerated use-cases.
 Magic instruction overhead is identified as the main performance bottleneck.
 As such, a drawback of graphics paravirtualization is a weakness to large amounts of framework invocations.
