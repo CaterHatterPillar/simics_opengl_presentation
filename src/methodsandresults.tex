@@ -185,7 +185,7 @@ If not specified otherwise, presented results take into account the average of t
 
 \subsection{Results}
 \label{sec:results}
-Results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
+Results accumulated from software rasterized and paravirtualized execution in Simics are presented in Tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
 In Figure~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
 As such, the $Y$ axis illustrate the sample density.
 For each experiment, the collected ($1000$) frame time samples are subdivided into $100$ bins.
@@ -255,8 +255,8 @@ The remainder of this section presents an analysis of the results.
 
 The data visualized in Figure \ref{fig:histogramssimicsparachess} shows that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
 The right-hand side of the graph, while also showing impaired performance induced by paravirtualization, visualize a decrease in sample density distribution.
-This is supported by the data presented in table \ref{tab:keyvalpara}.
-Based on the data summarized in table \ref{tab:keyvalsimics}, and comparing said data to that of table \ref{tab:keyvalpara}, we may observe that the software rasterized solution outperforms its paravirtualized counterpart, regardless of the number of tiles rendered.
+This is supported by the data presented in Table \ref{tab:keyvalpara}.
+Based on the data summarized in Table \ref{tab:keyvalsimics}, and comparing said data to that of Table \ref{tab:keyvalpara}, we may observe that the software rasterized solution outperforms its paravirtualized counterpart, regardless of the number of tiles rendered.
 
 The Chess benchmark is designed to locate any bottlenecks related to the number of paravirtualized invocations, which is a predicted bottleneck.
 Evidently, the prediction of a target-to-host communication latency issue has been confirmed, arguably identifying one weakness of graphics paravirtualization in the Simics full-system simulator.
