@@ -3,13 +3,13 @@
 % Conclusion
 \section{Conclusion}
 \label{sec:conclusion}
-In section \ref{sec:results}, we have established strengths and weaknesses of paravirtualized graphics in the Simics full-system simulator; most notably, the bottleneck introduced by magic instruction overhead.
-As such, we have confirmed original suspicions through the use of our benchmarks.
-Thus, our study has identified the performance bottleneck inherent in great numbers of paravirtualized function invocations for magic instructions.
+In section \ref{sec:results}, we establish strengths and weaknesses of paravirtualized graphics in the Simics full-system simulator; most notably, the bottleneck introduced by magic instruction overhead.
+As such, we confirm original suspicions through the use of the described benchmarks.
+Thus, this study identifies the performance bottleneck inherent in great numbers of paravirtualized function invocations.
 
-Furthermore, compiled results have showcased great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
+Furthermore, compiled results showcase great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
 As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of $1415$~\milli\second\ to the real-time feasible count of 42~\milli\second .
-For platforms that cannot utilize hardware-assisted virtualization, paravirtualization has been estimated to obtain an additional order of magnitude in frame time reduction in comparison to software rasterization.
+For platforms that cannot utilize hardware-assisted virtualization, paravirtualization is estimated to obtain an additional order of magnitude in frame time reduction, in comparison to software rasterization.
 Such scenarios may include simulating other platforms than x86, such as PowerPC, or when utilizing certain advanced features in Simics -- e.g. breakpoints.
 
 Accordingly, our experiment has identified the potential of using paravirtualization with shared memory for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\masccite{inproceedings:lagarcavilla:2007}.
