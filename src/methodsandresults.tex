@@ -69,7 +69,7 @@ For example, such a scenario is a debugging breakpoint or, in our case, to share
 This could be accomplished by networking means or specially devised kernel drivers; yet, the Simics pipe uses "magic instructions".
 
 Magic instructions denotes \masccodeinline{nop}-type instructions, meaning instructions that would have no effect if run on the target architecture (such as \masccodeinline{xchg ebx, ebx} on x86-compatible architectures).
-When executed on the simulated hardware in a virtual platform, it invokes a callback-method in the simulation host~\masccitebib[p.~32]{publications:leupers:2010}.
+When executed on the simulated hardware in a virtual platform, it invokes a callback-method in the simulation host~\masccite[p.~32]{publications:leupers:2010}.
 Because of the inherent performance demands brought on by real-time graphics, magic instructions is a suitable candidate for the exchange of rendering information between target and host systems.
 
 During a magic instruction, we may utilize any available registers; the number and size of registers is the data-sharing bottleneck of this method.
@@ -103,7 +103,7 @@ The experiments are performed in software rasterized and paravirtualized Simics 
 The results are then compared to reference runs on the host system.
 Simics is configured to simulate an Intel\circledR ~Core\texttrademark ~i7 processor and an Intel\circledR ~X58 chipset.
 During simulation, hardware-assisted virtualization is used to accelerate the simulation by running target x86 instructions natively on the host hardware.
-The simulation systems are, like the host system, set up to run Fedora~$19$ Linux and use the Mesa llvmpipe driver~\mascciteref{web:mesa:2015} for software rasterization.
+The simulation systems are, like the host system, set up to run Fedora~$19$ Linux and use the Mesa llvmpipe driver~\masccite{web:mesa:2015} for software rasterization.
 
 The experiments are performed on a system running Fedora~$19$ Linux with the following specifications:
 \begin{itemize}
@@ -116,7 +116,7 @@ Each benchmark is intended to stress one suspected bottleneck in the implementat
 Given a target frame time of $16$~\milli\second , both benchmarks are configured to run at between $10$ and $20$~\milli\second\ per frame when hardware accelerated on the host system; a $16$~\milli\second\ frametime should roughly correspond to $60$~frames per second.
 The benchmarks are shaped this way to reflect the expected load of a modern real-time interactive application.
 As such, the benchmarks should be representative of typical scenarios induced by modern applications using OpenGL, such as responsive UIs.
-The developed benchmark suite is open source and available online~\masccitebib{web:intel:2014}.
+The developed benchmark suite is open source and available online~\masccite{web:intel:2014}.
 Frame captures of these benchmarks are presented in Figure \ref{fig:benchmarks}.
 
 During the experiments, the elapsed times of $1000$ frames is measured for each benchmark.
@@ -159,7 +159,7 @@ We perform the Chess benchmark with $60\times60$, $84\times84$, and $118\times11
 \paragraph{Benchmark: Julia}
 \label{par:experimentalmethodology_benchmarking_benchmarkjulia}
 The 'Julia' benchmark is developed to stress computational intensity in the paravirtualized solution.
-It is so named because the program calculates the Julia fractal~\mascciteref{web:tsiombikas:2014}.
+It is so named because the program calculates the Julia fractal~\masccite{web:tsiombikas:2014}.
 The benchmark is designed to perform a lone, computationally intensive, invocation, which will stress the computational prowess of the profiled platform.
 The case is selected for use as the computation of a fractal is trivially scalable in terms of complexity, by modifying the number of iterations the fractal algorithm performs.
 Thus, it is suitable for profiling computationally intensive workloads.
