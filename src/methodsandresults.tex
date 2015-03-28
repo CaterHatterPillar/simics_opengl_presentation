@@ -99,7 +99,6 @@ Furthermore, it is likely that multiple memory pages making out particularly lar
 As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see Fig. \ref{fig:virtualmemory}).
 This can be done in a trivial manner by simply iterating the original virtual address with the target page size.
 In our case, the page size is $4096$ bytes.
-Naturally, said process must be performed regardless whether data is being read or written.
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
