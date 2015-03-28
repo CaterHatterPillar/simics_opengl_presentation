@@ -96,7 +96,7 @@ In order to solve this, the target memory pages must be "locked" to prevent them
 This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
 
 Furthermore, it is likely that multiple memory pages making out particularly large byte streams, such as vertex or texture data, are not consecutively aligned in physical memory (while guaranteed to be continuous in virtual memory).
-As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see Fig. \ref{fig:virtualmemory}).
+As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see Figure \ref{fig:virtualmemory}).
 This can be done in a trivial manner by simply iterating the original virtual address with the target page size.
 In our case, the page size is $4096$ bytes.
 
@@ -120,7 +120,7 @@ Given a target frame time of $16$~\milli\second , both benchmarks are configured
 The benchmarks are shaped this way to reflect the expected load of a modern real-time interactive application.
 As such, the benchmarks should be representative of typical scenarios induced by modern applications using OpenGL, such as responsive UIs.
 The developed benchmark suite is open source and available online~\dvtcmdcitebib{web:intel:2014}.
-Frame captures of these benchmarks are presented in Fig. \ref{fig:benchmarks}.
+Frame captures of these benchmarks are presented in Figure \ref{fig:benchmarks}.
 
 During the experiments, the elapsed times of $1000$ frames is measured for each benchmark.
 In order to gain some understanding on how well the given performance scales, we run three instances of each benchmark.
@@ -189,7 +189,7 @@ If not specified otherwise, presented results take into account the average of t
 \subsection{Results}
 \label{sec:results}
 Results accumulated from software rasterized and paravirtualized execution in Simics are presented in tables~\ref{tab:keyvalsimics}~and~\ref{tab:keyvalpara}.
-In Fig.~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
+In Figure~\ref{fig:histogramssimicsparachess}~and~\ref{fig:histogramssimicsparajulia}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
 As such, the $Y$ axis illustrate the sample density.
 For each experiment, the collected ($1000$) frame time samples are subdivided into $100$ bins.
 For the purposes of visualization, values outside of the standard deviation are not featured in the figures.
@@ -255,7 +255,7 @@ The remainder of this section presents an analysis of the results.
   \label{fig:histogramssimicsparajulia}
 \end{figure*}
 
-The data visualized in Fig. \ref{fig:histogramssimicsparachess} shows that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
+The data visualized in Figure \ref{fig:histogramssimicsparachess} shows that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
 The right-hand side of the graph, while also showing impaired performance induced by paravirtualization, visualize a decrease in sample density distribution.
 This is supported by the data presented in table \ref{tab:keyvalpara}.
 Based on the data summarized in table \ref{tab:keyvalsimics}, and comparing said data to that of table \ref{tab:keyvalpara}, we may observe that the software rasterized solution outperforms its paravirtualized counterpart, regardless of the number of tiles rendered.
@@ -287,9 +287,9 @@ In order to establish what those overhead costs may be, further study into this 
 From these findings, we may conclude that $1000$ consecutive magic instructions induce an average overhead of roughly $5$~\milli\second , minus profiling cost.
 These findings indicate that magic instruction overhead could account for the majority of elapsed frame times when paravirtualized in Simics.
 
-In Fig. \ref{fig:histogramssimicsparajulia}, we may observe double to triple peak behavior in the distribution of the sample density, both in software rasterized and paravirtualized platforms.
+In Figure \ref{fig:histogramssimicsparajulia}, we may observe double to triple peak behavior in the distribution of the sample density, both in software rasterized and paravirtualized platforms.
 What causes this behavior is unclear, as frame-to-frame branching in the fractal algorithm is minor and ought not cause such a variance.
 
 The Julia benchmark is incorporated into the experiment to establish how the paravirtualized solution performed under computational stress, which is where benefits induced by hardware acceleration should be made apparent.
 Using this benchmark, we highlight weaknesses in Simics software rasterization, with frame times well above the two second mark; the corresponding maximum frame time in the paravirtualized Simics platform measuring up to to a mere $156$ \milli\second .
-As visualized in Fig. \ref{fig:histogramssimicsparajulia}, we showcase considerable performance improvements and -- in turn -- identify the capabilities of graphics paravirtualization in the Simics full-system simulator.
+As visualized in Figure \ref{fig:histogramssimicsparajulia}, we showcase considerable performance improvements and -- in turn -- identify the capabilities of graphics paravirtualization in the Simics full-system simulator.
