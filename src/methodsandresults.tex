@@ -113,7 +113,7 @@ The experiments are performed on a system with the following specifications:
 
 Two benchmarks are devised on-site for the purposes of evaluating the paravirtualized implementation.
 Each benchmark is intended to stress one suspected bottleneck in the implementation: one benchmark performs a large number of relatively insignificant OpenGL invocations, while the other has a computationally intensive workload.
-Given a target frame time of $16$~\milli\second , both benchmarks are configured to run at between $10$ and $20$~\milli\second\ per frame when hardware accelerated on the host system; a $16$~\milli\second\ frametime should roughly correspond to $60$~frames per second.
+Given a target frame time of $16$~\milli\second , both benchmarks are configured to run at between $10$ and $20$~\milli\second\ per frame when hardware accelerated on the host system; a $16$~\milli\second\ frame time should roughly correspond to $60$~frames per second.
 The benchmarks are shaped this way to reflect the expected load of a modern real-time interactive application.
 As such, the benchmarks should be representative of typical scenarios induced by modern applications using OpenGL, such as responsive UIs.
 The developed benchmark suite is open source and available online~\masccite{web:intel:2014}.
@@ -282,7 +282,7 @@ For software rasterization, this impact accounts for well over two orders of mag
 Meanwhile, performance impacts to paravirtualized Simics is not significant, sometimes as low as a third of the original frame time, except for the Chess benchmark where the frame time may increase with \textit{up to} one order of magnitude; still one order of magnitude less than the performance impact to software rasterization.
 This can be expected, since the paravirtualized method entails that most work is performed on the simulation host.
 
-Accross the board, the paravirtualized solution suffer less performance impact, rendering the benchmarks at up to three orders of magnitude reduced frame times compared to software rasterization.
+Across the board, the paravirtualized solution suffer less performance impact, rendering the benchmarks at up to three orders of magnitude reduced frame times compared to software rasterization.
 Accordingly, compared to execution with hardware-assisted virtualization, the effects of paravirtualization are increased by one order of magnitude.
 This entails that workloads that are otherwise sub-optimal for paravirtualized graphics acceleration -- those performing many paravirtualized function invocations -- bring about performance improvements when utilizing paravirtualization.
 Thus, the impact magic instructions have on performance is reduced when hardware-assisted virtualization is not available, likely because a magic instruction does not have to impose a costly context switch when exiting native execution.
