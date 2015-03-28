@@ -12,7 +12,7 @@ As such, we have accelerated graphics by up to $34$ times, reducing frame time f
 For platforms that cannot utilize hardware-assisted virtualization, paravirtualization has been estimated to obtain an additional order of magnitude in frame time reduction in comparison to software rasterization.
 Such scenarios may include simulating other platforms than x86, such as PowerPC, or when utilizing certain advanced features in Simics -- e.g. breakpoints.
 
-Accordingly, our experiment has identified the potential of using paravirtualization with shared memory for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\dvtcmdcitebib{inproceedings:lagarcavilla:2007}.
+Accordingly, our experiment has identified the potential of using paravirtualization with shared memory for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\masccitebib{inproceedings:lagarcavilla:2007}.
 Additionally, beyond that of accelerated graphics, results indicate performance improvements in terms of maximum frame times, inducing significantly improved standard deviation.
 In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with reduced frame times, the feasibility of utilizing paravirtualized methodology for the purposes of accelerating graphics within virtual platforms.
 
@@ -37,13 +37,13 @@ Below, recommendations for future study are presented.
 In terms of performance, command serialization batching should be considered for the purposes of minimizing the number of performed magic instructions.
 That is, the ability to queue framework invocations and transmit them in a batch rather than individually.
 Considering that magic instructions are a performance bottleneck, such an optimization could drastically improve simulation performance.
-Furthermore, such an optimization could be paired with WireGL, an OpenGL rendering distribution library~\dvtcmdciteref{web:stanford:2015}.
+Furthermore, such an optimization could be paired with WireGL, an OpenGL rendering distribution library~\mascciteref{web:stanford:2015}.
 
 Often, it is desirable to simulate systems other than the simulation host.
 One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
 In this case, it is possible that target software utilize the DirectX framework to render graphics, whereas the host Linux system only feature the OpenGL libraries.
 
-In $2014$, Valve released software capable of converting DirectX~$9.0$c-code to that of OpenGL~\dvtcmdciteref{technicaldocs:valve:2014}.
+In $2014$, Valve released software capable of converting DirectX~$9.0$c-code to that of OpenGL~\mascciteref{technicaldocs:valve:2014}.
 Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform one may be practical for the purposes of graphics acceleration in virtual platforms.
 An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
 If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, this might bridge the gap between the performance gains of using paravirtualization and other -- albeit slower -- more general ways of modeling graphics for any type of system.

@@ -68,8 +68,8 @@ There are multiple reasons as to why target software would like to escape the si
 For example, such a scenario is a debugging breakpoint or, in our case, to share data between target and host systems.
 This could be accomplished by networking means or specially devised kernel drivers; yet, the Simics pipe uses "magic instructions".
 
-Magic instructions denotes \dvtcmdcodeinline{nop}-type instructions, meaning instructions that would have no effect if run on the target architecture (such as \dvtcmdcodeinline{xchg ebx, ebx} on x86-compatible architectures).
-When executed on the simulated hardware in a virtual platform, it invokes a callback-method in the simulation host~\dvtcmdcitebib[p.~32]{publications:leupers:2010}.
+Magic instructions denotes \masccodeinline{nop}-type instructions, meaning instructions that would have no effect if run on the target architecture (such as \masccodeinline{xchg ebx, ebx} on x86-compatible architectures).
+When executed on the simulated hardware in a virtual platform, it invokes a callback-method in the simulation host~\masccitebib[p.~32]{publications:leupers:2010}.
 Because of the inherent performance demands brought on by real-time graphics, magic instructions is a suitable candidate for the exchange of rendering information between target and host systems.
 
 During a magic instruction, we may utilize any available registers; the number and size of registers is the data-sharing bottleneck of this method.
@@ -103,7 +103,7 @@ The experiments are performed in software rasterized and paravirtualized Simics 
 The results are then compared to reference runs on the host system.
 Simics is configured to simulate an Intel\circledR ~Core\texttrademark ~i7 processor and an Intel\circledR ~X58 chipset.
 During simulation, hardware-assisted virtualization is used to accelerate the simulation by running target x86 instructions natively on the host hardware.
-The simulation systems are, like the host system, set up to run Fedora~$19$ Linux and use the Mesa llvmpipe driver~\dvtcmdciteref{web:mesa:2015} for software rasterization.
+The simulation systems are, like the host system, set up to run Fedora~$19$ Linux and use the Mesa llvmpipe driver~\mascciteref{web:mesa:2015} for software rasterization.
 
 The experiments are performed on a system running Fedora~$19$ Linux with the following specifications:
 \begin{itemize}
@@ -116,7 +116,7 @@ Each benchmark is intended to stress one suspected bottleneck in the implementat
 Given a target frame time of $16$~\milli\second , both benchmarks are configured to run at between $10$ and $20$~\milli\second\ per frame when hardware accelerated on the host system; a $16$~\milli\second\ frametime should roughly correspond to $60$~frames per second.
 The benchmarks are shaped this way to reflect the expected load of a modern real-time interactive application.
 As such, the benchmarks should be representative of typical scenarios induced by modern applications using OpenGL, such as responsive UIs.
-The developed benchmark suite is open source and available online~\dvtcmdcitebib{web:intel:2014}.
+The developed benchmark suite is open source and available online~\masccitebib{web:intel:2014}.
 Frame captures of these benchmarks are presented in Figure \ref{fig:benchmarks}.
 
 During the experiments, the elapsed times of $1000$ frames is measured for each benchmark.
@@ -159,7 +159,7 @@ We perform the Chess benchmark with $60\times60$, $84\times84$, and $118\times11
 \paragraph{Benchmark: Julia}
 \label{par:experimentalmethodology_benchmarking_benchmarkjulia}
 The 'Julia' benchmark is developed to stress computational intensity in the paravirtualized solution.
-It is so named because the program calculates the Julia fractal~\dvtcmdciteref{web:tsiombikas:2014}.
+It is so named because the program calculates the Julia fractal~\mascciteref{web:tsiombikas:2014}.
 The benchmark is designed to perform a lone, computationally intensive, invocation, which will stress the computational prowess of the profiled platform.
 The case is selected for use as the computation of a fractal is trivially scalable in terms of complexity, by modifying the number of iterations the fractal algorithm performs.
 Thus, it is suitable for profiling computationally intensive workloads.
@@ -210,12 +210,12 @@ The remainder of this section presents an analysis of the results.
       \hline
       \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Input} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
       \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-      \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{simicschess60x60.dat.min} & \dvtcmdfirstline{simicschess60x60.dat.max}	& \dvtcmdfirstline{simicschess60x60.dat.std} & \dvtcmdfirstline{simicschess60x60.dat.avg} \\ %\cline{2-6}
-      & \chesskeytwo & \dvtcmdfirstline{simicschess84x84.dat.min} & \dvtcmdfirstline{simicschess84x84.dat.max} & \dvtcmdfirstline{simicschess84x84.dat.std} & \dvtcmdfirstline{simicschess84x84.dat.avg} \\ %\cline{2-6}
-      & \chesskeythree & \dvtcmdfirstline{simicschess118x118.dat.min} & \dvtcmdfirstline{simicschess118x118.dat.max} & \dvtcmdfirstline{simicschess118x118.dat.std} & \dvtcmdfirstline{simicschess118x118.dat.avg} \\ \hline
-      \multirow{3}{*}{Julia} & \juliakeyone & \dvtcmdfirstline{simicsjulia225.dat.min} & \dvtcmdfirstline{simicsjulia225.dat.max} & \dvtcmdfirstline{simicsjulia225.dat.std} & \dvtcmdfirstline{simicsjulia225.dat.avg} \\ %\cline{2-6}
-      & \juliakeytwo & \dvtcmdfirstline{simicsjulia450.dat.min} & \dvtcmdfirstline{simicsjulia450.dat.max} & \dvtcmdfirstline{simicsjulia450.dat.std} & \dvtcmdfirstline{simicsjulia450.dat.avg} \\ %\cline{2-6}
-      & \juliakeythree & \dvtcmdfirstline{simicsjulia900.dat.min} & \dvtcmdfirstline{simicsjulia900.dat.max} & \dvtcmdfirstline{simicsjulia900.dat.std} & \dvtcmdfirstline{simicsjulia900.dat.avg} \\ \hline
+      \multirow{3}{*}{Chess} & \chesskeyone & \mascfirstline{simicschess60x60.dat.min} & \mascfirstline{simicschess60x60.dat.max}	& \mascfirstline{simicschess60x60.dat.std} & \mascfirstline{simicschess60x60.dat.avg} \\ %\cline{2-6}
+      & \chesskeytwo & \mascfirstline{simicschess84x84.dat.min} & \mascfirstline{simicschess84x84.dat.max} & \mascfirstline{simicschess84x84.dat.std} & \mascfirstline{simicschess84x84.dat.avg} \\ %\cline{2-6}
+      & \chesskeythree & \mascfirstline{simicschess118x118.dat.min} & \mascfirstline{simicschess118x118.dat.max} & \mascfirstline{simicschess118x118.dat.std} & \mascfirstline{simicschess118x118.dat.avg} \\ \hline
+      \multirow{3}{*}{Julia} & \juliakeyone & \mascfirstline{simicsjulia225.dat.min} & \mascfirstline{simicsjulia225.dat.max} & \mascfirstline{simicsjulia225.dat.std} & \mascfirstline{simicsjulia225.dat.avg} \\ %\cline{2-6}
+      & \juliakeytwo & \mascfirstline{simicsjulia450.dat.min} & \mascfirstline{simicsjulia450.dat.max} & \mascfirstline{simicsjulia450.dat.std} & \mascfirstline{simicsjulia450.dat.avg} \\ %\cline{2-6}
+      & \juliakeythree & \mascfirstline{simicsjulia900.dat.min} & \mascfirstline{simicsjulia900.dat.max} & \mascfirstline{simicsjulia900.dat.std} & \mascfirstline{simicsjulia900.dat.avg} \\ \hline
     \end{tabular}
     \caption{Software rasterization results in Simics.}
     \label{tab:keyvalsimics}
@@ -228,12 +228,12 @@ The remainder of this section presents an analysis of the results.
       \hline
       \multirow{2}{*}{Benchmark} & \multirow{2}{*}{Input} & \multicolumn{4}{p{4cm}|}{\centering Elapsed time (\milli\second )} \\
       \cline{3-6} && \multicolumn{1}{c|}{Min} & \multicolumn{1}{c|}{Max} & \multicolumn{1}{c|}{Std} & \multicolumn{1}{c|}{Avg} \\ \hline
-      \multirow{3}{*}{Chess} & \chesskeyone & \dvtcmdfirstline{parachess60x60.dat.min} & \dvtcmdfirstline{parachess60x60.dat.max} & \dvtcmdfirstline{parachess60x60.dat.std} & \dvtcmdfirstline{parachess60x60.dat.avg} \\
-      & \chesskeytwo & \dvtcmdfirstline{parachess84x84.dat.min} & \dvtcmdfirstline{parachess84x84.dat.max} & \dvtcmdfirstline{parachess84x84.dat.std} & \dvtcmdfirstline{parachess84x84.dat.avg} \\
-      & \chesskeythree & \dvtcmdfirstline{parachess118x118.dat.min} & \dvtcmdfirstline{parachess118x118.dat.max} & \dvtcmdfirstline{parachess118x118.dat.std} & \dvtcmdfirstline{parachess118x118.dat.avg} \\ \hline
-      \multirow{3}{*}{Julia} & \juliakeyone & \dvtcmdfirstline{parajulia225.dat.min} & \dvtcmdfirstline{parajulia225.dat.max}	& \dvtcmdfirstline{parajulia225.dat.std} & \dvtcmdfirstline{parajulia225.dat.avg} \\
-      & \juliakeytwo & \dvtcmdfirstline{parajulia450.dat.min} & \dvtcmdfirstline{parajulia450.dat.max} & \dvtcmdfirstline{parajulia450.dat.std} & \dvtcmdfirstline{parajulia450.dat.avg} \\
-      & \juliakeythree & \dvtcmdfirstline{parajulia900.dat.min} & \dvtcmdfirstline{parajulia900.dat.max} & \dvtcmdfirstline{parajulia900.dat.std} & \dvtcmdfirstline{parajulia900.dat.avg} \\ \hline
+      \multirow{3}{*}{Chess} & \chesskeyone & \mascfirstline{parachess60x60.dat.min} & \mascfirstline{parachess60x60.dat.max} & \mascfirstline{parachess60x60.dat.std} & \mascfirstline{parachess60x60.dat.avg} \\
+      & \chesskeytwo & \mascfirstline{parachess84x84.dat.min} & \mascfirstline{parachess84x84.dat.max} & \mascfirstline{parachess84x84.dat.std} & \mascfirstline{parachess84x84.dat.avg} \\
+      & \chesskeythree & \mascfirstline{parachess118x118.dat.min} & \mascfirstline{parachess118x118.dat.max} & \mascfirstline{parachess118x118.dat.std} & \mascfirstline{parachess118x118.dat.avg} \\ \hline
+      \multirow{3}{*}{Julia} & \juliakeyone & \mascfirstline{parajulia225.dat.min} & \mascfirstline{parajulia225.dat.max}	& \mascfirstline{parajulia225.dat.std} & \mascfirstline{parajulia225.dat.avg} \\
+      & \juliakeytwo & \mascfirstline{parajulia450.dat.min} & \mascfirstline{parajulia450.dat.max} & \mascfirstline{parajulia450.dat.std} & \mascfirstline{parajulia450.dat.avg} \\
+      & \juliakeythree & \mascfirstline{parajulia900.dat.min} & \mascfirstline{parajulia900.dat.max} & \mascfirstline{parajulia900.dat.std} & \mascfirstline{parajulia900.dat.avg} \\ \hline
     \end{tabular}
     \caption{Paravirtualization results in Simics.}
     \label{tab:keyvalpara}
