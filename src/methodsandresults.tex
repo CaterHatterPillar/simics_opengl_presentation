@@ -85,10 +85,7 @@ Accordingly, this address need to be translated in order to retrieve the content
 \label{fig:virtualmemory}
 \end{figure}
 
-% Page Table Traversal
-\subsection{Page Table Traversal}
-\label{sec:proposedsolutionandimplementation_pagetabletraversal}
-As outlined in section \ref{sec:proposedsolutionandimplementation_simicspipe}, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
+As outlined in above, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
 The simulation host can access the MMU of the target system to translate a target virtual address to a physical one.
 This physical address can, in turn, be used to locate the given area in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
 However, due to the circumvention of virtual memory, there is no guarantee that the concerned memory page has not been swapped out of primary memory.
