@@ -8,30 +8,30 @@ As such, we confirm original suspicions through the use of the described benchma
 Thus, this study identifies the performance bottleneck inherent in great numbers of paravirtualized function invocations.
 
 Furthermore, compiled results showcase great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
-As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of $1415$~\milli\second\ to the real-time feasible count of 42~\milli\second .
+As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of $1415$~\milli\second\ to the real-time feasible count of 42~\milli\second ; a frame time of 42~\milli\second\ correspond to roughly 24 frames per second.
 For platforms that cannot utilize hardware-assisted virtualization, paravirtualization is estimated to obtain an additional order of magnitude in frame time reduction, in comparison to software rasterization.
 Such scenarios may include simulating other platforms than x86, such as PowerPC, or when utilizing certain advanced features in Simics -- e.g. breakpoints.
 
-Accordingly, our experiment has identified the potential of using paravirtualization with shared memory for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\masccite{inproceedings:lagarcavilla:2007}.
-Additionally, beyond that of accelerated graphics, results indicate performance improvements in terms of maximum frame times, inducing significantly improved standard deviation.
+Accordingly, this experiment has identified the potential of using paravirtualization with shared memory for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\masccite{inproceedings:lagarcavilla:2007}.
+Additionally, results indicate performance improvements in terms of maximum frame times, inducing significantly improved standard deviation.
 In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with reduced frame times, the feasibility of utilizing paravirtualized methodology for the purposes of accelerating graphics within virtual platforms.
 
-To summarize: this paper has presented a solution for graphics acceleration implemented in the Simics full-system simulator by the means of paravirtualization.
+To summarize: this paper presents a solution for graphics acceleration implemented in the Simics full-system simulator by the means of paravirtualization.
 The end-result is a solution which may generate libraries imitating EGL and OpenGL libraries.
-This solution may effectively spy on application EGL utilization, without inhibiting said exchange, allowing unmodified OpenGL applications to be accelerated from within the simulation target.
-The implementation communicates by the means of low-latency magic instructions with no limit as to how much memory may be shared.
-As such, throughout this document, we have tackled and presented several issues pertaining to paravirtualized graphics acceleration.
+This solution may spy on application EGL utilization, without inhibiting said exchange, allowing unmodified OpenGL applications to be accelerated from within the simulation target.
+The implementation communicates with low-latency magic instructions with no limit as to how much memory may be shared.
+As such, throughout the paper, we have tackled and presented several issues pertaining to paravirtualized graphics acceleration.
 For the purposes of performance testing, we have developed benchmarks with the distinct purpose of highlighting solution weaknesses and strengths.
 We have presented an analysis of benchmarking results and concluded the benefits and drawbacks of paravirtualization as means to graphics acceleration in virtual platforms, backed by hard data stressing key points in the implementation.
 Accordingly, the findings of this paper has contributed to our understanding of the difficulties facing paravirtualized graphics acceleration, and has established the feasibility of using paravirtualization to accelerate graphics in virtual platforms to that of real-time qualities.
 
 To conclude: This paper has demonstrated performance improvements by accelerating graphics using paravirtualization.
-Induced benefits are performance improvements of up to $34$ times -- or two orders of magnitude, paired with larger benefits in non-hardware-assisted virtualized use-cases.
-Magic instruction overhead has been identified as the main performance bottleneck.
+Induced benefits are performance improvements of up to $34$ times -- or two orders of magnitude, paired with larger benefits in non-hardware-accelerated use-cases.
+Magic instruction overhead is identified as the main performance bottleneck.
 As such, a drawback of graphics paravirtualization is a weakness to large amounts of framework invocations.
 Thus, this paper claims paravirtualization as a successful formula for system simulator graphics acceleration, and suggests utilizing high-level paravirtualization to accelerate graphics in virtual platforms.
 
-The presented implementation may be advanced in a number of ways in order to support a higher number of platforms and an array of performance enhancements.
+The presented implementation may be advanced in a number of ways to support a higher number of platforms and subject to an array of performance enhancements.
 Below, recommendations for future study are presented.
 
 In terms of performance, command serialization batching should be considered for the purposes of minimizing the number of performed magic instructions.
@@ -43,10 +43,10 @@ Often, it is desirable to simulate systems other than the simulation host.
 One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
 In this case, it is possible that target software utilize the DirectX framework to render graphics, whereas the host Linux system only feature the OpenGL libraries.
 
-In $2014$, Valve released software capable of converting DirectX~$9.0$c-code to that of OpenGL~\masccite{technicaldocs:valve:2014}.
+In $2014$, Valve released open-source software capable of converting DirectX~$9.0$c-code to that of OpenGL~\masccite{technicaldocs:valve:2014}.
 Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform one may be practical for the purposes of graphics acceleration in virtual platforms.
 An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
-If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, this might bridge the gap between the performance gains of using paravirtualization and other -- albeit slower -- more general ways of modeling graphics for any type of system.
+If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, this might bridge the gap between the performance gains of using paravirtualization and other -- albeit slower, generalized ways of virtualizing graphics for any platform.
 Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics paravirtualization in the Simics full-system simulator.
 
 % Other possible future work to consider:
