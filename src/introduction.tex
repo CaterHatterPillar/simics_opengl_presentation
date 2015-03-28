@@ -28,7 +28,7 @@ However, due to large differences between CPU and GPU architecture, simply deleg
 Common approaches to accelerate simulation performance include creating a functionally accurate model of the GPU, where internal details may be simplified, or using software rasterization without involving the GPU model.
 However, these methodologies traditionally incur heavy performance losses.
 Alternatively, one may delegate GPU workloads to the system on which the simulation runs (often referred to as the simulation host).
-There are a number of ways to do so, such as relying on PCI~passthrough and similar technologies to grant access to the underlying host hardware from within the virtual platform~\masccite[p.~415,~416]{inproceedings:regola:2010}, or utilizing a concept commonly referred to as "paravirtualization" at a higher level of abstraction, e.g., the graphics library.
+There are a number of ways to do so, such as relying on PCI~passthrough and similar technologies to grant access to underlying host hardware from within the virtual platform~\masccite[p.~415,~416]{inproceedings:regola:2010}, or utilizing a concept commonly referred to as "paravirtualization" at a higher level of abstraction, e.g., the graphics library.
 Paravirtualization is defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity~\masccite[p.~165-166]{inproceedings:youseff:2006}.
 Effectively, this entails modifying the virtual machine to be similar, but not identical, to host hardware~\masccite[p.~165]{journals:barham:2003}.
 As such, one may simplify the virtualization process by neglecting some hardware compatibility~\masccite[p.~1]{inproceedings:youseff:2006}.

@@ -15,7 +15,7 @@ The generated libraries, the Simics pipe, and implementation details thereof are
 
 \subsection{Target and Host System Libraries}
 \label{sec:proposedsolutionandimplementation_targetandhostsystemlibraries}
-Compiled from generated \texttt{C} and \texttt{C++} the target system libraries compose implementations of the EGL and OpenGL APIs.
+Compiled from generated \texttt{C} and \texttt{C++} code, the target system libraries compose implementations of the EGL and OpenGL APIs.
 For cross-platform purposes, the solution also accelerates EGL -- the interface between OpenGL and the underlying platform windowing system.
 As may be derived from the name, the target system libraries run on the simulation target.
 
@@ -85,7 +85,7 @@ Accordingly, this address need to be translated in order to retrieve the content
 \label{fig:virtualmemory}
 \end{figure}
 
-As outlined in above, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
+As outlined above, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
 The simulation host can access the MMU of the target system to translate a target virtual address to a physical one.
 This physical address can, in turn, be used to locate the given area in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
 However, due to the circumvention of virtual memory, there is no guarantee that the concerned memory page has not been swapped out of primary memory.
@@ -105,7 +105,7 @@ Simics is configured to simulate an Intel\circledR ~Core\texttrademark ~i7 proce
 During simulation, hardware-assisted virtualization is used to accelerate the simulation by running target x86 instructions natively on the host hardware.
 The simulation systems are, like the host system, set up to run Fedora~$19$ Linux and use the Mesa llvmpipe driver~\masccite{web:mesa:2015} for software rasterization.
 
-The experiments are performed on a system running Fedora~$19$ Linux with the following specifications:
+The experiments are performed on a system with the following specifications:
 \begin{itemize}
 \item Intel\circledR\ Core\texttrademark\ i7-4770HQ
 \item Intel\circledR\ Iris\texttrademark\ Pro Graphics 5200
@@ -121,7 +121,7 @@ Frame captures of these benchmarks are presented in Figure \ref{fig:benchmarks}.
 
 During the experiments, the elapsed times of $1000$ frames is measured for each benchmark.
 In order to gain some understanding on how well the given performance scales, we run three instances of each benchmark.
-These benchmark instances are performed with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmarks stress the bottlenecks they was designed for.
+These benchmark instances are performed with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmarks stress the bottlenecks they were designed for.
 The specifics of the input data sizes are described below, along with each respective benchmark.
 
 % fig:benchmarks
@@ -149,7 +149,7 @@ Each tile is then individually drawn to the back buffer, rendering the chess-lik
 Effectively, this means that, for each tile, the benchmark need only bind a vertex and an index element buffer, set the corresponding tile color, and lastly invoke the rendering of said tile.
 
 For each frame rendered, depending on the number of drawn tiles, the solution will perform a large number of magic instructions.
-This induces a high utilization of the Simics Pipe, which is intended to stress magic instruction overhead.
+This induces a high utilization of the Simics Pipe, which is intended to stress suspected magic instruction overhead.
 The repeated invocation of lesser draw calls is representative of common usage of drawing a multitude of shapes with OpenGL, such as a UI.
 As such, the benchmark is suitable for the purpose of representing a large number of graphics invocations.
 
