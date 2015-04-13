@@ -71,10 +71,10 @@ do for [i=1:words(files)] {
     }
     if(xlabel_index<3) {
         if(xlabel_index==1) {
-            set x2label "Software Rasterization" tc lt 1
+            set x2label "Software Rasterization"
         }
         if(xlabel_index==2) {
-            set x2label "Paravirtualization" tc lt 1
+            set x2label "Paravirtualization"
         }
         xlabel_index = xlabel_index + 1
     } else {
