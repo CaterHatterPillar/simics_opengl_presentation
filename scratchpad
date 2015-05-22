@@ -2,3 +2,14 @@ The rest of this paper is organized as follows.
 In Section \ref{sec:previousresearch} previous research in the field is presented, followed by the problem formulation in Section \ref{sec:problemformulation}.
 Section \ref{sec:methodsandresults} described the devised implementation, experiment, and the results thereof.
 The paper is concluded in Section \ref{sec:conclusion} along with suggestions for future work in the area.
+
+At a higher level of abstraction, there is the option of paravirtualization.
+By selectively modifying the target system, it is possible to control system attributes and add functionality such as device hardware support, while facilitating advanced functionality such as checkpointing and reverse execution in software.
+For graphics acceleration, such a system attribute could be a graphics library or a kernel driver (see Figure \ref{fig:overview}).
+
+Inherent by higher abstraction, paravirtualization is cheap in terms of development costs, and by selectively modifying at the graphics library level, there is no need for users to modify the software they wish to accelerate.
+Unfortunately, a paravirtualized graphics library may be troublesome to maintain as the framework evolves.
+Furthermore, it requires modification of the simulation target, which may be undesirable for some.
+Optimally, the simulator should run an unmodified target, but if high performance is important enough for compromise, paravirtualization at the graphics library level is a good trade-off to delimit required modification.
+In this way, the changes are confined to the graphics library.
+Thus, what parts of the simulation are modified can easily be described to systems developers.

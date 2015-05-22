@@ -10,28 +10,6 @@ Lagar-Cavilla et al. present VMGL, an OpenGL virtualization solution that can ac
 The solution runs the OpenGL library and GPU driver on the VMM host, and utilizes network transport to relieve OpenGL commands between target and host systems.
 VMGL was evaluated in WMware Workstation and Xen VMMs.
 
-% Graphics Virtualization
-\subsection{Graphics Virtualization}
-\label{sec:previousresearch_graphicsvirtualization}
-There are a number of ways of virtualizing GPUs in virtual platforms, a few of which accommodate hardware acceleration; fewer that suit most needs.
-Therefore, it is important to balance desired simulation level of detail with performance requirements.
-As such, virtualization methods with varying simulation accuracy present themselves, from slow low level instruction set modeling to fast high level paravirtualization.
-Summaries of some viable strategies are presented below.
-
-% Paravirtualization
-\paragraph{Paravirtualization}
-\label{par:previousresearch_graphicsvirtualization_paravirtualization}
-At a higher level of abstraction, there is the option of paravirtualization.
-By selectively modifying the target system, it is possible to control system attributes and add functionality such as device hardware support, while facilitating advanced functionality such as checkpointing and reverse execution in software.
-For graphics acceleration, such a system attribute could be a graphics library or a kernel driver (see Figure \ref{fig:overview}).
-
-Inherent by higher abstraction, paravirtualization is cheap in terms of development costs, and by selectively modifying at the graphics library level, there is no need for users to modify the software they wish to accelerate.
-Unfortunately, a paravirtualized graphics library may be troublesome to maintain as the framework evolves.
-Furthermore, it requires modification of the simulation target, which may be undesirable for some.
-Optimally, the simulator should run an unmodified target, but if high performance is important enough for compromise, paravirtualization at the graphics library level is a good trade-off to delimit required modification.
-In this way, the changes are confined to the graphics library.
-Thus, what parts of the simulation are modified can easily be described to systems developers.
-
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{img/yedoverview.pdf}
