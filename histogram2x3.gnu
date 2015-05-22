@@ -55,20 +55,14 @@ files = sprintf("%s %s %s %s %s %s", arg_data1, arg_data2, arg_data3, arg_data4,
 ylabels = sprintf("%s %s %s", arg_ylabel1, arg_ylabel2, arg_ylabel3)
 
 xlabel_index = 1
-ylabel_index = 1
-everyother = 1
 do for [i=1:words(files)] {
     arg_data = word(files, i)
 
-    # Hack the planet:
-    if(everyother==1) {
-        everyother = 0
-        set ylabel word(ylabels, ylabel_index)
-        ylabel_index = ylabel_index + 1
-    } else {
-        everyother = 1
-        set ylabel " " #unset ylabel
+    set ylabel " "
+    if(i%2) {
+        set ylabel word(ylabels, ceil((i+0.0)/2))
     }
+
     if(xlabel_index<3) {
         if(xlabel_index==1) {
             set x2label "Software Rasterization"
