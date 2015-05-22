@@ -85,13 +85,6 @@ Having successfully escaped the simulation context, we may assume the presence o
 Note that, at this point, the retrieved address is a target system virtual address, the destination of which is unknown to the simulation host.
 Accordingly, this address need to be translated in order to retrieve the contents that the memory address points to.
 
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth]{img/yedvirtualmemory.pdf}
-\caption{Simics Pipe overview. The target system libraries gives a virtual memory address to the host system libraries, which inquiries the target MMU in order to retrieve the byte stream from target physical memory.}
-\label{fig:virtualmemory}
-\end{figure}
-
 As outlined above, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
 The simulation host can access the MMU of the target system to translate a target virtual address to a physical one.
 This physical address can, in turn, be used to locate the given area in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
@@ -100,7 +93,7 @@ In order to solve this, the target memory pages must be "locked" to prevent them
 This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
 
 Furthermore, it is likely that multiple memory pages making out particularly large byte streams, such as vertex or texture data, are not consecutively aligned in physical memory (while guaranteed to be continuous in virtual memory).
-As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table (see Figure \ref{fig:virtualmemory}).
+As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table.
 This can be done in a trivial manner by simply iterating the original virtual address with the target page size.
 In our case, the page size is $4096$ bytes.
 
