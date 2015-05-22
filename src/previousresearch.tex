@@ -10,11 +10,6 @@ QEMU ('Quick~Emulator') is an open-source virtual platform described as a full s
 As such, QEMU may run unmodified target software such as OSs, drivers, and other applications~\masccite[p.~1]{inproceedings:bellard:2005}.
 The platform is widely used in academia, and is the subject of several articles and reports cited throughout this document.
 
-Several attempts have been made to accelerate simulator graphics.
-Many of these require modification of both target and host systems.
-One such instance is presented by Hansen in his work on the Blink display system~\masccite{inproceedings:hansen:2007}.
-Another example, the Android emulator, which is powered by QEMU, accelerates OpenGL~ES~$1.1$ and $2.0$, granting Android developers significant performance boosts~\masccite{web:ducrohet:2012:afasteremulator}.
-
 Lagar-Cavilla et al. present VMGL, an OpenGL virtualization solution that can accelerate OpenGL~$1.5$ up to two orders of magnitude in comparison to software rasterization~\masccite{inproceedings:lagarcavilla:2007}.
 The solution runs the OpenGL library and GPU driver on the VMM host, and utilizes network transport to relieve OpenGL commands between target and host systems.
 VMGL was evaluated in WMware Workstation and Xen VMMs.
