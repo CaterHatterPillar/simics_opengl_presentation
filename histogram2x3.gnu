@@ -45,7 +45,7 @@ if(!exists("arg_data1")||!exists("arg_data2")||!exists("arg_data3")||!exists("ar
     pause -1 press(iam) # We should abort script here rather than simply pause it.
 }
 
-set terminal arg_terminal size 18cm,6cm
+set terminal arg_terminal size 12cm,6cm
 set output arg_output
 
 set multiplot layout 3,2
