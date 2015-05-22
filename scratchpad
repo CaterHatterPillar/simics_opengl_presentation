@@ -1,1 +1,4 @@
-Put old material here that might be migrated into the short paper if they prove relevant.
+The rest of this paper is organized as follows.
+In Section \ref{sec:previousresearch} previous research in the field is presented, followed by the problem formulation in Section \ref{sec:problemformulation}.
+Section \ref{sec:methodsandresults} described the devised implementation, experiment, and the results thereof.
+The paper is concluded in Section \ref{sec:conclusion} along with suggestions for future work in the area.
