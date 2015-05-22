@@ -57,12 +57,14 @@ ylabels = sprintf("%s %s %s", arg_ylabel1, arg_ylabel2, arg_ylabel3)
 do for [i=1:words(files)] {
     arg_data = word(files, i)
 
-    set ylabel " "
+    unset ylabel
+    set lmargin 0
     if(i%2) {
         set ylabel word(ylabels, ceil((i+0.0)/2))
     }
 
-    set x2label " "
+    unset x2label
+    set tmargin 0
     if(i==1) {
         set x2label "Software Rasterization"
     }
