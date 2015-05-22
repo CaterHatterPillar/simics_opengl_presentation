@@ -5,7 +5,7 @@ import os
 import subprocess
 
 g_gnuHistograms = "histogram2x3.gnu"
-cmd = "gnuplot -e \"arg_data1='%s';arg_data2='%s';arg_data3='%s';arg_data4='%s';arg_data5='%s';arg_data6='%s';arg_ylabel1='%s';arg_ylabel2='%s';arg_ylabel3='%s';arg_terminal='%s';arg_output='%s'\" " + g_gnuHistograms;
+cmd = "gnuplot -e \"arg_data1='%s';arg_data2='%s';arg_data3='%s';arg_data4='%s';arg_data5='%s';arg_data6='%s';arg_ylabel1='%s';arg_ylabel2='%s';arg_ylabel3='%s';arg_xlabel1='%s';arg_xlabel2='%s';arg_terminal='%s';arg_output='%s'\" " + g_gnuHistograms;
 
 arg1 = "simicschess60x60.dat"
 arg2 = "parachess60x60.dat"
@@ -18,11 +18,16 @@ arg7 = "60x60"
 arg8 = "84x84"
 arg9 = "118x118"
 
-arg10 = "epslatex"
-arg11 = "gnuhistogramssimicsparachess.tex"
+arg10 = "Yes"
+arg11 = "Yes"
+
+arg12 = "epslatex"
+arg13 = "gnuhistogramssimicsparachess.tex"
 sp = subprocess.Popen(cmd % (arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,
-                             arg11), shell=True)
+                             arg11, arg12, arg13), shell=True)
 sp.wait()
+
+cmd = "gnuplot -e \"arg_data1='%s';arg_data2='%s';arg_data3='%s';arg_data4='%s';arg_data5='%s';arg_data6='%s';arg_ylabel1='%s';arg_ylabel2='%s';arg_ylabel3='%s';arg_terminal='%s';arg_output='%s'\" " + g_gnuHistograms;
 
 arg1 = "simicsjulia225.dat"
 arg2 = "parajulia225.dat"

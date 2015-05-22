@@ -14,8 +14,11 @@
 # 8. Y label #2 : arg_ylabel2
 # 9. Y label #3 : arg_ylabel3
 #
-# 10. Out Terminal : arg_terminal
-# 11. Out Filename : arg_output
+# 10. X label #1 : arg_xlabel1
+# 11. X label #2 : arg_xlabel2
+#
+# 12. Out Terminal : arg_terminal
+# 13. Out Filename : arg_output
 # ---
 
 min(p_x, p_y) = (p_x<p_y) ? p_x : p_y
@@ -65,10 +68,10 @@ do for [i=1:words(files)] {
 
     unset x2label
     set tmargin 0
-    if(i==1) {
+    if(i==1 && exists("arg_xlabel1")) {
         set x2label "Software Rasterization"
     }
-    if(i==2) {
+    if(i==2 && exists("arg_xlabel2")) {
         set x2label "Paravirtualization"
     }
 
