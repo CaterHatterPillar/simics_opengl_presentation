@@ -124,24 +124,11 @@ Given a target frame time of $16$~\milli\second , both benchmarks are configured
 The benchmarks are shaped this way to reflect the expected load of a modern real-time interactive application.
 As such, the benchmarks should be representative of typical scenarios induced by modern applications using OpenGL, such as responsive UIs.
 The developed benchmark suite is open source and available online~\masccite{web:intel:2014}.
-Frame captures of these benchmarks are presented in Figure \ref{fig:benchmarks}.
 
 During the experiments, the elapsed times of $1000$ frames is measured for each benchmark.
 In order to gain some understanding on how well the given performance scales, we run three instances of each benchmark.
 These benchmark instances are performed with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmarks stress the bottlenecks they were designed for.
 The specifics of the input data sizes are described below, along with each respective benchmark.
-
-% fig:benchmarks
-\begin{figure}
-  \minipage{\linewidth}
-  \includegraphics[width=\linewidth]{img/imgchess.png}
-  \endminipage\\[6pt]
-  \minipage{\linewidth}
-  \includegraphics[width=\linewidth]{img/imgjulia.png}
-  \caption[Benchmark screen captures]{Benchmark screen captures.}
-  \label{fig:benchmarks}
-  \endminipage
-\end{figure}
 
 % Benchmark: Chess
 \paragraph{Benchmark: Chess}
