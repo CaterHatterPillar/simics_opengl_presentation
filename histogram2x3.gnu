@@ -10,7 +10,7 @@
 # 5. Data set #5 : arg_data5
 # 6. Data set #6 : arg_data6
 #
-# 7. Y label #1 : arg_ylabel1 
+# 7. Y label #1 : arg_ylabel1
 # 8. Y label #2 : arg_ylabel2
 # 9. Y label #3 : arg_ylabel3
 #
