@@ -16,15 +16,6 @@ There are several techniques to provide fast functional virtual platforms that a
 Typical methods include interpretation~\masccite[p.~35]{journals:smith:2005, inproceedings:magnusson:1998}, just-in-time compilation~\masccite[p.~24,~25]{journals:aarno:2013, inproceedings:magnusson:1998}, and hardware-assisted virtualization~\masccite[p.~24,~25]{journals:aarno:2013, publications:leupers:2010}.
 Virtual platforms using these techniques can typically achieve a simulation performance in the range of $10$-$1000$ million instructions per second~\masccite[p.~24,~25]{journals:aarno:2013}.
 
-The GPU is a vital part in delivering good user experiences on many devices, ranging from wearable, hand held, and portable units, to desktop computers.
-Since GPUs operate significantly different from CPUs, utilizing massively parallelized instruction sets to increase throughput, they continue to pose unique challenges to designers and developers~\masccite[ch.~13]{publications:kirk:2010}.
-The spread of GPU utilization and the increasing complexity of these electronic systems extend the virtualization needs of such devices.
-For example, developers interested in benchmarking or driver development for next generation GPUs or CPUs may require detailed simulators that provide insight into execution engines and pipelines~\masccite[p.~1]{inproceedings:schumacher:2010}.
-Albeit applicable in certain use-cases and capable of running 'toy' applications, such platforms are often orders of magnitude too slow to run commercial workloads~\masccite[p.~50]{journals:magnusson:2002}.
-Application developers, on the other hand, do not necessarily care for the internal workings of hardware as they typically work at a higher abstraction level.
-As such, some developers may be more interested in achieving decent simulation performance rather than a timing-accurate processor model~\masccite{publications:leupers:2010}.
-However, due to large differences between CPU and GPU architecture, simply delegating GPU-bound workloads to CPUs is rarely feasible in terms of performance.
-
 Common approaches to accelerate simulation performance include creating a functionally accurate model of the GPU, where internal details may be simplified, or using software rasterization without involving the GPU model.
 However, these methodologies traditionally incur heavy performance losses.
 Alternatively, one may delegate GPU workloads to the system on which the simulation runs (often referred to as the simulation host).
