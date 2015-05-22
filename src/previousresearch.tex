@@ -28,14 +28,6 @@ For example, one might imagine the scenario of driver development for next-gener
 However, the development of a GPU model might be overly costly, due to GPU hardware being poorly documented compared to CPU architectures~\masccite{inproceedings:lagarcavilla:2007}.
 Furthermore, simulating massively parallelized GPU ISAs induce high performance costs that might render GPU modeling less preferable for development requiring anything but slow simulation speed.
 
-% PCI Passthrough
-\paragraph{PCI Passthrough}
-\label{par:previousresearch_graphicsvirtualization_pcipassthrough}
-PCI~passthrough technologies allow virtual systems first-hand access to host machine devices~\masccite{inproceedings:regola:2010}, accommodating for fully-fledged hardware accelerated workloads.
-However, this requires \textit{dedicated} hardware on host systems and requires configuring the simulation target to utilize host hardware.
-For example, this may induce the necessity of multiple graphics cards on the host system.
-Furthermore, PCI~passthrough is likely to make it difficult to implement robust checkpointing and reverse execution functionality, should advanced simulation features be desirable.
-
 % Paravirtualization
 \paragraph{Paravirtualization}
 \label{par:previousresearch_graphicsvirtualization_paravirtualization}
