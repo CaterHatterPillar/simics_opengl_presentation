@@ -18,16 +18,6 @@ Therefore, it is important to balance desired simulation level of detail with pe
 As such, virtualization methods with varying simulation accuracy present themselves, from slow low level instruction set modeling to fast high level paravirtualization.
 Summaries of some viable strategies are presented below.
 
-% GPU Modeling
-\paragraph{GPU Modeling}
-\label{par:previousresearch_graphicsvirtualization_gpumodeling}
-Some may consider virtualizing the GPU ISA.
-This could be appropriate for the purposes of development close to GPU hardware.
-For example, one might imagine the scenario of driver development for next-generation GPUs.
-
-However, the development of a GPU model might be overly costly, due to GPU hardware being poorly documented compared to CPU architectures~\masccite{inproceedings:lagarcavilla:2007}.
-Furthermore, simulating massively parallelized GPU ISAs induce high performance costs that might render GPU modeling less preferable for development requiring anything but slow simulation speed.
-
 % Paravirtualization
 \paragraph{Paravirtualization}
 \label{par:previousresearch_graphicsvirtualization_paravirtualization}
