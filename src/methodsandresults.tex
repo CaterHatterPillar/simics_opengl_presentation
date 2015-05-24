@@ -228,13 +228,13 @@ The remainder of this section presents an analysis of the results.
 \end{table*}
 
 % fig:histogram
-\begin{figure*}
+\begin{figure}
   \centering
   \input{gnuhistogramssimicsparachess.tex}
   \input{gnuhistogramssimicsparajulia.tex}
   \caption{Histograms depicting sample density of $1000$ elapsed benchmark frames subdivided into $100$ bins. The measurements are presented in milliseconds. Top: Chess. Bottom: Julia.}
   \label{fig:histogram}
-\end{figure*}
+\end{figure}
 
 The data visualized in Figure \ref{fig:histogram} shows that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
 The right-hand side of the graph, while also showing impaired performance induced by paravirtualization, visualize a decrease in sample density distribution.
