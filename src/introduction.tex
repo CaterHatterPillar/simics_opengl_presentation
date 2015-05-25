@@ -12,6 +12,10 @@ Additionally, such platforms may allow intricate inspection of simulated hardwar
 Some virtual platforms provide advanced features such as reverse execution (the ability to run a simulation backwards) and checkpointing (functionality to save and restore the state of a simulation)~\masccite{publications:aarno:2014, journals:aarno:2013}.
 These features are useful for debugging and testing a diverse range of software, from firmware to end-user applications~\masccite[p.~25]{publications:leupers:2010}.
 
+There are several techniques to provide fast functional virtual platforms that are running CPU workloads.
+Typical methods include interpretation~\masccite[p.~35]{journals:smith:2005, inproceedings:magnusson:1998}, just-in-time compilation~\masccite[p.~24,~25]{journals:aarno:2013, inproceedings:magnusson:1998}, and hardware-assisted virtualization~\masccite[p.~24,~25]{journals:aarno:2013, publications:leupers:2010}.
+Virtual platforms using these techniques can typically achieve a simulation performance in the range of $10$-$1000$ million instructions per second~\masccite[p.~24,~25]{journals:aarno:2013}.
+
 Common approaches to accelerate simulation performance include creating a functionally accurate model of the GPU, where internal details may be simplified, or using software rasterization without involving the GPU model.
 However, these methodologies traditionally incur heavy performance losses.
 Alternatively, one may delegate GPU workloads to the system on which the simulation runs (often referred to as the simulation host).
