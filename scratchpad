@@ -48,3 +48,21 @@ The objectives of the paper is to evaluate the feasibility of paravirtualization
 Thus, this study is relevant to the field of computer science by expanding upon the the knowledge of graphics acceleration in virtual platforms.
 Graphics acceleration in a virtual platform is relevant because it facilitates debugging, testing, and profiling of software which depends on GPU graphics acceleration.
 By these means, this paper contributes to the field of computer science by answering these questions from the perspective of graphics paravirtualization in the Simics full-system simulator.
+
+PARAVIRTUALIZATION
+
+There are a number of ways to do so, such as relying on PCI~passthrough and similar technologies to grant access to underlying host hardware from within the virtual platform~\masccite[p.~415,~416]{inproceedings:regola:2010}, or utilizing a concept commonly referred to as "paravirtualization" at a higher level of abstraction, e.g., the graphics library.
+Paravirtualization is defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity~\masccite[p.~165-166]{inproceedings:youseff:2006}.
+Effectively, this entails modifying the virtual machine to be similar, but not identical, to host hardware~\masccite[p.~165]{journals:barham:2003}.
+As such, one may simplify the virtualization process by neglecting some hardware compatibility~\masccite[p.~1]{inproceedings:youseff:2006}.
+
+GPUs
+
+The GPU is a vital part in delivering good user experiences on many devices, ranging from wearable, hand held, and portable units, to desktop computers.		
+Since GPUs operate significantly different from CPUs, utilizing massively parallelized instruction sets to increase throughput, they continue to pose unique challenges to designers and developers~\masccite[ch.~13]{publications:kirk:2010}.		
+The spread of GPU utilization and the increasing complexity of these electronic systems extend the virtualization needs of such devices.		
+For example, developers interested in benchmarking or driver development for next generation GPUs or CPUs may require detailed simulators that provide insight into execution engines and pipelines~\masccite[p.~1]{inproceedings:schumacher:2010}.		
+Albeit applicable in certain use-cases and capable of running 'toy' applications, such platforms are often orders of magnitude too slow to run commercial workloads~\masccite[p.~50]{journals:magnusson:2002}.		
+Application developers, on the other hand, do not necessarily care for the internal workings of hardware as they typically work at a higher abstraction level.		
+As such, some developers may be more interested in achieving decent simulation performance rather than a timing-accurate processor model~\masccite{publications:leupers:2010}.		
+However, due to large differences between CPU and GPU architecture, simply delegating GPU-bound workloads to CPUs is rarely feasible in terms of performance.
