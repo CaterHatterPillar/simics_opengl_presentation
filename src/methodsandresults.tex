@@ -34,38 +34,16 @@ For example, it is important that the native window reports successful initializ
 The issue is overcome by selectively overriding symbols in the target libraries so that a subset of functions may be overloaded.
 This way, one may extend the original EGL library to invoke the simulation host prior to performing its actions.
 
-% Simics Pipe
-\subsection{Simics Pipe}
-\label{sec:proposedsolutionandimplementation_simicspipe}
-The Simics pipe constitutes the target-to-host communications channel in Simics.
-As such, it is responsible for transferring a serialized command stream between the target and host system libraries.
-To do this, the Simics pipe requires a way to exchange information with the simulation host.
-
-There are multiple reasons as to why target software would like to escape the simulation and trigger that execution is resumed on the host.
-For example, such a scenario is a debugging breakpoint or, in our case, to share data between target and host systems.
-This could be accomplished by networking means or specially devised kernel drivers; yet, the Simics pipe uses "magic instructions".
-
-Magic instructions denotes \masccodeinline{nop}-type instructions, meaning instructions that would have no effect if run on the target architecture (such as \masccodeinline{xchg ebx, ebx} on x86-compatible architectures).
-When executed on the simulated hardware in a virtual platform, it invokes a callback-method in the simulation host~\masccite[p.~32]{publications:leupers:2010}.
-Because of the inherent performance demands brought on by real-time graphics, magic instructions is a suitable candidate for the exchange of rendering information between target and host systems.
+To communicate with the simulation host, the Simics pipe uses "magic instructions".
+Magic instructions denotes \masccodeinline{nop}-type instructions that, when executed on the simulated hardware in a virtual platform, invoke a callback-method in the simulation host~\masccite[p.~32]{publications:leupers:2010}.
+Because of the inherent performance demands brought on by real-time graphics, they constitute a suitable communications medium for rendering information between target and host systems.
 
 During a magic instruction, we may utilize any available registers; the number and size of registers is the data-sharing bottleneck of this method.
-Thus, we utilize a 64-bit register to transmit a lone memory address -- the starting address of the serialized command stream.
-Having successfully escaped the simulation context, we may assume the presence of a target virtual address in the agreed-upon CPU register.
-Note that, at this point, the retrieved address is a target system virtual address, the destination of which is unknown to the simulation host.
-Accordingly, this address need to be translated in order to retrieve the contents that the memory address points to.
-
-As outlined above, target and host memory sharing is performed by the means of exposing a target virtual address to the simulation host.
-The simulation host can access the MMU of the target system to translate a target virtual address to a physical one.
-This physical address can, in turn, be used to locate the given area in the simulated RAM image, thereby allowing direct access by the simulation host into the entire target memory page.
-However, due to the circumvention of virtual memory, there is no guarantee that the concerned memory page has not been swapped out of primary memory.
-In order to solve this, the target memory pages must be "locked" to prevent them from being swapped to disk.
-This is the methodology used to ensure that the physical memory space, referred to by the virtual address sent to the simulation host, is still present in target primary memory when the simulation state is paused.
-
-Furthermore, it is likely that multiple memory pages making out particularly large byte streams, such as vertex or texture data, are not consecutively aligned in physical memory (while guaranteed to be continuous in virtual memory).
-As such, the physical addresses of memory pages must be continuously retrieved and translated on a per-page basis, effectively 'traversing' the virtual memory table.
-This can be done in a trivial manner by simply iterating the original virtual address with the target page size.
-In our case, the page size is $4096$ bytes.
+Thus, we transmit the starting address of the serialized command stream in a 64-bit register.
+Having escaped the simulation context, Simics can translate the transmitted virtual address to a physical one using the virtual machine MMU.
+Consequently, the physical address can be used to locate the memory page in the simulated RAM image.
+To ensure the pages are not swapped to disk when the simulation state is paused, we "lock" all pages constituting the command stream buffer.
+Subsequently, all memory pages are continiously retrieved by iterating the original virtual address with the target page size, effectively 'traversing' the virtual memory table.
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
