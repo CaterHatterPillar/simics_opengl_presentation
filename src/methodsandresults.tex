@@ -16,35 +16,17 @@ OpenGL paravirtualization in Simics encompasses three overall components, being 
 To facilitate easier development, target and host system libraries may be partly generated from specification files detailing function signatures and arguments.
 Except methods that require state saving, the majority of the libraries are generated this way.
 
-The generated libraries, the Simics pipe, and implementation details thereof are presented in this section.
-
-\subsection{Target and Host System Libraries}
-\label{sec:proposedsolutionandimplementation_targetandhostsystemlibraries}
-Compiled from generated \texttt{C} and \texttt{C++} code, the target system libraries compose implementations of the EGL and OpenGL APIs.
-For cross-platform purposes, the solution also accelerates EGL -- the interface between OpenGL and the underlying platform windowing system.
-As may be derived from the name, the target system libraries run on the simulation target.
-
-The target system libraries implement the EGL and OpenGL~ES APIs and lures whatever application it is being linked to that it is, in fact, the expected platform libraries.
-Given that the target system libraries adheres to the OpenGL headers defined in the system, the application is na\"{\i}ve of this process.
-However, instead of communicating with the platform windowing system (in terms of EGL) and the graphics device (in terms of OpenGL), the target system libraries serialize the given command stream and forward it to the simulation host.
-This transmission is not necessarily performed at once, or in the designated order, due to the formation of OpenGL.
-This is because of uncertainties of the proportion of argument data.
-For instance, the number of vertices to be rendered does not have to be apparent at a given time, but rather implicit in a later OpenGL invocation.
+The target system libraries implement the OpenGL and EGL (the interface between OpenGL and the underlying platform windowing system) APIs; unmodified binaries in the target system are subsequently linked with these libraries as with any other OpenGL or EGL implementation.
+However, instead of communicating with the graphics device, the target system libraries serialize and forwards the command stream to the simulation host.
+The transmission is not necessarily performed at once, or in the designated order, because of uncertainties regarding argument data proportion.
+For instance, the number of vertices to be rendered does not have to be apparent at a given time, but implicit in a later OpenGL invocation.
 Accordingly, certain function calls have to be delayed until more information is known about the OpenGL state.
 
-Additionally, a subset of the OpenGL state need to be maintained by the target system libraries.
-For example, this comprises bound vertex and index element buffers, and vertex attribute properties.
-These states must be maintained in the target system libraries because of the asynchronous invocations described in the above paragraph.
-
-The target system libraries makes sure to pack function arguments, such as $8$-bit characters, $16$-bit fields, or $64$-bit integer values, into fixed-length structures, so that the host system may interpret these values independently of how the corresponding types are defined in the simulation target.
-
 In collaboration with the target system libraries, the host system libraries decodes and interprets the received byte stream.
-This decoding involves unpacking data from fixed length storage into variable-size types that OpenGL and EGL libraries expect on the simulation host.
-The host system libraries subsequently performs the concerned OpenGL functions relayed by the target system libraries.
+Subsequently, the host system libraries may safely perform the relayed workload and return any results to the target system.
 
-Similarly to the target system libraries, the host system libraries need to maintain a subset of the OpenGL state.
-This includes buffering of data that may later be used (drawn) in a separate function invocation.
-When a requested OpenGL invocation has been performed, any function results are returned to the target system.
+Both target and host system libraries maintain a subset of the OpenGL state, such as bound vertex buffers and attribute properties.
+These states must be maintained because of the asynchronous nature of the command stream.
 
 % Windowing Systems
 \subsection{Windowing Systems}
