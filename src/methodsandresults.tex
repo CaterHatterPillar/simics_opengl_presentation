@@ -12,13 +12,9 @@
 % Methods and Results
 \section{Methods and Results}
 \label{sec:methodsandresults}
-We present the implementation of paravirtualized graphics acceleration in the Simics full-system simulator.
-This method encompasses three overall components, being the target system libraries, the host system libraries, and a communications channel between them named the "Simics pipe".
-
-For the purposes of ensuring scalability of the solution during development, we use code generation to produce the majority of target and host system libraries.
-Accordingly, the outmost majority of paravirtualized OpenGL functions are compiled by this tool.
-The tool in question generates the OpenGL function definitions from framework specification files detailing function signatures and arguments.
-It generates all but the methods that require state saving.
+OpenGL paravirtualization in Simics encompasses three overall components, being the target system libraries, the host system libraries, and a communications channel between them named the "Simics pipe".
+To facilitate easier development, target and host system libraries may be partly generated from specification files detailing function signatures and arguments.
+Except methods that require state saving, the majority of the libraries are generated this way.
 
 The generated libraries, the Simics pipe, and implementation details thereof are presented in this section.
 
