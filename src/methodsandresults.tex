@@ -28,21 +28,11 @@ Subsequently, the host system libraries may safely perform the relayed workload 
 Both target and host system libraries maintain a subset of the OpenGL state, such as bound vertex buffers and attribute properties.
 These states must be maintained because of the asynchronous nature of the command stream.
 
-% Windowing Systems
-\subsection{Windowing Systems}
-\label{sec:proposedsolutionandimplementation_windowingsystems}
-Due to differences in the creation and maintenance of windows on different platforms (Fedora, Android, etc.), the window to which OpenGL renders is kept on the simulation host.
-This is problematic; it means that the target system libraries have to communicate with a fraudulent window in the simulation host -- \textit{and} the native window.
+Because of differences in the creation and maintenance of windows on different platforms (Fedora, Android, etc.), the window to which OpenGL renders is kept on the simulation host.
+This is problematic; the target system libraries must communicate with a fraudulent window in the simulation host -- \textit{and} the native window.
 For example, it is important that the native window reports successful initialization, lest the OpenGL application concludes an error and quits.
-Effectively, the target system libraries needs to maintain \textit{some} of the native functionality of the EGL library.
-Not all, however, since EGL is used to -- inter alia -- swap target application back buffers.
-Thus, there is a conflict between wanting to keep the functionality of the native EGL library, yet modify a small part of it.
-
-The issue is overcome by overriding symbols in the target libraries so that desired functions may be overloaded.
-In this way, the target libraries may forward a given invocation to the host system and then locate the next occurrence of the concerned invocation symbol in the symbol table (the native EGL function definition) and invoke the original function.
-Thus, the paravirtualized EGL library does not replace the native EGL library in its entirety, but rather extends it.
-In this way, a target application window may be successfully created as expected by the application, yet having it actually communicating with another (host) window.
-This could be described as a sort of man-in-the-middle attack on the target EGL library.
+The issue is overcome by selectively overriding symbols in the target libraries so that a subset of functions may be overloaded.
+This way, one may extend the original EGL library to invoke the simulation host prior to performing its actions.
 
 % Simics Pipe
 \subsection{Simics Pipe}
