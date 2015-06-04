@@ -83,13 +83,11 @@ The Chess benchmark is run with $60\times60$, $84\times84$, and $118\times118$ t
 % Benchmark: Julia
 \paragraph{Benchmark: Julia}
 \label{par:experimentalmethodology_benchmarking_benchmarkjulia}
-The 'Julia' benchmark is developed to stress computational intensity in the paravirtualized solution.
-It is so named because the program calculates the Julia fractal~\masccite{web:tsiombikas:2014}.
-The benchmark is designed to perform a lone, computationally intensive, invocation, which will stress the computational prowess of the profiled platform.
-The case is selected for use as the computation of a fractal is trivially scalable in terms of complexity, by modifying the number of iterations the fractal algorithm performs.
-Thus, it is suitable for profiling computationally intensive workloads.
+To stress the computational prowess of paravirtualized graphics in Simics, the 'Julia' benchmark performs a lone, computationally intensive, OpenGL invocation that render the Julia fractal~\masccite{web:tsiombikas:2014}.
+Like a benchmark that renders a grid of tiles, where the grid resolution may be adjusted, the computation of a fractal is trivially scalable in terms of complexity, by modifying the number of iterations the computing algorithm performs.
+Therefore, the Julia benchmark is suitable to profile a computationally intensive workload.
 
-We perform the Julia benchmark with $225$, $450$, and $900$ iterations per frame, all of which induce only $16$ magic instructions per frame.
+The Julia benchmark is run with $225$, $450$, and $900$ iterations, all of which induce only $16$ magic instructions per frame.
 
 \subsection{Threats to Validity}
 \label{sec:threatstovalidity}
