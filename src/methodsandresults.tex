@@ -47,11 +47,10 @@ Subsequently, all memory pages are continiously retrieved by iterating the origi
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}
-The experiments are performed in software rasterized and paravirtualized Simics platforms.
-The results are then compared to reference runs on the host system.
-Simics is configured to simulate an Intel\circledR ~Core\texttrademark ~i7 processor and an Intel\circledR ~X58 chipset.
-During simulation, hardware-assisted virtualization is used to accelerate the simulation by running target x86 instructions natively on the host hardware.
-The simulation systems are, like the host system, set up to run Fedora~$19$ Linux and use the Mesa llvmpipe driver~\masccite{web:mesa:2015} for software rasterization.
+To evaluate the implementation, performance of paravirtualized graphics in Simics is compared to software rasterization.
+Simics itself simulates an Intel\circledR ~Core\texttrademark ~i7 processor and an Intel\circledR ~X58 chipset.
+Throughout simulation, hardware-assisted virtualization using KVM runs x86 instructions natively on the host hardware.
+Like the host system, the simulation target runs Fedora~$19$ Linux and use the Mesa llvmpipe driver software rasterizer~\masccite{web:mesa:2015}.
 
 The experiments are performed on a system with the following specifications:
 \begin{itemize}
@@ -59,17 +58,15 @@ The experiments are performed on a system with the following specifications:
 \item Intel\circledR\ Iris\texttrademark\ Pro Graphics 5200
 \end{itemize}
 
-Two benchmarks are devised on-site for the purposes of evaluating the paravirtualized implementation.
-Each benchmark is intended to stress one suspected bottleneck in the implementation: one benchmark performs a large number of relatively insignificant OpenGL invocations, while the other has a computationally intensive workload.
-Given a target frame time of $16$~\milli\second , both benchmarks are configured to run at between $10$ and $20$~\milli\second\ per frame when hardware accelerated on the host system; a $16$~\milli\second\ frame time should roughly correspond to $60$~frames per second.
-The benchmarks are shaped this way to reflect the expected load of a modern real-time interactive application.
+Two benchmarks are devised on-site to stress suspected bottlenecks: one benchmark performs a large number of OpenGL invocations, while the other has a computationally intensive workload.
+Given a target frame time of $16$~\milli\second , the benchmarks are configured to run at $10$ to $20$~\milli\second\ per frame, when hardware accelerated on the host system; a $16$~\milli\second\ frame time roughly corresponds to $60$~frames per second.
+The benchmarks are shaped this way to reflect the expected load of a real-time interactive application.
 As such, the benchmarks should be representative of typical scenarios induced by modern applications using OpenGL, such as responsive UIs.
 The developed benchmark suite is open source and available online~\masccite{web:intel:2014}.
 
-During the experiments, the elapsed times of $1000$ frames is measured for each benchmark.
-In order to gain some understanding on how well the given performance scales, we run three instances of each benchmark.
-These benchmark instances are performed with smaller and larger input data, tuned to yield approximately half and double frame time, respectively, assuming that the benchmarks stress the bottlenecks they were designed for.
-The specifics of the input data sizes are described below, along with each respective benchmark.
+For each benchmark, the elapsed times of $1000$ frames are collected.
+To gain some understanding on how well the given performance scales, three instances of each benchmark are run with smaller and larger input data, tuned to yield approximately half and double frame time..
+The specifics of each benchmark are described below.
 
 % Benchmark: Chess
 \paragraph{Benchmark: Chess}
