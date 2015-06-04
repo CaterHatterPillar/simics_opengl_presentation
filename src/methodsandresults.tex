@@ -91,20 +91,18 @@ The Julia benchmark is run with $225$, $450$, and $900$ iterations, all of which
 
 \subsection{Threats to Validity}
 \label{sec:threatstovalidity}
-Because of complications caused by virtual time, profiling of elapsed time in simulators dictate special measures.
-This is due to the fact that profiling of elapsed time outside of the simulation -- that is, time in the context of the observer -- may be more relevant than profiling of virtual time.
-This is often the case if the simulation has outside dependencies of some sort.
-Naturally, it is so in terms of real-time interaction and rendering.
+Because of complications caused by virtual time, measuring time in system simulation sometimes dictate special measures.
+For instance, in terms of real-time rendering, the observer is far more interested in a frame rate relative to wall-clock time rather than virtual time.
 
-In order to profile elapsed frame times, profiling must take place outside of the simulation.
+In order to measure frame time in relation to wall-clock time, profiling must take place outside of the simulation.
 One way of achieving this is to listen in on activity passing through a target serial port; this is a traditional front-end to the machine.
-In this way, the simulator is instructed to listen in on, and set a simulation breakpoint at the occurrence of, a specialized sequence of bytes being written to a UART serial port.
-This is the method we use to profile frame time performance in Simics.
+In this way, a simulation breakpoint can be triggered at the occurrence of a certain sequence of bytes written to a UART serial port.
+This is the method used to measure frame time in Simics.
 
 When using serial ports in this manner, one may introduce a profiling cost.
-Such overhead may be induced because of file descriptors not immediately transmitting a concerned byte sequence via the system UART.
-This overhead cost is measured to be, on average, $1.5$~\milli\second .
-If not specified otherwise, presented results take into account the average of this profiling overhead.
+For example, file descriptors do not immediately transmit a byte sequence over the system UART.
+For our set-up, we measure this overhead cost to be, on average, $1.5$~\milli\second .
+If not specified otherwise, presented results take into account this average.
 
 \subsection{Results}
 \label{sec:results}
