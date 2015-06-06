@@ -10,7 +10,6 @@ cp build_gnu.py bin/
 cp histogram2x3.gnu bin/
 cp dat/* bin/
 cp -r src bin/
-cp -r img bin/
 cp tex/* bin/
 
 # Concatenate sources into single bibliography file in bin.
