@@ -3,33 +3,30 @@
 % Conclusion
 \section{Conclusion}
 \label{sec:conclusion}
-In Section \ref{sec:results}, we establish strengths and weaknesses of paravirtualized graphics in the Simics full-system simulator; most notably, the bottleneck introduced by magic instruction overhead.
-As such, we confirm original suspicions through the use of the described benchmarks.
-Thus, this study identifies the performance bottleneck inherent in great numbers of paravirtualized function invocations.
+This paper presents graphics acceleration by the means of paravirtualization in the Simics full-system simulator.
+The implementation generates EGL and OpenGL libraries and communicates with low-latency magic instructions.
+To evaluate the implementation, benchmarks are developed to highlight solution weaknesses and strengths; an analysis of results is presented, as well as benefits and drawbacks of paravirtualized methodology.
 
-Furthermore, compiled results showcase great improvements for computationally intensive graphics, as demonstrated by the Julia fractal benchmark, compared to its software rasterized Simics counterpart.
-As such, we have accelerated graphics by up to $34$ times, reducing frame time from that of $1415$~\milli\second\ to the real-time feasible count of 42~\milli\second ; a frame time of 42~\milli\second\ roughly correspond to 24 frames per second.
-For platforms that cannot utilize hardware-assisted virtualization, paravirtualization is estimated to obtain an additional order of magnitude in frame time reduction, in comparison to software rasterization.
-Such scenarios may include simulating other platforms than x86, such as PowerPC, or when utilizing certain advanced features in Simics -- e.g. breakpoints.
+In Section~\ref{sec:results}, compiled results showcase great improvements for computationally intensive graphics.
+Performance is improved by up to $34$ times, reducing frame time from $1415$~\milli\second\ to $42$~\milli\second ; a frame time of $42$~\milli\second\ roughly correspond to 24 FPS.
+Furthermore, paravirtualization lower maximum frame times, significantly improving standard deviation.
+Compared to software rasterization, paravirtualization is estimated to obtain an additional order of magnitude faster frame time without hardware-assisted virtualization.
 
-Accordingly, this experiment has identified the potential of using paravirtualization with shared memory for the means of accelerating graphics to that of real-time performance, testimonial to the results presented by Lagar-Cavilla et al. in their work on using paravirtualization to accelerate graphics~\masccite{inproceedings:lagarcavilla:2007}.
-Additionally, results indicate performance improvements in terms of maximum frame times, inducing significantly improved standard deviation.
-In line with stable frame rates being prerequisites for real-time applications, this further indicates, in coagency with reduced frame times, the feasibility of utilizing paravirtualized methodology for the purposes of accelerating graphics within virtual platforms.
+Along with performance improvements, Section~\ref{sec:results} detail a communications latency issue inherent in magic instruction overhead.
+This emerges as a performance bottleneck inherent in great numbers of paravirtualized function invocations.
+While magic instructions are -- evidently -- fast enough to accomodate real-time graphics, improvements to this overhead should greatly improve their capacity.
 
-To summarize: this paper presents a solution for graphics acceleration implemented in the Simics full-system simulator by the means of paravirtualization.
-The end-result is a solution which may generate libraries imitating EGL and OpenGL libraries.
-This solution may spy on application EGL utilization, without inhibiting said exchange, allowing unmodified OpenGL applications to be accelerated from within the simulation target.
-The implementation communicates with low-latency magic instructions with no limit as to how much memory may be shared.
-As such, throughout the paper, we have tackled and presented several issues pertaining to paravirtualized graphics acceleration.
-For the purposes of performance testing, we have developed benchmarks with the distinct purpose of highlighting solution weaknesses and strengths.
-We have presented an analysis of benchmarking results and concluded the benefits and drawbacks of paravirtualization as means to graphics acceleration in virtual platforms, backed by hard data stressing key points in the implementation.
-Accordingly, the findings of this paper has contributed to our understanding of the difficulties facing paravirtualized graphics acceleration, and has established the feasibility of using paravirtualization to accelerate graphics in virtual platforms to that of real-time qualities.
+To conclude: this paper demonstrates accelerated graphics in Simics using paravirtualization with magic instructions as a communications bridge.
+Graphics acceleration in Simics is relevant because it fascilitates debugging, testing, and profiling of software that depends on GPU utilization.
+Consequently, paravirtualization is practical because it offers a good development cost and performance trade-off.
+The findings of this paper may help in extending the use of Simics to application development dependent on GPUs, including computer graphics and general-purpose workloads.
 
-To conclude: this paper has demonstrated performance improvements by accelerating graphics using paravirtualization.
-Induced benefits are performance improvements of up to $34$ times -- or two orders of magnitude, paired with larger benefits in non-hardware-accelerated use-cases.
-Magic instruction overhead is identified as the main performance bottleneck.
-As such, a drawback of graphics paravirtualization is a weakness to large amounts of framework invocations.
-Thus, this paper claims paravirtualization as a successful formula for system simulator graphics acceleration, and suggests utilizing high-level paravirtualization to accelerate graphics in virtual platforms.
+Benefits are performance improvements of up to two orders of magnitude, paired with larger benefits in non-hardware accelerated use-cases.
+Magic instruction overhead is identified as the performance bottleneck.
+As such, a drawback is a weakness to large amounts of framework invocations.
+Accordingly, the findings of this paper contributes to our understanding of the difficulties facing graphics acceleration in virtual platforms by demonstrating the use of paravirtualization as a successful formula to accelerate graphics in Simics.
+
+% future work
 
 The presented implementation may be advanced in a number of ways to support a higher number of platforms and subject to an array of performance enhancements.
 Below, recommendations for future study are presented.
