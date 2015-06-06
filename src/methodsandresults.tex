@@ -113,41 +113,37 @@ In Figure~\ref{fig:histogram}, the results are presented as histograms, visualiz
 For each experiment, collected frame time samples ($1000$) are subdivided into $100$ bins.
 Any measurements outside of the standard deviation are not included in the figures.
 
-The data visualized in Figure \ref{fig:histogram} shows that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
-The right-hand side of the graph, while also showing impaired performance induced by paravirtualization, visualize a decrease in sample density distribution.
-This is supported by the data presented in Table \ref{tab:keyvalpara}.
-Based on the data summarized in Table \ref{tab:keyvalsimics}, and comparing said data to that of Table \ref{tab:keyvalpara}, we may observe that the software rasterized solution outperforms its paravirtualized counterpart, regardless of the number of tiles rendered.
+Figure~\ref{fig:histogram} indicates that the Chess benchmark, when software rasterized, yields a broad sample distribution, seemingly distributed around a single point.
+The right-hand side of the graph, showing impaired performance induced by paravirtualization, visualize a distribution decrease.
+This is supported by the data presented in Table~\ref{tab:keyvalpara}.
+We observe that software rasterization outperforms its paravirtualized counterpart, regardless of the number of tiles rendered.
+The benchmark is devised to identify any bottlenecks related to the number of paravirtualizaed invocations.
+Evidently, the prediction of a target-to-host communication latency issue is confirmed.
 
-The Chess benchmark is designed to locate any bottlenecks related to the number of paravirtualized invocations, which is a predicted bottleneck.
-Evidently, the prediction of a target-to-host communication latency issue has been confirmed, arguably identifying one weakness of graphics paravirtualization in the Simics full-system simulator.
+In Simics, magic instructions incur a context switch cost when resuming execution on the host.
+This causes the simulation to no longer execute natively, which inhibits performance imrovements granted by hardware-assisted virtualization.
+It also entails that Simics can no longer utilize JIT, forcing the simulator to rely on interpretation.
+As such, in great numbers, magic instructions may affect performance.
 
-In Simics, magic instructions incur a context switch cost when exiting the simulation and resuming execution on the host.
-This affects the performance by forcing the simulation to no longer be executed natively, inhibiting the performance improvements granted by hardware-assisted virtualization.
-It also entails Simics no longer being able to utilize just-in-time compilation to speed up execution, forcing the simulator to rely on regular code interpretation.
-As such, in great numbers, magic instructions may greatly affect performance.
+By measuring the elapsed time of using magic insructions to escape simulation $1000$ times, we conclude that $1000$ consecutive magic instructions induce an average overhead of $5$~\milli\second\ (not taking into account any profiling cost).
+These findings indicate that magic instruction overhead could account for the majority of elapsed frame time.
 
-In order to establish what those overhead costs may be, further study into this matter is performed by measuring the elapsed time of escaping simulation $1000$ times using magic instructions.
-From these findings, we may conclude that $1000$ consecutive magic instructions induce an average overhead of roughly $5$~\milli\second , minus profiling cost.
-These findings indicate that magic instruction overhead could account for the majority of elapsed frame times when paravirtualized in Simics.
+Figure~\ref{fig:histogram} shows that the Julia benchmark yields double to triple peak sample density destribution, both in software rasterized and paravirtualed Simics.
+What causes this behavior is unclear; the fractal algorithm should perform roughly equally frame-to-frame.
+The benchmark is intented to demonstrate how paravirtualization performs under computational stress.
+This is where the benefits of hardware acceleration should be made apperent.
+Accordingly, weaknesses in software rasterization is highlighted with frame times above the two second mark; corresponding maximum paravirtualized frame time measuring a mere $156$ \milli\second.
+This confirms performance improvements of using paravirtualization, paired with magic instructions, to accelerate graphics.
 
-In Figure \ref{fig:histogram}, we may observe double to triple peak behavior in the distribution of the sample density, both in software rasterized and paravirtualized platforms.
-What causes this behavior is unclear, as frame-to-frame branching in the fractal algorithm is minor and ought not cause such a variance.
+These measurements are collected using hardware-assisted virtualization for accelerated virtualization.
+If hardware-assisted virtualization is not available, such as if the simulated platform is other than x86, we expect a major hit to performance.
+For software rasterization, this impact accounts for frame time increases well over two orders of magnitude.
+Meanwhile, performance impacts to paravirtualization is often not significant, sometimes as low as a third of the original frame time.
+For the Chess benchmark, paravirualized frame time increase with \textit{up to} one order of magnitude, one order less than the performance hit to software rasterization.
+Across the board, paravirtualization suffer less performance impact, rendering the benchmarks up to three orders of magnitude faster than software rasterization.
+We conclude that the effects of paravirtualization increase by one order of magnitude without hardware-assisted virtualization.
+This entails that workloads that are otherwise sub-optimal for paravirtualization -- those performing a large amount of function invocations -- bring about performance improvements when utilizing paravirtualization.
+Thus, the impact of magic instruction overhead is reduced, likely because a costly context switch is not inflicted on Simics.
+We reason that some software rasterized worklads (Chess) may attain decent simulation performance simply because of a fast simulator; when native execution is not available, neither JIT nor interpretation may attain the same speeds as paravirtualization.
 
-The Julia benchmark is incorporated into the experiment to establish how the paravirtualized solution performed under computational stress, which is where benefits induced by hardware acceleration should be made apparent.
-Using this benchmark, we highlight weaknesses in Simics software rasterization, with frame times well above the two second mark; the corresponding maximum frame time in the paravirtualized Simics platform measuring up to to a mere $156$ \milli\second .
-As visualized in Figure \ref{fig:histogram}, we showcase considerable performance improvements and -- in turn -- identify the capabilities of graphics paravirtualization in the Simics full-system simulator.
-
-If hardware-assisted virtualization is not available, such as if the simulated platform is PowerPC, we may expect a major hit to performance.
-For software rasterization, this impact accounts for well over two orders of magnitude increased frame time.
-Meanwhile, performance impacts to paravirtualized Simics is not significant, sometimes as low as a third of the original frame time, except for the Chess benchmark where the frame time may increase with \textit{up to} one order of magnitude; still one order of magnitude less than the performance impact to software rasterization.
-This can be expected, since the paravirtualized method entails that most work is performed on the simulation host.
-
-Across the board, the paravirtualized solution suffer less performance impact, rendering the benchmarks at up to three orders of magnitude reduced frame times compared to software rasterization.
-Accordingly, compared to execution with hardware-assisted virtualization, the effects of paravirtualization are increased by one order of magnitude.
-This entails that workloads that are otherwise sub-optimal for paravirtualized graphics acceleration -- those performing many paravirtualized function invocations -- bring about performance improvements when utilizing paravirtualization.
-Thus, the impact magic instructions have on performance is reduced when hardware-assisted virtualization is not available, likely because a magic instruction does not have to impose a costly context switch when exiting native execution.
-
-We may conclude that some workloads (Chess) may attain decent simulation performance when software rasterized simply because of a fast simulator.
-When native execution is not available, neither JIT compilation or interpretation can gain the same speeds as paravirtualization.
-
-The results collected without hardware-assisted virtualization are not presented in detail in this paper, since the focus of this paper is platforms where hardware acceleration is available.
+The samples collected without hardware-assisted virtualization are not presented in detail, since the scenario of native execution is far more likely.
