@@ -68,6 +68,8 @@ For each benchmark, the elapsed times of $1000$ frames are collected.
 To gain some understanding on how well the given performance scales, three instances of each benchmark are run with smaller and larger input data, tuned to yield approximately half and double frame time..
 The specifics of each benchmark are described below.
 
+\input{src/tables}
+
 % Benchmark: Chess
 \paragraph{Benchmark: Chess}
 \label{par:experimentalmethodology_benchmarking_benchmarkchess}
@@ -110,8 +112,6 @@ Results accumulated from software rasterized and paravirtualized execution are p
 In Figure~\ref{fig:histogram}, the results are presented as histograms, visualizing elapsed time in milliseconds to sample density.
 For each experiment, collected frame time samples ($1000$) are subdivided into $100$ bins.
 Any measurements outside of the standard deviation are not included in the figures.
-
-\input{src/tables}
 
 The data visualized in Figure \ref{fig:histogram} shows that the Chess benchmark, when software rasterized in Simics, has a broad sample density distribution, yet the distribution seem evenly distributed around a single point.
 The right-hand side of the graph, while also showing impaired performance induced by paravirtualization, visualize a decrease in sample density distribution.
