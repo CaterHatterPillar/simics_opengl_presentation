@@ -25,23 +25,3 @@ Benefits are performance improvements of up to two orders of magnitude, paired w
 Magic instruction overhead is identified as the performance bottleneck.
 As such, a drawback is a weakness to large amounts of framework invocations.
 Accordingly, the findings of this paper contributes to our understanding of the difficulties facing graphics acceleration in virtual platforms by demonstrating the use of paravirtualization as a successful formula to accelerate graphics in Simics.
-
-% future work
-
-The presented implementation may be advanced in a number of ways to support a higher number of platforms and subject to an array of performance enhancements.
-Below, recommendations for future study are presented.
-
-In terms of performance, command serialization batching should be considered for the purposes of minimizing the number of performed magic instructions.
-That is, the ability to queue framework invocations and transmit them in a batch rather than individually.
-Considering that magic instructions are a performance bottleneck, such an optimization could drastically improve simulation performance.
-Furthermore, such an optimization could be paired with WireGL, an OpenGL rendering distribution library~\masccite{web:stanford:2015}.
-
-Often, it is desirable to simulate systems other than the simulation host.
-One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
-In this case, it is possible that target software utilize the DirectX framework to render graphics, whereas the host Linux system only feature the OpenGL libraries.
-
-In $2014$, Valve released open-source software capable of converting DirectX~$9.0$c-code to that of OpenGL~\masccite{technicaldocs:valve:2014}.
-Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform one may be practical for the purposes of graphics acceleration in virtual platforms.
-An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
-If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, this might bridge the gap between the performance gains of using paravirtualization and other -- albeit slower, generalized ways of virtualizing graphics for any platform.
-Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics paravirtualization in the Simics full-system simulator.
