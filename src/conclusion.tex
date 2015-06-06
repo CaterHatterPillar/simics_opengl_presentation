@@ -48,14 +48,3 @@ Albeit limited in its capabilities, the functionality of translating between one
 An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
 If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, this might bridge the gap between the performance gains of using paravirtualization and other -- albeit slower, generalized ways of virtualizing graphics for any platform.
 Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics paravirtualization in the Simics full-system simulator.
-
-% Other possible future work to consider:
-% * More verbose benchmarks.
-% * Memory bandwidth benchmark (see EOF).
-% * Consider mentioning making further study into how the overhead cost
-%   for magic instructions might change if using VMP, JIT, or regular
-%   interpretation.
-
-%% Furthermore, and for the purposes of complementing this dissertation in particular, the author would like to suggest additional tests stressing target -to-host communications.
-%% Preferably, said tests would stress the communication by other means than profiling the sampling of a large texture, since such a test may cause volatile performance in the reference material (being software rasterized Simics ), possibly due to cache misses (see Section \ref{sec:threatstovalidity_benchmarkvariations}).
-%% When performing such a test, it may be of value to profile the overhead induced by the memory table traversal described in Section \ref{sec:proposedsolutionandimplementation_pagetabletraversal}.
