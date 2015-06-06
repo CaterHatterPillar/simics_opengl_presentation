@@ -11,20 +11,9 @@ Optimally, the simulator should run an unmodified target, but if high performanc
 In this way, the changes are confined to the graphics library.
 Thus, what parts of the simulation are modified can easily be described to systems developers.
 
-BACKGROUND
-
-Lagar-Cavilla et al. present VMGL, an OpenGL virtualization solution that can accelerate OpenGL~$1.5$ up to two orders of magnitude in comparison to software rasterization~\masccite{inproceedings:lagarcavilla:2007}.
-The solution runs the OpenGL library and GPU driver on the VMM host, and utilizes network transport to relieve OpenGL commands between target and host systems.
-VMGL was evaluated in WMware Workstation and Xen VMMs.
-
 PROBLEM FORMULATION
 
 Such functionality could simplify debugging, testing, and profiling of applications comprising some GPU-bound workload, leveraging the benefits of using Simics for software and systems development with applications requiring graphics acceleration, e.g. responsive UIs.
-
-As portrayed in Section~\ref{sec:previousresearch}, VMGL is an OpenGL virtualization solution for WMware Workstation and Xen platforms.
-Based on conclusions drawn from VMGL, Lagar-Cavilla et al. concludes that target to host communications could be a potential performance bottleneck when using network communications.
-Thus, as an alternative to network communications, Lagar-Cavilla et al. suggests utilizing a shared memory model, suspecting that such a paradigm might relieve any communications bottleneck.
-Accordingly, this paper presents an OpenGL paravirtualization model using magic instructions to share VM memory directly from a simulated RAM image.
 
 PARAVIRTUALIZATION
 

@@ -17,8 +17,10 @@ However, due to large architectural differences, delegating GPU workloads to CPU
 
 Instead, by neglecting some hardware compatibility, one may circumvent the virtual machine and delegate GPU workloads to the simulation host.
 This way, host hardware can be utilized in a process known as "Paravirtualization"~\masccite[p.~1]{inproceedings:youseff:2006}.
+Paravirtualization has been used to accelerate graphics in the past; most notably, Lagar-Cavilla et al. accelerate OpenGL~$1.5$ up to two orders of magnitude~\masccite{inproceedings:lagarcavilla:2007} for WMware~Workstation and Xen VMMs.
+To relieve communication bottlenecks, Lagar-Cavilla et al. suggests using a shared memory model~\masccite{inproceedings:lagarcavilla:2007} for target-to-host communications.
 
-This paper presents the acceleration of OpenGL~ES~$2.0$ in the Simics full-system simulator, using magic instructions as a communications bridge between target and host systems.
+This paper presents the acceleration of OpenGL~ES~$2.0$ in the Simics full-system simulator, using magic instructions to share VM memory directly from a simulated RAM image.
 The implementation is evaluated using performance benchmarks stressing important attributes of the devised solution, and subsequently compared to regular software rasterization on the simulated platform.
 Furthermore, the study identifies performance bottlenecks that may obstruct paravirtualized real-time graphics.
 The results presented in this paper show performance improvements of up to $34$ times compared to software rasterized counterparts.
