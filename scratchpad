@@ -1,10 +1,3 @@
-PAPER ORGANIZATION
-
-The rest of this paper is organized as follows.
-In Section \ref{sec:previousresearch} previous research in the field is presented, followed by the problem formulation in Section \ref{sec:problemformulation}.
-Section \ref{sec:methodsandresults} described the devised implementation, experiment, and the results thereof.
-The paper is concluded in Section \ref{sec:conclusion} along with suggestions for future work in the area.
-
 PARAVIRTUALIZATION
 
 At a higher level of abstraction, there is the option of paravirtualization.
@@ -20,17 +13,12 @@ Thus, what parts of the simulation are modified can easily be described to syste
 
 BACKGROUND
 
-System simulators are abundant and exist in corporate~\masccite{magazines:bohrer:2004}, academic~\masccite{journals:rosenblum:1995}, and open-source variations~\masccite{inproceedings:bellard:2005}.
-Such platforms, like Simics, are used for many purposes including thermal control strategies in multicores~\masccite{inproceedings:bartolini:2010}, networking timing analysis~\masccite{journals:ortiz:2009}, web server performance evaluation~\masccite{journals:villa:2005}, and to simulate costly hardware financially unfeasible to researchers~\masccite{journals:alameldeen:2003}.
-
 Lagar-Cavilla et al. present VMGL, an OpenGL virtualization solution that can accelerate OpenGL~$1.5$ up to two orders of magnitude in comparison to software rasterization~\masccite{inproceedings:lagarcavilla:2007}.
 The solution runs the OpenGL library and GPU driver on the VMM host, and utilizes network transport to relieve OpenGL commands between target and host systems.
 VMGL was evaluated in WMware Workstation and Xen VMMs.
 
 PROBLEM FORMULATION
 
-In regards to previous work in the area, there is no indication -- in academic writing -- of existing paravirtualized graphics in a simulator with advanced capabilities like Simics, featuring deterministic execution, checkpointing and reverse execution.
-Potential performance gains on such a platform are inherently unclear due to these features, and accordingly incentivize a performance evaluation.
 Such functionality could simplify debugging, testing, and profiling of applications comprising some GPU-bound workload, leveraging the benefits of using Simics for software and systems development with applications requiring graphics acceleration, e.g. responsive UIs.
 
 As portrayed in Section~\ref{sec:previousresearch}, VMGL is an OpenGL virtualization solution for WMware Workstation and Xen platforms.
@@ -38,51 +26,9 @@ Based on conclusions drawn from VMGL, Lagar-Cavilla et al. concludes that target
 Thus, as an alternative to network communications, Lagar-Cavilla et al. suggests utilizing a shared memory model, suspecting that such a paradigm might relieve any communications bottleneck.
 Accordingly, this paper presents an OpenGL paravirtualization model using magic instructions to share VM memory directly from a simulated RAM image.
 
-Entailed by these research gaps, the research questions formulated in this section are considered to be lacking in the field.
-
-This paper presents the paravirtualization of OpenGL~ES~$2.0$ in the Simics full-system simulator. 
-The study concerns investigating the performance of paravirtualized graphics in a modern virtual platform.
-This entails development and analysis of efficient communication and execution in the Simics run-time environment.
-The objectives of the paper is to evaluate the feasibility of paravirtualization as an approach to accelerate graphics in virtual platforms, and to identify the strengths and weaknesses of using magic instructions as a transparent communications bridge.
-
-Thus, this study is relevant to the field of computer science by expanding upon the the knowledge of graphics acceleration in virtual platforms.
-Graphics acceleration in a virtual platform is relevant because it facilitates debugging, testing, and profiling of software which depends on GPU graphics acceleration.
-By these means, this paper contributes to the field of computer science by answering these questions from the perspective of graphics paravirtualization in the Simics full-system simulator.
-
 PARAVIRTUALIZATION
 
 There are a number of ways to do so, such as relying on PCI~passthrough and similar technologies to grant access to underlying host hardware from within the virtual platform~\masccite[p.~415,~416]{inproceedings:regola:2010}, or utilizing a concept commonly referred to as "paravirtualization" at a higher level of abstraction, e.g., the graphics library.
 Paravirtualization is defined as selectively modifying the virtual architecture to enhance scalability, performance, or simplicity~\masccite[p.~165-166]{inproceedings:youseff:2006}.
 Effectively, this entails modifying the virtual machine to be similar, but not identical, to host hardware~\masccite[p.~165]{journals:barham:2003}.
 As such, one may simplify the virtualization process by neglecting some hardware compatibility~\masccite[p.~1]{inproceedings:youseff:2006}.
-
-GPUs
-
-The GPU is a vital part in delivering good user experiences on many devices, ranging from wearable, hand held, and portable units, to desktop computers.		
-Since GPUs operate significantly different from CPUs, utilizing massively parallelized instruction sets to increase throughput, they continue to pose unique challenges to designers and developers~\masccite[ch.~13]{publications:kirk:2010}.		
-The spread of GPU utilization and the increasing complexity of these electronic systems extend the virtualization needs of such devices.		
-For example, developers interested in benchmarking or driver development for next generation GPUs or CPUs may require detailed simulators that provide insight into execution engines and pipelines~\masccite[p.~1]{inproceedings:schumacher:2010}.		
-Albeit applicable in certain use-cases and capable of running 'toy' applications, such platforms are often orders of magnitude too slow to run commercial workloads~\masccite[p.~50]{journals:magnusson:2002}.		
-Application developers, on the other hand, do not necessarily care for the internal workings of hardware as they typically work at a higher abstraction level.		
-As such, some developers may be more interested in achieving decent simulation performance rather than a timing-accurate processor model~\masccite{publications:leupers:2010}.		
-However, due to large differences between CPU and GPU architecture, simply delegating GPU-bound workloads to CPUs is rarely feasible in terms of performance.
-
-FUTURE WORK
-
-The presented implementation may be advanced in a number of ways to support a higher number of platforms and subject to an array of performance enhancements.
-Below, recommendations for future study are presented.
-
-In terms of performance, command serialization batching should be considered for the purposes of minimizing the number of performed magic instructions.
-That is, the ability to queue framework invocations and transmit them in a batch rather than individually.
-Considering that magic instructions are a performance bottleneck, such an optimization could drastically improve simulation performance.
-Furthermore, such an optimization could be paired with WireGL, an OpenGL rendering distribution library~\masccite{web:stanford:2015}.
-
-Often, it is desirable to simulate systems other than the simulation host.
-One could pose the scenario of a Linux host system simulating a machine running a Windows OS.
-In this case, it is possible that target software utilize the DirectX framework to render graphics, whereas the host Linux system only feature the OpenGL libraries.
-
-In $2014$, Valve released open-source software capable of converting DirectX~$9.0$c-code to that of OpenGL~\masccite{technicaldocs:valve:2014}.
-Albeit limited in its capabilities, the functionality of translating between one, platform-specific, framework to that of a cross-platform one may be practical for the purposes of graphics acceleration in virtual platforms.
-An inherent flaw in paravirtualizing graphics APIs is that a target application may only make use of accelerated simulation performance if that application is implemented using the API in question.
-If such a solution could be used to translate the rendering of a target program on-the-fly in a virtual machine, this might bridge the gap between the performance gains of using paravirtualization and other -- albeit slower, generalized ways of virtualizing graphics for any platform.
-Thus, the adaption of this sort of software could extend the capabilities and area-of-application of graphics paravirtualization in the Simics full-system simulator.
