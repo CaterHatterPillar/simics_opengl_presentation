@@ -2,7 +2,6 @@
 
 \documentclass[conference, compsoc]{IEEEtran}
 
-\usepackage{xcolor} % colorbox for the inline code command.
 \usepackage{hyperref} % Hyperlinks and urls.
 \usepackage{listings} % code boxes.
 \usepackage{amsfonts} % \circledR.
@@ -18,7 +17,7 @@
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 
 \newcommand{\masccite}[2][]{\cite{#2}}
-\newcommand{\masccodeinline}[1]{\colorbox{black!5}{\lstinline[basicstyle=\ttfamily\color{black}]{#1}}}
+\newcommand{\masccodeinline}[1]{\texttt{#1}}
 \newread\file
 \newcommand{\mascfirstline}[1]{\input{#1}\unskip}
 
