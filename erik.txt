@@ -6,10 +6,8 @@ Eriks kritik
     require state saving, which are implemented manually."
 * * Andra stycket: parentesen stör läsflödet litegrann, men jag har inget bättre
     förslag.
-* * Pluraltypo: s/forwards/forward/
 * * Kanske s/or/nor/ (in the designated order), lite osäker
 * * Det är extra mellanrum mellan stycken i section 2 men inte i andra sections
-* * Pluraltypo: decode, interpret
 * * EGL: Det är jobbigt att hålla isär target och host, så det skadar nog inte
     att krydda med ett par explicita referenser till, t.ex. "the window to which
     the target OpenGL application renders", "the target's original EGL library".
