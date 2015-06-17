@@ -1,9 +1,5 @@
 Eriks kritik
 
-* Section 1:
-* * Tredje stycket, s/spread/widespread use of GPUs/
-* * Fjärde stycket, s/simulation host/GPU of the simulation host/
-
 * Section 2:
 * * s/, being/:/
 * * En mening är lite babblig, vad sägs om: "Most of the OpenGL glue code, on

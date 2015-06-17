@@ -12,10 +12,10 @@ Typical methods include interpretation~\masccite[p.~35]{journals:smith:2005, inp
 Virtual platforms using these techniques can typically achieve a simulation performance in the range of $10$-$1000$ million instructions per second~\masccite[p.~24,~25]{journals:aarno:2013}.
 
 The GPU is a vital part in delivering good user experiences on many devices, ranging from wearable, hand held, and portable units, to desktop computers.
-The spread of GPU utilization and the increasing complexity of these electronic systems extend the virtualization needs of such devices.
+The widespread use of GPUs and the increasing complexity of these electronic systems extend the virtualization needs of such devices.
 However, due to large architectural differences, delegating GPU workloads to CPUs may yield poor performance.
 
-Instead, by neglecting some hardware compatibility, one may circumvent the virtual machine and delegate GPU workloads to the simulation host.
+Instead, by neglecting some hardware compatibility, one may circumvent the virtual machine and delegate GPU workloads to the GPU of the simulation host.
 This way, host hardware can be utilized in a process known as "Paravirtualization"~\masccite[p.~1]{inproceedings:youseff:2006}.
 Paravirtualization has been used to accelerate graphics in the past; most notably, Lagar-Cavilla et al. accelerate OpenGL~$1.5$ up to two orders of magnitude for WMware~Workstation and Xen VMMs~\masccite{inproceedings:lagarcavilla:2007}.
 To relieve communication bottlenecks, Lagar-Cavilla et al. suggests using a shared memory model for target-to-host communications~\masccite{inproceedings:lagarcavilla:2007}.
