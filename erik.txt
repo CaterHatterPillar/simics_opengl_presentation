@@ -1,9 +1,5 @@
 Eriks kritik
 
-* Överlag:
-* * inkonsekvent användning av "x" vs 'x' vs \emph{x}. Själv föredrar jag oftast
-    emph, men det kanske beror på vilken stil papper i MASCOTS brukar ha.
-
 * Section 1:
 * * Andra stycket, ev syftningsfel på "fast". Kanske "There are several
     techniques to provide fast CPU workloads on functional virtual platforms"?
