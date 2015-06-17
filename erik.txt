@@ -1,8 +1,6 @@
 Eriks kritik
 
 * Section 1:
-* * Andra stycket, ev syftningsfel på "fast". Kanske "There are several
-    techniques to provide fast CPU workloads on functional virtual platforms"?
 * * Tredje stycket, s/spread/widespread use of GPUs/
 * * Fjärde stycket, s/simulation host/GPU of the simulation host/
 
