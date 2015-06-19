@@ -15,7 +15,6 @@ Eriks kritik
     simulering av en ARM-telefon. Kanske OK att bara hoppa över att motivera.
 
 * Section 3:
-* * "offers a good trade-off between ..."
 * * "Benefits are..": försök få stycket att stå mer på egna ben, t.ex. "The
     benefits of ... are" eller en helt annan formulering
 * * "Magic instruction overhead is identified...", "As such, ...": två meningar
