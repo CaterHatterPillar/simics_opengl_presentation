@@ -33,7 +33,8 @@ During a magic instruction, we may utilize any available registers; the number a
 Thus, we transmit the starting address of the serialized command stream in a 64-bit register.
 Having escaped the simulation context, Simics can translate the transmitted virtual address to a physical one using the virtual machine MMU.
 Consequently, the physical address can be used to locate the memory page in the simulated RAM image.
-To ensure the pages are not swapped to disk when the simulation state is paused, we "lock" all pages constituting the command stream buffer.
+The pages constituting the buffer are locked in RAM, protecting the buffer from being paged to the swap area.
+This ensures that pages are not swapped to disk when the simulation state is paused.
 Subsequently, all memory pages are continiously retrieved by iterating the original virtual address with the target page size, effectively traversing the virtual memory table.
 
 \subsection{Experimental Methodology}

@@ -7,7 +7,6 @@ Eriks kritik
 * * EGL: Det är jobbigt att hålla isär target och host, så det skadar nog inte
     att krydda med ett par explicita referenser till, t.ex. "the window to which
     the target OpenGL application renders", "the target's original EGL library".
-* * "lock": istället för citationstecken, försök använda rätt formella begrepp.
 
 * Section 2.1:
 * * Pluraltypo: s/render/renders/
