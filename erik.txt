@@ -4,9 +4,6 @@ Eriks kritik
 * * Andra stycket: parentesen stör läsflödet litegrann, men jag har inget bättre
     förslag.
 * * Det är extra mellanrum mellan stycken i section 2 men inte i andra sections
-* * EGL: Det är jobbigt att hålla isär target och host, så det skadar nog inte
-    att krydda med ett par explicita referenser till, t.ex. "the window to which
-    the target OpenGL application renders", "the target's original EGL library".
 
 * Section 2.3:
 * * ", such as if..., ": lite klumpig mening, men jag har inget klockrent
