@@ -8,11 +8,6 @@ Eriks kritik
     att krydda med ett par explicita referenser till, t.ex. "the window to which
     the target OpenGL application renders", "the target's original EGL library".
 
-* Section 2.1:
-* * Babbligt: "Like a benchmark..". Kanske "The computational intensity of a
-    fractal computation can easily be tuned, by adjusting the number of
-    iterations per pixel." Meningen "Therefore... " är kanske redundant.
-
 * Section 2.2:
 * * 'presented results take into account': kanske lättare om du skriver mer
     explicit, t.ex. "this average is subtracted from presented measurements,
