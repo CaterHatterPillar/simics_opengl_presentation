@@ -1,8 +1,5 @@
 Eriks kritik
 
-* Section 2:
-* * Det är extra mellanrum mellan stycken i section 2 men inte i andra sections
-
 * Section 2.3:
 * * ", such as if..., ": lite klumpig mening, men jag har inget klockrent
     förslag
