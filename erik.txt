@@ -9,7 +9,6 @@ Eriks kritik
     the target OpenGL application renders", "the target's original EGL library".
 
 * Section 2.1:
-* * Pluraltypo: s/render/renders/
 * * Babbligt: "Like a benchmark..". Kanske "The computational intensity of a
     fractal computation can easily be tuned, by adjusting the number of
     iterations per pixel." Meningen "Therefore... " är kanske redundant.
