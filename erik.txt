@@ -17,4 +17,3 @@ Eriks kritik
 * Section 3:
 * * "Benefits are..": försök få stycket att stå mer på egna ben, t.ex. "The
     benefits of ... are" eller en helt annan formulering
-* * "the performance bottleneck": s/the/one/ eller s/the/the main/?
