@@ -8,12 +8,6 @@ Eriks kritik
     att krydda med ett par explicita referenser till, t.ex. "the window to which
     the target OpenGL application renders", "the target's original EGL library".
 
-* Section 2.2:
-* * 'presented results take into account': kanske lättare om du skriver mer
-    explicit, t.ex. "this average is subtracted from presented measurements,
-    unless specified otherwise". Ser också ut som att "unless specified
-    otherwise" är redundant.
-
 * Section 2.3:
 * * Table 1 o 2: caption kommer för nära tabellerna, sitter ihop i vissa
     bokstäver

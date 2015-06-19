@@ -96,7 +96,7 @@ This is the method used to measure frame time in Simics.
 When using serial ports in this manner, one may introduce a profiling cost.
 For example, file descriptors do not immediately transmit a byte sequence over the system UART.
 For our set-up, we measure this overhead cost to be, on average, $1.5$~\milli\second .
-If not specified otherwise, presented results take into account this average.
+This average is substracted from presented measurements.
 
 \subsection{Results}
 \label{sec:results}
