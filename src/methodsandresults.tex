@@ -34,7 +34,7 @@ Thus, we transmit the starting address of the serialized command stream in a 64-
 Having escaped the simulation context, Simics can translate the transmitted virtual address to a physical one using the virtual machine MMU.
 Consequently, the physical address can be used to locate the memory page in the simulated RAM image.
 To ensure the pages are not swapped to disk when the simulation state is paused, we "lock" all pages constituting the command stream buffer.
-Subsequently, all memory pages are continiously retrieved by iterating the original virtual address with the target page size, effectively 'traversing' the virtual memory table.
+Subsequently, all memory pages are continiously retrieved by iterating the original virtual address with the target page size, effectively traversing the virtual memory table.
 
 \subsection{Experimental Methodology}
 \label{sec:experimentalmethodology}

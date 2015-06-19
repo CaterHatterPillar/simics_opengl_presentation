@@ -8,7 +8,6 @@ Eriks kritik
     att krydda med ett par explicita referenser till, t.ex. "the window to which
     the target OpenGL application renders", "the target's original EGL library".
 * * "lock": istället för citationstecken, försök använda rätt formella begrepp.
-    Och citationstecken kan tas bort rakt av kring 'traversing'.
 
 * Section 2.1:
 * * Pluraltypo: s/render/renders/
