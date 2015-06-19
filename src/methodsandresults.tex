@@ -115,7 +115,7 @@ Evidently, the prediction of a target-to-host communication latency issue is con
 In Simics, magic instructions incur a context switch cost when resuming execution on the host.
 This causes the simulation to no longer execute natively, which inhibits performance imrovements granted by hardware-assisted virtualization.
 It also entails that Simics can no longer utilizes JIT, forcing the simulator to rely on interpretation.
-As such, in great numbers, magic instructions may affect performance.
+This explains why magic instructions have such a great impact on performance.
 
 By measuring the elapsed time of using magic insructions to escape simulation $1000$ times, we conclude that $1000$ consecutive magic instructions induce an average overhead of $5$~\milli\second\ (not taking into account any profiling cost).
 These findings indicate that magic instruction overhead could account for the majority of elapsed frame time.

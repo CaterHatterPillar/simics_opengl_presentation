@@ -9,8 +9,6 @@ Eriks kritik
     the target OpenGL application renders", "the target's original EGL library".
 
 * Section 2.3:
-* * "As such, in great numbers,": Kanske "This explains why magic instructions
-    have such a great impact on performance"
 * * "we conclude that": upprepning, kanske "we conclude that a magic instruction
     induces an average overhead of ..."
 * * ", such as if..., ": lite klumpig mening, men jag har inget klockrent
