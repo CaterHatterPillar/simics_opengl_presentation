@@ -26,7 +26,7 @@ The issue is overcome by selectively overriding symbols in the target libraries 
 This way, one may extend the original EGL library to invoke the simulation host prior to performing its actions.
 
 To communicate with the simulation host, the Simics pipe uses "magic instructions".
-Magic instructions denotes \masccodeinline{nop}-type instructions that, when executed on the simulated hardware in a virtual platform, invoke a callback-method in the simulation host~\masccite[p.~32]{publications:leupers:2010}.
+A magic instruction is a \masccodeinline{nop} instruction that invokes a callback-method in the simulation host when executed on simulated hardware~\masccite[p.~32]{publications:leupers:2010}.
 Because of the inherent performance demands brought on by real-time graphics, they constitute a suitable communications medium for rendering information between target and host systems.
 
 During a magic instruction, we may utilize any available registers; the number and size of registers is the data-sharing bottleneck of this method.
