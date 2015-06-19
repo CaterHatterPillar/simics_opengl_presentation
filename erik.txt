@@ -3,8 +3,6 @@ Eriks kritik
 * Section 2.3:
 * * ", such as if..., ": lite klumpig mening, men jag har inget klockrent
     förslag
-* * påståendet "native execution is far more likely" är kanske tveksamt, betänk
-    simulering av en ARM-telefon. Kanske OK att bara hoppa över att motivera.
 
 * Section 3:
 * * "Benefits are..": försök få stycket att stå mer på egna ben, t.ex. "The
