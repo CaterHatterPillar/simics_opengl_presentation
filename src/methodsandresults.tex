@@ -117,7 +117,7 @@ This causes the simulation to no longer execute natively, which inhibits perform
 It also entails that Simics can no longer utilizes JIT, forcing the simulator to rely on interpretation.
 This explains why magic instructions have such a great impact on performance.
 
-By measuring the elapsed time of using magic insructions to escape simulation $1000$ times, we conclude that $1000$ consecutive magic instructions induce an average overhead of $5$~\milli\second\ (not taking into account any profiling cost).
+By measuring the elapsed time of $1000$ magic instructions, we conclude that this induces an average overhead of $5$~\milli\second\ (not taking into account any profiling cost).
 These findings indicate that magic instruction overhead could account for the majority of elapsed frame time.
 
 Figure~\ref{fig:histogram} shows that the Julia benchmark yields double to triple peak sample density destribution, both in software rasterized and paravirtualed Simics.
