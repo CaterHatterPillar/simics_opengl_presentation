@@ -9,8 +9,6 @@ Eriks kritik
     the target OpenGL application renders", "the target's original EGL library".
 
 * Section 2.3:
-* * Table 1 o 2: caption kommer för nära tabellerna, sitter ihop i vissa
-    bokstäver
 * * pluraltypo: s/utilize/utilizes/
 * * "As such, in great numbers,": Kanske "This explains why magic instructions
     have such a great impact on performance"
