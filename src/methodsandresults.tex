@@ -131,7 +131,7 @@ These measurements are collected using hardware-assisted virtualization for acce
 If hardware-assisted virtualization is not available, such as if the simulated platform is other than x86, we expect a major hit to performance.
 For software rasterization, this impact accounts for frame time increases well over two orders of magnitude.
 Meanwhile, performance impacts to paravirtualization is often not significant, sometimes as low as one third of the original frame time.
-For the Chess benchmark, paravirualized frame time increase with \textit{up to} one order of magnitude, one order less than the performance hit to software rasterization.
+For the Chess benchmark, paravirualized frame time increases with \textit{up to} one order of magnitude, one order less than the performance hit to software rasterization.
 Across the board, paravirtualization suffer less performance impact, rendering the benchmarks up to three orders of magnitude faster than software rasterization.
 We conclude that the effects of paravirtualization increase by one order of magnitude without hardware-assisted virtualization.
 This entails that workloads that are otherwise sub-optimal for paravirtualization -- those performing a large amount of function invocations -- bring about performance improvements when utilizing paravirtualization.

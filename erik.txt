@@ -11,7 +11,6 @@ Eriks kritik
 * Section 2.3:
 * * ", such as if..., ": lite klumpig mening, men jag har inget klockrent
     förslag
-* * s/increase with/increases with/
 * * påståendet "native execution is far more likely" är kanske tveksamt, betänk
     simulering av en ARM-telefon. Kanske OK att bara hoppa över att motivera.
 
