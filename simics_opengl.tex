@@ -1,8 +1,16 @@
 \documentclass[10pt, conference, compsoc]{IEEEtran}
 
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  \usepackage[dvips]{graphicx}
+\fi
+
 \usepackage{hyperref} % Hyperlinks and urls.
 \usepackage{amsfonts} % \circledR.
-\usepackage{graphicx} % Displaying pdf graphics.
 \usepackage{multirow} % Used for specialized tables (multirow).
 \usepackage{enumitem} % Compact lists.
 \usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
