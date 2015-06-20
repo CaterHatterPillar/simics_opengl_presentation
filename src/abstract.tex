@@ -4,11 +4,11 @@
 Virtual platforms provide benefits to developers in terms of a more rapid development cycle since development may begin before next-generation hardware is available.
 However, there is a distinct lack of graphics virtualization in industry-grade virtual platforms, leading to performance issues that may reduce the benefits virtual platforms otherwise have over execution on actual hardware.
 
-This paper concerns graphics acceleration by the means of paravirtualizing OpenGL~ES in the Wind~River Simics full-system simulator.
-The study illustrates the benefits and drawbacks of paravirtualized graphics acceleration and presents a performance analysis of strengths and weaknesses compared to software rasterization.
+This paper demonstrates graphics acceleration by the means of paravirtualizing OpenGL~ES in the Wind~River Simics full-system simulator.
 We propose a solution for paravirtualized graphics using magic instructions to share memory between target and host systems, and present an implementation utilizing this method.
+The study illustrates the benefits and drawbacks of paravirtualized graphics acceleration and presents a performance analysis of strengths and weaknesses compared to software rasterization.
 Additionally, benchmarks are devised to stress key aspects in the solution, such as communication latency and computationally intensive applications.
 
-We present paravirtualization as a viable method to accelerate graphics in system simulators; this reduces frame times up to 34 times compared to that of software rasterization.
+We assess paravirtualization as a viable method to accelerate graphics in system simulators; this reduces frame times up to 34 times compared to that of software rasterization.
 Furthermore, magic instructions are identified as the primary bottleneck of communication latency in the implementation.
 \end{abstract}
