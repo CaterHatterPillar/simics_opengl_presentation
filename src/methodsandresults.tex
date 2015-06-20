@@ -37,8 +37,8 @@ The pages constituting the buffer are locked in RAM, protecting the buffer from 
 This ensures that pages are not swapped to disk when the simulation state is paused.
 Subsequently, all memory pages are continiously retrieved by iterating the original virtual address with the target page size, effectively traversing the virtual memory table.
 
-\subsection{Experimental Methodology}
-\label{sec:experimentalmethodology}
+\subsection{Experiment Methodology}
+\label{sec:experimentmethodology}
 To evaluate the implementation, performance of paravirtualized graphics in Simics is compared to software rasterization.
 Simics itself simulates an Intel\circledR ~Core\texttrademark ~i7 processor and an Intel\circledR ~X58 chipset.
 Throughout simulation, hardware-assisted virtualization using KVM runs x86 instructions natively on the host hardware.
