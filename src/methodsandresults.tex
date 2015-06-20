@@ -61,7 +61,7 @@ The specifics of each benchmark are described below.
 \input{src/tables}
 
 % Benchmark: Chess
-\subsection{Benchmark: Chess}
+\paragraph{Benchmark: Chess}
 To stress the latency between target and host systems, the 'Chess' benchmark performs a multitude of lightweight OpenGL invocations per frame, rendering a grid of chess-like tiles.
 For each frame rendered, depending on the number of tiles, the benchmark performs a large number of magic instructions.
 This induces high utilization of the Simics Pipe, which is intended to stress suspected magic instruction overhead.
@@ -72,7 +72,7 @@ Accordingly, the benchmark is suitable for the purpose of representing a large n
 The Chess benchmark is run with $60\times60$, $84\times84$, and $118\times118$ tiles, which entails $9\times60\times60$, $9\times84\times84$, and $9\times118\times118$ magic instructions per frame.
 
 % Benchmark: Julia
-\subsection{Benchmark: Julia}
+\paragraph{Benchmark: Julia}
 To stress the computational prowess of paravirtualized graphics in Simics, the 'Julia' benchmark performs a lone, computationally intensive, OpenGL invocation that renders the Julia fractal~\masccite{web:tsiombikas:2014}.
 The load of a fractal computation can easily be tuned by adjusting the number of iterations per pixel.
 Therefore, the Julia benchmark is suitable to profile a computationally intensive workload. % TODO: This sentence might be redundant. Remove?
