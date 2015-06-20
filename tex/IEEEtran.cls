@@ -1795,7 +1795,7 @@
 % test if is a for a figure or table
 \ifx\@captype\@IEEEtablestring%
 % if a table, do table caption
-\footnotesize\begin{center}{\normalfont\footnotesize #1}\\{\normalfont\footnotesize\scshape #2}\end{center}%
+\footnotesize\begin{center}{\normalfont\footnotesize #1.\hspace{5pt}}{\normalfont\footnotesize\scshape #2}\end{center}%
 \@IEEEtablecaptionsepspace
 % if not a table, format it as a figure
 \else
