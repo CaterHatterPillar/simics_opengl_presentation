@@ -14,7 +14,7 @@ The widespread use of GPUs and the increasing complexity of these electronic sys
 However, due to large architectural differences, delegating GPU workloads to CPUs may yield poor performance.
 
 Instead, by neglecting some hardware compatibility, one may circumvent the virtual machine and delegate GPU workloads to the GPU of the simulation host.
-This way, host hardware can be utilized in a process known as "Paravirtualization"~\masccite{inproceedings:youseff:2006, journals:barham:2003}.
+This way, host hardware can be utilized in a process known as "Paravirtualization"~\masccite[p.~1]{inproceedings:youseff:2006}.
 Paravirtualization has been used to accelerate graphics in the past; most notably, Lagar-Cavilla et al. accelerate OpenGL~$1.5$ up to two orders of magnitude for WMware~Workstation and Xen VMMs~\masccite{inproceedings:lagarcavilla:2007}.
 To relieve communication bottlenecks, Lagar-Cavilla et al. suggests using a shared memory model for target-to-host communications~\masccite{inproceedings:lagarcavilla:2007}.
 
