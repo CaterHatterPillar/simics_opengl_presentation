@@ -1,4 +1,3 @@
-# histogram2x3.gnu
 # GNUplot script creating a 2x3 figure of histograms.
 # Requires GNUplot 4.6 or later.
 # ---
