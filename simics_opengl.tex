@@ -1,4 +1,4 @@
-\documentclass[10pt, conference, compsoc]{IEEEtran}
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
 
 \ifCLASSINFOpdf
   \usepackage[pdftex]{graphicx}
@@ -12,7 +12,10 @@
 \usepackage{hyperref} % Hyperlinks and urls.
 \usepackage{amsfonts} % \circledR.
 \usepackage{multirow} % Used for specialized tables (multirow).
-\usepackage{enumitem} % Compact lists.
+
+\let\labelindent\relax % defined in the IEEE template for legacy reasons
+\usepackage{enumitem} % Compact lists. Defines labelindent.
+
 \usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
 
 % Compact lists (see enumitem):
