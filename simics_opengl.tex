@@ -76,6 +76,14 @@ fill; me; in;
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
+% Reduce whitespace in bibliography:
+\let\OLDthebibliography\thebibliography
+\renewcommand\thebibliography[1]{
+  \OLDthebibliography{#1}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt plus 0.3ex}
+}
+
 \bibliographystyle{IEEEtran}
 \bibliography{simics_opengl}
 
