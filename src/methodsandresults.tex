@@ -18,7 +18,7 @@ Both target and host system libraries maintain a subset of the OpenGL state, suc
 These states must be maintained because of the asynchronous nature of the command stream.
 
 Because of differences in the creation and maintenance of windows on different platforms (Fedora, Android, etc.), the window to which the target OpenGL application renders is kept on the simulation host.
-This is problematic; the target system libraries must communicate with a fraudulent window in the simulation host -- \textit{and} the native window.
+This is problematic; the target system libraries must communicate with a fraudulent window in the simulation host -- \textit{and} the native target window.
 For example, it is important that the native window reports successful initialization, lest the OpenGL application concludes an error and quits.
 The issue is overcome by selectively overriding symbols in the target libraries so that a subset of functions may be overloaded.
 This way, one may extend the original EGL library to invoke the simulation host prior to performing its actions.
