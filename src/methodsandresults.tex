@@ -110,7 +110,7 @@ The benchmark is devised to identify any bottlenecks related to the number of pa
 Evidently, the prediction of a target-to-host communication latency issue is confirmed.
 
 In Simics, magic instructions incur a context switch cost when resuming execution on the host.
-This causes the simulation to no longer execute natively, which inhibits performance imrovements granted by hardware-assisted virtualization.
+This causes the simulation to no longer execute natively, which inhibits performance improvements granted by hardware-assisted virtualization.
 It also entails that Simics can no longer utilizes JIT, forcing the simulator to rely on interpretation.
 This explains why magic instructions have such a great impact on performance.
 
