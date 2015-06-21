@@ -69,7 +69,8 @@ This induces high utilization of the Simics Pipe, which is intended to stress su
 A long sequence of draw calls is representative of drawing multitudes of shapes with OpenGL, such as a UI.
 Accordingly, the benchmark is suitable for the purpose of representing a large number of graphics invocations.
 
-The Chess benchmark is run with $60\times60$, $84\times84$, and $118\times118$ tiles, which entails $9\times60\times60$, $9\times84\times84$, and $9\times118\times118$ magic instructions per frame.
+The Chess benchmark is run with $60\times60$, $84\times84$, and $118\times118$ tiles.
+In every frame, $9$ magic instructions are performed for each tile.
 
 % Benchmark: Julia
 \paragraph{Benchmark: Julia}
