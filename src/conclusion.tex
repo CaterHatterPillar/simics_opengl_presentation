@@ -6,7 +6,7 @@ The implementation generates EGL and OpenGL libraries and communicates with low-
 To evaluate the implementation, benchmarks are developed to highlight solution weaknesses and strengths; an analysis of results is presented, as well as benefits and drawbacks of paravirtualized methodology.
 
 In Section~\ref{sec:results}, compiled results showcase great improvements for computationally intensive graphics.
-Performance is improved by up to $34$ times, reducing frame time from $1415$~\milli\second\ to $42$~\milli\second ; a frame time of $42$~\milli\second\ roughly correspond to 24 FPS.
+Performance is improved by up to $34$ times, reducing frame time from $1415$~\milli\second\ to $42$~\milli\second ; a frame time of $42$~\milli\second\ roughly corresponds to 24 FPS.
 Furthermore, paravirtualization lower maximum frame times, significantly improving standard deviation.
 Compared to software rasterization, paravirtualization is estimated to obtain an additional order of magnitude faster frame time without hardware-assisted virtualization.
 
@@ -21,4 +21,4 @@ The findings of this paper may help in extending the use of Simics to applicatio
 
 The benefits of paravirtualized graphics are performance improvements of up to two orders of magnitude, paired with larger benefits in non-hardware accelerated use-cases.
 Magic instruction overhead is identified as the main performance bottleneck, resulting in a weakness to large amounts of framework invocations.
-Accordingly, the findings of this paper contributes to our understanding of the difficulties facing graphics acceleration in virtual platforms by demonstrating the use of paravirtualization as a successful formula to accelerate graphics in Simics.
+Accordingly, the findings of this paper contribute to our understanding of the difficulties facing graphics acceleration in virtual platforms by demonstrating the use of paravirtualization as a successful formula to accelerate graphics in Simics.
