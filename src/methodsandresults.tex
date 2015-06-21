@@ -119,7 +119,7 @@ These findings indicate that magic instruction overhead could account for the ma
 
 Fig.~\ref{fig:histogram} shows that the Julia benchmark yields double to triple peak sample density distribution, both in software rasterized and paravirtualized Simics.
 What causes this behavior is unclear; the fractal algorithm should perform roughly equally frame-to-frame.
-The benchmark is intented to demonstrate how paravirtualization performs under computational stress.
+The benchmark is intended to demonstrate how paravirtualization performs under computational stress.
 This is where the benefits of hardware acceleration should be made apperent.
 Accordingly, weaknesses in software rasterization is highlighted with frame times above the two second mark; corresponding maximum paravirtualized frame time measuring a mere $156$ \milli\second.
 This confirms performance improvements of using paravirtualization, paired with magic instructions, to accelerate graphics.
