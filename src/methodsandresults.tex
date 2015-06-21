@@ -32,7 +32,7 @@ Having escaped the simulation context, Simics can translate the transmitted virt
 Consequently, the physical address can be used to locate the memory page in the simulated RAM image.
 The pages constituting the buffer are locked in RAM, protecting the buffer from being paged to the swap area.
 This ensures that pages are not swapped to disk when the simulation state is paused.
-Subsequently, all memory pages are continiously retrieved by iterating the original virtual address with the target page size, effectively traversing the virtual memory table.
+Subsequently, all memory pages are continuously retrieved by iterating the original virtual address with the target page size, effectively traversing the virtual memory table.
 
 \subsection{Experiment Methodology}
 \label{sec:experimentmethodology}
@@ -90,7 +90,7 @@ This is the method used to measure frame time in Simics.
 When using serial ports in this manner, one may introduce a profiling cost.
 For example, file descriptors do not immediately transmit a byte sequence over the system UART.
 For our set-up, we measure this overhead cost to be, on average, $1.5$~\milli\second .
-This average is substracted from presented measurements.
+This average is subtracted from presented measurements.
 
 \subsection{Results}
 \label{sec:results}
@@ -103,7 +103,7 @@ Fig.~\ref{fig:histogram} indicates that the Chess benchmark, when software raste
 The right-hand side of the graph, showing impaired performance induced by paravirtualization, visualize a distribution decrease.
 This is supported by the data presented in Table~\ref{tab:keyvalpara}.
 We observe that software rasterization outperforms its paravirtualized counterpart, regardless of the number of tiles rendered.
-The benchmark is devised to identify any bottlenecks related to <the number of paravirtualizaed invocations.
+The benchmark is devised to identify any bottlenecks related to <the number of paravirtualized invocations.
 Evidently, the prediction of a target-to-host communication latency issue is confirmed.
 
 In Simics, magic instructions incur a context switch cost when resuming execution on the host.
@@ -116,7 +116,7 @@ These findings indicate that magic instruction overhead could account for the ma
 
 Fig.~\ref{fig:histogram} shows that the Julia benchmark yields double to triple peak sample density distribution, both in software rasterized and paravirtualized Simics.
 What causes this behavior is unclear; the fractal algorithm should perform roughly equally frame-to-frame.
-The benchmark is intended to demonstrate how paravirtualization performs under computational stress, which is where the benefits of hardware acceleration should be made apperent.
+The benchmark is intended to demonstrate how paravirtualization performs under computational stress, which is where the benefits of hardware acceleration should be made apparent.
 Accordingly, weaknesses in software rasterization is highlighted with frame times above the two second mark; corresponding paravirtualized maximum frame time measures a mere $156$ \milli\second.
 This confirms performance improvements of using paravirtualization with magic instructions to accelerate graphics.
 
@@ -124,7 +124,7 @@ These measurements are collected using hardware-assisted virtualization for acce
 If hardware-assisted virtualization is not available, such as if the simulated platform is other than x86, we expect a major hit to performance.
 For software rasterization, this impact accounts for frame time increases well over two orders of magnitude.
 Meanwhile, performance impacts to paravirtualization is often not significant, sometimes as low as one third of the original frame time.
-For the Chess benchmark, paravirualized frame time increases with \textit{up to} one order of magnitude, one order less than the performance hit to software rasterization.
+For the Chess benchmark, paravirtualized frame time increases with \textit{up to} one order of magnitude, one order less than the performance hit to software rasterization.
 Across the board, paravirtualization suffer less performance impact, rendering the benchmarks up to three orders of magnitude faster than software rasterization.
 We conclude that the effects of paravirtualization increase by one order of magnitude without hardware-assisted virtualization.
 This entails that workloads that are otherwise sub-optimal for paravirtualization -- those performing a large amount of function invocations -- bring about performance improvements when utilizing paravirtualization.
