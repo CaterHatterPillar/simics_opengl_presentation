@@ -121,7 +121,7 @@ Fig.~\ref{fig:histogram} shows that the Julia benchmark yields double to triple 
 What causes this behavior is unclear; the fractal algorithm should perform roughly equally frame-to-frame.
 The benchmark is intended to demonstrate how paravirtualization performs under computational stress.
 This is where the benefits of hardware acceleration should be made apperent.
-Accordingly, weaknesses in software rasterization is highlighted with frame times above the two second mark; corresponding maximum frame time while paravirtualized measures a mere $156$ \milli\second.
+Accordingly, weaknesses in software rasterization is highlighted with frame times above the two second mark; corresponding paravirtualized maximum frame time measures a mere $156$ \milli\second.
 This confirms performance improvements of using paravirtualization, paired with magic instructions, to accelerate graphics.
 
 These measurements are collected using hardware-assisted virtualization for accelerated virtualization.
