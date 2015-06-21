@@ -8,7 +8,7 @@ An exception is methods that require state saving, which are implemented manuall
 The target system libraries implement the OpenGL and EGL (the interface to the underlying platform windowing system) APIs; unmodified binaries in the target system are subsequently linked with these libraries as with any other OpenGL or EGL implementation.
 However, instead of communicating with the graphics device, the target system libraries serialize and forward the command stream to the simulation host.
 The transmission is not necessarily performed at once, nor in the designated order, because of uncertainties regarding argument data proportion.
-For instance, the number of vertices to be rendered does not have to be apparent at a given time, but implicit in a later OpenGL invocation.
+For instance, the number of vertices to be rendered does not have to be apparent at a given time, but implicit in a later OpenGL call.
 Accordingly, certain function calls have to be delayed until more information is known about the OpenGL state.
 
 In collaboration with the target system libraries, the host system libraries decode and interpret the received byte stream.
