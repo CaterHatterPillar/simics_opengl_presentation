@@ -129,6 +129,6 @@ Across the board, paravirtualization suffer less performance impact, rendering t
 We conclude that the effects of paravirtualization increase by one order of magnitude without hardware-assisted virtualization.
 This entails that workloads that are otherwise sub-optimal for paravirtualization -- those performing a large amount of function invocations -- bring about performance improvements when utilizing paravirtualization.
 Thus, the impact of magic instruction overhead is reduced, likely because a costly context switch is not inflicted on Simics.
-We reason that some software rasterized worklads (Chess) may attain decent simulation performance simply because of a fast simulator; when native execution is not available, neither JIT nor interpretation may attain the same speeds as paravirtualization.
+We reason that some software rasterized workloads (Chess) may attain decent simulation performance simply because of a fast simulator; when native execution is not available, neither JIT nor interpretation may attain the same speeds as paravirtualization.
 
 The samples collected without hardware-assisted virtualization are not presented in detail. % Really, the reason why they're not included is because the scenario with hardware-assisted virtualization is more interesting.
