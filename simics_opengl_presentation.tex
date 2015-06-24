@@ -1,90 +1,171 @@
-\documentclass[10pt, conference, compsocconf]{IEEEtran}
+% presentation.tex
 
-\ifCLASSINFOpdf
-  \usepackage[pdftex]{graphicx}
-\else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  \usepackage[dvips]{graphicx}
-\fi
+\documentclass{beamer}
+\usetheme{Intel}
 
-\usepackage{hyperref} % Hyperlinks and urls.
-\usepackage{amsfonts} % \circledR.
-\usepackage{multirow} % Used for specialized tables (multirow).
+% Document configuration
+%\setbeameroption{show notes} % If annotations are desired.
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection} % Use number keys for table of content sections.
+\setbeamertemplate{subsection in toc}{\hspace{0.5cm}\rule[0.3ex]{3pt}{3pt}~\inserttocsubsection\par} % Use a symbol for table of content subsections.
+\AtBeginSection[]
+{
+	\begin{frame}
+		\frametitle{Table of Contents}
+		\begin{multicols}{2}
+			\tableofcontents[currentsection]
+		\end{multicols}
+    \end{frame}
+} % Insert table of contents frame before each new section.
+\setbeamertemplate{caption}[numbered] % Number figures.
 
-\let\labelindent\relax % defined in the IEEE template for legacy reasons
-\usepackage{enumitem} % Compact lists. Defines labelindent.
+\definecolor{intel}{RGB}{0, 113, 197}
+\setbeamercolor{section in toc shaded}{fg=intel}
+\setbeamercolor{subsection in toc shaded}{fg=black}
+\setbeamercolor{section in toc}{fg=intel}
+\setbeamercolor{subsection in toc}{fg=black}
+\setbeamercolor{block title}{fg=intel}
+\setbeamercolor{caption name}{fg=intel}
 
-\usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
+% Package inclusion:
+\usepackage{tikz} % Used by presentationprogressbar.tex
+\usepackage{hyperref} % Used to invoke Santa Claus.
+\usepackage{multicol} % Used to split up table of contents in a double column style.
+\usepackage{multirow} % Needed for multirow graphs
+\usepackage{datetime} % Used to format dates.
+\usepackage{pdflscape} % Used to landscape frames.
+\usepackage{listings} % Used to format inline code throughout document.
+\usepackage{color} % Used to gray out text
+\usepackage{tikz} % Used to gain access to the \centering command.
 
-% Compact lists (see enumitem):
-\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+\usepackage[footinfo]{gitinfo} % dv2524-pac/
 
-\newcommand{\masccite}[2][]{\cite{#2}}
-\newcommand{\masccodeinline}[1]{\texttt{#1}}
+% Package configuration:
+\hypersetup{
+	colorlinks=false,
+	linkcolor=blue,
+	urlcolor=black,
+	citecolor=blue,
+	anchorcolor=blue
+}
+\usetikzlibrary{calc}
+
+\newenvironment{graytext}{\color{gray}}{\ignorespacesafterend}
+
+\input{presentationprogressbar.tex}
+
+% Command to read, and ouput the first line of a file:
 \newread\file
-\newcommand{\mascfirstline}[1]{\input{#1}\unskip}
-
-\begin{document}
-
-\title{Accelerating Graphics in the Simics Full-system Simulator}
-
-\author{\IEEEauthorblockN{Eric Nilsson\IEEEauthorrefmark{1},
-    Daniel Aarno\IEEEauthorrefmark{2}, and Erik Carstensen\IEEEauthorrefmark{3}}
-  \IEEEauthorblockA{Software and Services Group\\
-    Intel Corporation\\
-    Stockholm, Sweden\\
-    Email: \{\IEEEauthorrefmark{1}\href{mailto:eric.nilsson@intel.com}{eric.nilsson}, \IEEEauthorrefmark{2}\href{mailto:daniel.aarno@intel.com}{daniel.aarno}, \IEEEauthorrefmark{3}\href{mailto:erik.carstensen@intel.com}{erik.carstensen}\}@intel.com}
-  \and
-  \IEEEauthorblockN{H{\aa}kan Grahn}
-  \IEEEauthorblockA{Department of Computer Science and Engineering\\
-    Blekinge Institute of Technology\\
-    Karlskrona, Sweden\\
-    Email: \href{mailto:hakan.grahn@bth.se}{hakan.grahn@bth.se}}}
-
-\maketitle
-
-\input{src/abstract}
-
-\begin{IEEEkeywords}
-simics; full-system simulation; paravirtualization;
-\end{IEEEkeywords}
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
-
-\input{src/introduction}
-\input{src/methodsandresults}
-\input{src/histograms}
-\input{src/conclusion}
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
-
-% Reduce whitespace in bibliography:
-\let\OLDthebibliography\thebibliography
-\renewcommand\thebibliography[1]{
-  \OLDthebibliography{#1}
-  \setlength{\parskip}{0pt}
-  \setlength{\itemsep}{0pt plus 0.3ex}
+\newcommand{\dvtcmdfirstline}[1]{
+	\openin\file=#1
+	\read\file to \keyval
+	\keyval % Return keyval.
+	\closein\file
 }
 
-\bibliographystyle{IEEEtran}
-\bibliography{simics_opengl}
+\lstset{
+	language=C,
+	tabsize=4,
+	backgroundcolor=\color{black!5},
+	basicstyle=\tiny,
+}
 
+% Formatting inline code command:
+\newcommand{\dvtcmdcodeinline}[1]{
+	\colorbox{black!5}{
+			\lstinline[basicstyle=\ttfamily\color{black}]{#1}}}
+
+\newtheorem{thm}{Key point}
+
+\begin{document}
+	% FRONT MATTER
+	% ---
+	\input{front.tex}
+
+	% BODY MATTER
+	% ---
+	% INTRODUCTION
+	\section{Introduction}
+	% Simics
+	\subsection{Simics}
+	\input{simics.tex}
+	% Graphics virtualization
+	\subsection{Graphics virtualization}
+	\input{graphicsvirtualization.tex}
+	% Summary
+	\subsection{Summary}
+	\input{summary.tex}
+	% Key points
+	\subsection{Key points}
+	\input{keypoints.tex}
+
+	% PARAVIRTUALIZATION
+	\section{Methodology}
+	% Overview
+	\subsection{Overview}
+	\input{overview.tex}
+	% Magic instructions
+	\subsection{Magic instructions}
+	\input{magicinstructions.tex}
+	% Simics Pipe
+	\subsection{Simics Pipe}
+	\input{simicspipe.tex}
+
+	% EXPERIMENT
+	\section{Experiment}
+	% Benchmarks
+	\subsection{Benchmarks}
+	\input{benchmarks.tex}
+
+	% RESULTS
+	\section{Results}
+	% Results - Host
+	\subsection{Reference histograms}
+	\input{resultshost.tex}
+	% Results - Chess
+	\subsection{Chess histograms}
+	\input{resultschess.tex}
+	% Results - Julia
+	\subsection{Julia histograms}
+	\input{resultsjulia.tex}
+	% Results - Phong
+	\subsection{Phong histograms}
+	\input{resultsphong.tex}
+	% Magic instruction overhead
+	\subsection{Magic instruction overhead}
+	\input{magicinstructionoverhead.tex}
+
+	% DISCUSSION
+	\section{Discussion}
+	% Deterministic execution
+	\subsection{Deterministic execution}
+	\input{deterministicexecution.tex}
+	% Checkpointing
+	\subsection{Checkpointing}
+	\input{checkpointing.tex}
+	% Reverse execution
+	\subsection{Reverse execution}
+	\input{reverseexecution.tex}
+
+	% CONCLUSION
+	\section{Conclusion}
+	% Demonstration
+	\subsection{Demonstration}
+	\input{demonstration.tex}
+	% Future work
+	\subsection{Future work}
+	\input{futurework.tex}
+	% Key point recap
+	\subsection{Key points recap}
+	\input{keypoints.tex}
+
+	% BACK MATTER
+	% ---
+	% Colophon
+	\input{colophon.tex}
+
+	% Back page
+	\input{back.tex}
+
+	% Tables
+	\input{tables.tex}
 \end{document}
