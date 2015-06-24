@@ -1,0 +1,21 @@
+% presentationdeterministicexecution.tex
+
+\begin{frame}
+
+\frametitle{Deterministic execution}
+
+Host dependency may affect simulation determinism\footnote{Variance affects only cross-platform simulation (checkpoints)}:
+\begin{itemize}
+	\item Hardware GPU floating point accuracy\footnote{Less of an issue since commonplace double floating point precision (2007)}
+	\item Software API conformance (specification not necessarily strict)
+\end{itemize}
+
+However:
+\begin{itemize}
+	\item Often not an issue since graphics are commonly used only to display data
+	\item Yet, GPU utilization for general purpose workloads increasingly more common
+\end{itemize}
+
+\textbf{Example}
+
+\end{frame}

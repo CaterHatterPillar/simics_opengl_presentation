@@ -1,0 +1,14 @@
+% presentationback.tex
+
+\newcommand{\commitlink}{https://github.com/CaterHatterPillar/dv2524/commit/}
+\expandafter\def\expandafter\commitlink\expandafter{\commitlink \gitAbbrevHash}
+
+\yyyymmdddate
+\renewcommand{\dateseparator}{-} % To print date in same format as gitinfo-package.
+
+\begin{frame}[t]
+
+{\tiny This document was compiled \today\ and last edited by \gitAuthorName\ \gitAuthorDate .\\
+The revision may be identified by commit hash \href{\commitlink}{\texttt{\gitAbbrevHash}}}.
+
+\end{frame}
