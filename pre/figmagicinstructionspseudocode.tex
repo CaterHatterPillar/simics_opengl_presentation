@@ -1,0 +1,24 @@
+% figmagicinstructionpseudocode.tex
+
+\begin{figure}
+\centering
+\begin{lstlisting}
+int sercon = open("/dev/ttyS0",O_RDWR|O_NOCTTY);
+\end{lstlisting}
+\begin{minipage}{.5\textwidth}
+	\centering
+	
+\lstinputlisting{pseudoindividual.txt}
+	
+	\caption[Pseudocode - magic instruction profiling, per-invocation]{Profiling of magic instructions on a per-invocation basis.}
+	\label{fig:magicinstructionpseudocodeforeach}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+	\centering
+	
+\lstinputlisting{pseudobatch.txt}
+	
+	\caption[Pseudocode - magic instruction profiling, per-batch]{Profiling of magic instructions in batches.}
+	\label{fig:magicinstructionpseudocodeforall}
+\end{minipage}
+\end{figure}
