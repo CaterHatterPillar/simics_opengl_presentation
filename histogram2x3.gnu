@@ -44,7 +44,7 @@ if(!exists("arg_data1")||!exists("arg_data2")||!exists("arg_data3")||!exists("ar
     pause -1 press(iam) # We should abort script here rather than simply pause it.
 }
 
-set terminal arg_terminal size 9cm,3cm header "\\newcommand{\\s}[0]{\\scriptsize}" font 'Verdana,6' # The font isn't really Verdana, this just helps with approximation of string widths for when LaTeX later typesets whatever font it's using in the designated size.
+set terminal arg_terminal size 18cm,6cm
 set output arg_output
 
 set multiplot layout 3,2
@@ -52,7 +52,6 @@ set xtics nomirror
 set tic scale 0 # Remove the small tic-marks, but keep the labels.
 set yrange [0:]
 unset ytics
-set format x "\\s %g"
 
 files = sprintf("%s %s %s %s %s %s", arg_data1, arg_data2, arg_data3, arg_data4, arg_data5, arg_data6)
 ylabels = sprintf("%s %s %s", arg_ylabel1, arg_ylabel2, arg_ylabel3)
@@ -63,16 +62,16 @@ do for [i=1:words(files)] {
     unset ylabel
     set lmargin 0
     if(i%2) {
-        set ylabel sprintf("\\s %s", word(ylabels, ceil((i+0.0)/2)))
+        set ylabel sprintf("%s", word(ylabels, ceil((i+0.0)/2)))
     }
 
     unset x2label
     set tmargin 0
     if(i==1 && exists("arg_xlabel1")) {
-        set x2label "\\s Software Rasterization"
+        set x2label "Software Rasterization"
     }
     if(i==2 && exists("arg_xlabel2")) {
-        set x2label "\\s Paravirtualization"
+        set x2label "Paravirtualization"
     }
 
     stats arg_data name "data" nooutput
