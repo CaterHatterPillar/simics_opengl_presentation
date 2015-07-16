@@ -31,6 +31,7 @@
 \usepackage{listings} % Used to format inline code throughout document.
 \usepackage{color} % Used to gray out text
 \usepackage{tikz} % Used to gain access to the \centering command.
+\usepackage[mediumspace,mediumqspace,squaren,binary]{SIunits} % \milli\second
 
 \usepackage[footinfo]{gitinfo} % dv2524-pac/
 
@@ -45,14 +46,7 @@
 
 \newenvironment{graytext}{\color{gray}}{\ignorespacesafterend}
 
-% Command to read, and ouput the first line of a file:
-\newread\file
-\newcommand{\dvtcmdfirstline}[1]{
-	\openin\file=#1
-	\read\file to \keyval
-	\keyval % Return keyval.
-	\closein\file
-}
+\newcommand{\mascfirstline}[1]{\input{#1}\unskip}
 
 \lstset{
 	language=C,
@@ -110,7 +104,7 @@
 
 	% RESULTS
 	\section{Results}
-	% Results - Chess
+        \input{tables.tex}
 	\subsection{Histograms}
 	\input{resultshistograms.tex}
 	% Magic instruction overhead
@@ -145,7 +139,4 @@
 	% ---
 	% Back page
 	\input{back.tex}
-
-	%% % Tables
-	\input{tables.tex}
 \end{document}
