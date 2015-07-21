@@ -1,22 +1,30 @@
-\begin{frame}[allowframebreaks]
+\begin{frame}
 \frametitle{Benchmarks}
 
-%% \input{figbenchmarks.tex}
+\begin{columns}
+  \column{0.5\textwidth}
 
-\framebreak 
+  \begin{block}{Chess}
+    \begin{itemize}
+    \item Many lightweight draw calls
+    \item Induces many magic instructions  Stresses communication latency
+    \end{itemize}
+  \end{block}
 
-%% \begin{block}{Input data variation}
-%% \center
-%% \resizebox{\linewidth}{!}{%
-%% 	\input{tabkeyvals.tex}
-%% }
-%% \end{block}
+  \begin{block}{Julia}
+    \begin{itemize}
+    \item Heavy-duty shader
+    \item Renders Julia fractal
+    \end{itemize}
+  \end{block}
 
-%% \begin{block}{No. magic instructions}
-%% \center
-%% \resizebox{\linewidth}{!}{%
-%% 	\input{tabkeyvalsmagicinstructions.tex}
-%% }
-%% \end{block}
+  $10$ to $20$ ms per frame on host; $16$ ms frame time $\approx60$ FPS
+  
+  \column{0.5\textwidth}
+
+  \includegraphics[width=0.5\linewidth]{imgchess.png}
+  \includegraphics[width=0.5\linewidth]{imgjulia.png}
+
+\end{columns}
 	
 \end{frame}
