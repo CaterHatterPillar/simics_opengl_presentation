@@ -1,0 +1,37 @@
+\begin{frame}
+\frametitle{Graphics simulation}
+
+\begin{columns}
+	\column{0.5\textwidth}
+	\begin{block}{GPU modeling}
+		Modeling the GPU ISA
+                \begin{itemize}
+                  \item Costly
+                  \item Performance obstacles
+                \end{itemize}
+	\end{block}
+	\begin{block}{PCI passthrough}
+		First-hand device access using passthrough technologies
+                \begin{itemize}
+                  \item Requires dedicated hardware\phantom{     }
+                  \item Difficult to implement robust checkpointing
+                \end{itemize}
+	\end{block}
+    \column{0.5\textwidth}
+    \begin{block}{Soft modeling}
+    	Software rasterization
+        \begin{itemize}
+        \item Easy but often good-enough
+        \item Performance obstacles
+        \end{itemize}
+    \end{block}
+    \begin{block}{Paravirtualization}
+    	Selectively modify virtual architecture
+        \begin{itemize}
+          \item Facilitate checkpointing in software
+          \item Cost-effective but possibly heavy maintenence
+        \end{itemize}
+    \end{block}
+\end{columns}
+	
+\end{frame}
