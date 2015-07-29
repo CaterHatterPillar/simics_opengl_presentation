@@ -2,15 +2,32 @@
 \frametitle{Histograms}
 
 \begin{center}
-\resizebox{0.8\textwidth}{!}{%
-	\input{gnuhistogramssimicsparachess.tex}
+\resizebox{!}{0.25\textheight}{%
+  \input{gnuhistogramssimicsparachess.tex}
 }
 \end{center}
 
 \begin{center}
-\resizebox{0.8\textwidth}{!}{%
-	\input{gnuhistogramssimicsparajulia.tex}
+\resizebox{!}{0.25\textheight}{%
+  \input{gnuhistogramssimicsparajulia.tex}
 }
 \end{center}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Chess}
+      \begin{itemize}
+      \item Magic instruction overhead could account for majority of elapsed frame time
+      \end{itemize}
+    \end{block}
+    \column{0.5\textwidth}
+
+    \begin{block}{Julia}
+      \begin{itemize}
+      \item Two to three peaks in sample distribution
+      \item Unclear why
+      \end{itemize}
+    \end{block}
+  \end{columns}
 
 \end{frame}
