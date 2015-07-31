@@ -21,7 +21,6 @@ python build_dat.py
 python build_gnu.py
 
 pdflatex simics_opengl_presentation
-bibtex simics_opengl_presentation
 pdflatex simics_opengl_presentation
 pdflatex simics_opengl_presentation
 
