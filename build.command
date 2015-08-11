@@ -21,6 +21,7 @@ python build_dat.py
 python build_gnu.py
 
 pdflatex simics_opengl_presentation
+pdflatex simics_opengl_presentation # toc
 
 # Read back paper.
 cp simics_opengl_presentation.pdf ../
