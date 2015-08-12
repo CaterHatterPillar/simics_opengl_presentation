@@ -1,33 +1,33 @@
 \begin{frame}
-\frametitle{Histograms}
+  \frametitle{Histograms}
 
-\begin{center}
-\resizebox{!}{0.25\textheight}{%
-  \input{gnuhistogramssimicsparachess.tex}
-}
-\end{center}
+  \begin{columns}[t]
 
-\begin{center}
-\resizebox{!}{0.25\textheight}{%
-  \input{gnuhistogramssimicsparajulia.tex}
-}
-\end{center}
+    \column{0.4\textwidth}
 
-  \begin{columns}
-    \column{0.5\textwidth}
-    \begin{block}{Chess}
-      \begin{itemize}
-      \item Magic instruction overhead could account for majority of elapsed frame time
-      \end{itemize}
-    \end{block}
-    \column{0.5\textwidth}
+    Chess
+    \begin{itemize}
+    \item Magic instruction overhead could account for majority of elapsed frame time
+    \end{itemize}
 
-    \begin{block}{Julia}
-      \begin{itemize}
-      \item Two to three peaks in sample distribution
-      \item Unclear why
-      \end{itemize}
-    \end{block}
+    Julia
+    \begin{itemize}
+    \item Two to three peaks in sample distribution
+    \item Unclear why
+    \end{itemize}
+
+    \column{0.7\textwidth}
+
+    \resizebox{\textwidth}{!}{%
+      \input{gnuhistogramssimicsparachess.tex}
+    }
+
+    \vspace{.5cm}
+
+    \resizebox{\textwidth}{!}{%
+      \input{gnuhistogramssimicsparajulia.tex}
+    }
+
   \end{columns}
 
 \end{frame}
