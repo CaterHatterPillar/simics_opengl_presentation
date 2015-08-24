@@ -2,9 +2,12 @@
 \frametitle{Hardware-assisted virtualization}
 
 \begin{itemize}
-	\item Simics relies on interpretation and JIT to accelerate simulation
-	\item To further speed-up simulation, Simics can utilize hardware-assisted virtualization on those processors that support it
-	\item This requires that the simulated platform corresponds to the host platform
+\item To accelerate simulation, Simics relies on:
+  \begin{itemize}
+  \item Interpretation
+  \item Just-in-Time compilation
+  \end{itemize}
+\item For Intel\circledR\ Architecture targets, Simics can utilize hardware-assisted virtualization\footnote{'accelerated virtualization', 'native virtualization'} to drastically improve performance
 \end{itemize}
 
 \end{frame}
