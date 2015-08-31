@@ -1,0 +1,30 @@
+\begin{frame}
+  \frametitle{Results - Julia}
+
+  \begin{table}[]
+    \centering
+    \begin{tabular}{lllll}
+      \hline
+      Input & \multicolumn{4}{l}{Elapsed time (ms)} \\ \hline
+      Iterations & Min & Max & Std & Avg \\
+      $225$ & \mascfirstline{simicsjulia225.dat.min} & \mascfirstline{simicsjulia225.dat.max} & \mascfirstline{simicsjulia225.dat.std} & \textbf{\mascfirstline{simicsjulia225.dat.avg}} \\
+      $450$ & \mascfirstline{simicsjulia450.dat.min} & \mascfirstline{simicsjulia450.dat.max} & \mascfirstline{simicsjulia450.dat.std} & \textbf{\mascfirstline{simicsjulia450.dat.avg}} \\
+      $900$ & \mascfirstline{simicsjulia900.dat.min} & \mascfirstline{simicsjulia900.dat.max} & \mascfirstline{simicsjulia900.dat.std} & \textbf{\mascfirstline{simicsjulia900.dat.avg}} \\ \hline
+    \end{tabular}
+    \caption{Software rasterization}
+  \end{table}
+
+  \begin{table}[]
+    \centering
+    \begin{tabular}{lllll}
+      \hline
+      Input & \multicolumn{4}{l}{Elapsed time (ms)} \\ \hline
+      Iterations & Min & Max & Std & Avg \\
+      $225$ & \mascfirstline{parajulia225.dat.min} & \mascfirstline{parajulia225.dat.max} & \mascfirstline{parajulia225.dat.std} & \textbf{\mascfirstline{parajulia225.dat.avg}} \\
+      $450$ & \mascfirstline{parajulia450.dat.min} & \mascfirstline{parajulia450.dat.max} & \mascfirstline{parajulia450.dat.std} & \textbf{\mascfirstline{parajulia450.dat.avg}} \\
+      $900$ & \mascfirstline{parajulia900.dat.min} & \mascfirstline{parajulia900.dat.max} & \mascfirstline{parajulia900.dat.std} & \textbf{\mascfirstline{parajulia900.dat.avg}} \\ \hline
+    \end{tabular}
+    \caption{Paravirtualization}
+  \end{table}
+
+\end{frame}
