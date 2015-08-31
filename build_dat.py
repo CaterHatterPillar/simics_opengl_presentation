@@ -75,7 +75,7 @@ def sort_file(p_filename):
           + str(msMin) + ' and maximum entry ' + str(msMax) + '.')
     
 def keyval_create(p_filename, p_val):
-    val_rounded = Decimal(str(p_val)).quantize(Decimal(10) ** -2)
+    val_rounded = Decimal(str(p_val)).quantize(Decimal(10) ** -0)
     print('Creating keyval file ' + p_filename + ' with value '
           + str(val_rounded) + '...')
     file = open(p_filename, 'w')
