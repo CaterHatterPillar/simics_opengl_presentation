@@ -1,0 +1,11 @@
+Julia:
+Iterations Paravirtualization Software rasterization
+225 55 51913
+450 66 98205
+900 104 180536
+
+Chess
+Tiles Paravirtualization Software rasterization
+60x60 972 7302
+84x84 1691 10362
+118x118 3365 13351
