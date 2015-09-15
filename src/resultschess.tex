@@ -1,6 +1,18 @@
 \begin{frame}
   \frametitle{Results - Chess}
 
+  \begin{columns}
+    \column{0.4\textwidth}
+
+    \begin{itemize}
+    \item Impaired paravirtualization performance
+    \item Software rasterization outperforms paravirtualization
+    \item Latency issue confirmed
+    \item Magic instruction overhead could account for majority of elapsed frame time
+    \end{itemize}
+
+    \column{0.7\textwidth}
+
   \begin{table}[]
     \centering
     \begin{tabular}{lllll}
@@ -27,10 +39,6 @@
     \caption{Paravirtualization}
   \end{table}
 
-  \begin{itemize}
-  \item Impaired paravirtualization performance
-  \item Software rasterization outperforms paravirtualization
-  \item Latency issue confirmed
-  \end{itemize}
+  \end{columns}
 
 \end{frame}
