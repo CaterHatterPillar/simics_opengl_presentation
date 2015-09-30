@@ -1,0 +1,115 @@
+TODO:
+* add a bullet to the background slide
+* remove graphics virtualization methods slide
+
+FRONT
+* Today I'll be presenting...
+
+WIND RIVER SIMICS
+* At Intel in Stockholm we work on the Simics simulator, which is a
+  full-system simulator
+* By full-system simulation we mean the capability of running an
+  entirely unmodified software stack
+* Simics was originally developed in Sweden and acquired by Intel in
+  2010
+* While Simics is used throughout industry, it has it's roots in
+  academia, so some of you might've heard about it before
+
+Before proceeding, I'll briefly explain some terminology, so bear with
+me.
+
+HARDWARE-ASSISTED VIRTUALIZATION
+* Hardware-assisted virtualization denotes efficient virtualization
+  where you take advantage of hardware capabilities to accelerate
+  simulation of the native platform considerably
+* For simulation of x86 targets, Simics can make use of
+  hardware-assisted virtualization to speed up simulation
+* If hardware-assisted virtualization isn't available, Simics rely on
+  Just-in-Time compilation and interpretation to simulate targets as
+  fast as it can
+
+PARAVIRTUALIZATION
+* Paravirtualization is a phrase that gets thrown around a bit, so
+  I'll summarize what we mean by it
+* When we paravirtualize, we use a software scalpel to make some
+  change to whatever it is that we're simulating to accomodate for
+  greater speeds
+* As an example, and what I'm presenting here today, we use
+  paravirtualization to offload a graphics workload in a simulation
+  target -- where we have no access to GFX hardware -- to the
+  simulation host
+* That is the essence of what we're presenting today
+
+QUESTION FORMULATION
+...
+
+BACKGROUND
+* VPs can help to reduce TTM by enabling earlier validation and
+  software development before HW is available
+* Once HW is available VPs can still help as by accelerating
+  development with additional tools
+* Simulating graphics hardware is hard and slow, often so slow that
+  some workloads cannot be run interactively
+* We would benefit if more applications could be run efficiently
+  within Simics, and workloads where GFX HW is not the prime focus
+  gives us some leeway
+
+Examples:
+* GFX HW is not important: tracing
+* GFX HW is important: driver development (would require GPU model)
+
+USER EXAMPLE - TRACING
+* For example, one of the instances where GFX hardware is less
+  important is CPU instruction tracing
+* CPU instruction tracing is one use-case of Simics where a workload
+  is run on a simulated processor and sequences of instructions are
+  recorded. These instruction sequences are then used to determine
+  what parts of an instruction are the most commonly used and what
+  next-generation CPUs should be optimized for
+* This is problematic with software rasterization where graphics
+  worklaads are strenuously computed on the CPU because graphics
+  operations clog up the pipeline
+* On the contrary, a GPU model may be too slow to perform tracing
+* This is an example where paravirtualization makes tracing more
+  accurate by offloading the graphics to the simulation - much like it
+  would to a graphics card in reality, but without requiring a slow
+  GPU model
+
+SUMMARY
+...
+
+SIMICS PIPE
+...
+
+BENCHMARKS
+* We run benchmarks in three instances each to see how they scale
+* For these instances we either double or half the number of operations performed
+* Results are collected with hardware-assisted virtualization enabled
+* For Chess, this causes a number of magic instructions per frame
+  which is either in the tens of thousands or over a hundred thousands
+
+RESULTS - CHESS
+* We've done measurements and confirmed that magic instruction
+  overhead could account for the majority of elapsed frame time
+
+RESULTS - JULIA
+...
+
+HARDWARE-ASSISTED VIRTUALIZATION
+...
+
+FUTURE WORK
+...
+
+RECAP
+...
+
+---
+
+GRAPHICS SIMULATION
+* So why paravirtualization? There are many alternatives
+* Listed on this frame are four common ways of virtualizing graphics, some of which I've already mentioned
+* While a GPU model may be appropriate for some development close to hardware, it's often orders of magnitude too slow
+* On the contrary, software rasterization is often good enough for small workloads but can quickly become overwhelmed larger ones. Furthermore, it's inappropriate for some use-cases (like the one I mentioned in the previous slide)
+* There is also fast PCI passthrough methodologies with their own flaws. For example, it might be hard to support some of the more advanced features in Simics like checkpointing and reverse execution.
+* We aligned on paravirtualization because it can offer good performance and it's cost-efficient to implement -- compared to, for instance, a GPU model.
