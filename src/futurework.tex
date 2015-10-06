@@ -3,9 +3,9 @@
 \frametitle{Future work}
 
 \begin{itemize}
-  \item Command serialization batching \begin{itemize}\item WireGL\end{itemize}
-  \item Extending supported frameworks \begin{itemize}\item DirectX $\rightarrow$ OpenGL\end{itemize}
-  \item General purpose, GPGPU \begin{itemize}\item OpenCL\end{itemize}
+  \item Command serialization batching \begin{itemize}\item Queue OpenGL function invocations to lessen amount of magic instructions performed \item Evaluate on state retrieval and similar\end{itemize}
+  \item General purpose, GPGPU \begin{itemize}\item How does paravirtualization translate to modern graphics frameworks? \item OpenCL, CUDA \item The even newer ones\end{itemize}
+  \item DirectX $\rightarrow$ OpenGL \begin{itemize}\item Valve released open source software capable of translating DirectX 9 to OpenGL on-the-fly \item What if we could speed up DirectX (on a Windows target) on a Linux host?\end{itemize}
 \end{itemize}
 
 \end{frame}
