@@ -1,3 +1,4 @@
+```latex
 @INPROCEEDINGS{7330185, 
   author={Nilsson, Eric and Aarno, Daniel and Carstensen, Erik and Grahn, Hakan}, 
   booktitle={Modeling, Analysis and Simulation of Computer and Telecommunication Systems (MASCOTS), 2015 IEEE 23rd International Symposium on}, 
@@ -9,3 +10,4 @@
   ISSN={1526-7539}, 
   month={Oct},
 }
+```
